@@ -68,7 +68,7 @@ fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit, up: () -> Unit): 
             items(items,key = { it.id }) { e ->
                 Surface(Modifier.fillMaxWidth().clickable { if (vm.managerOpen && e.id.startsWith("personal:")) vm.edit(e) else vm.showDetail(e) }, shape = RoundedCornerShape(18.dp), tonalElevation = 1.dp) {
                     Column(Modifier.padding(16.dp)) {
-                        Text(e.text, fontFamily = FontFamily.Serif, fontSize = 19.sp, maxLines = 3)
+                        Text(e.text, fontFamily = FontFamily.Serif, fontSize = 19.sp, lineHeight = 28.sp, maxLines = 3)
                         Text(if (!e.reviewable()) "待补充释义" else e.meaning.ifBlank { e.sourceLabel() }, fontSize = 12.sp, maxLines = 2, modifier = Modifier.padding(top = 6.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(vm.users[e.id]?.mastery?.let { Mastery.valueOf(it).label } ?: "待学习", Modifier.weight(1f), fontSize = 12.sp, color = MaterialTheme.colorScheme.primary)

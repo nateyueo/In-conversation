@@ -205,7 +205,7 @@ class MainActivity : ComponentActivity() {
             Column(Modifier.verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 25.dp, vertical = 13.dp)) {
                 Box(Modifier.width(40.dp).height(4.dp).clip(CircleShape).background(line).align(Alignment.CenterHorizontally))
                 Spacer(Modifier.height(20.dp)); Text(entry.category, color = accent, fontSize = 10.sp)
-                Spacer(Modifier.height(12.dp)); Text(entry.text, fontFamily = FontFamily.Serif, fontSize = 27.sp, color = fg, fontWeight = FontWeight.SemiBold)
+                Spacer(Modifier.height(12.dp)); Text(entry.text, fontFamily = FontFamily.Serif, fontSize = if (entry.kind == "sentence") 22.sp else 27.sp, lineHeight = if (entry.kind == "sentence") 33.sp else 38.sp, color = fg, fontWeight = FontWeight.SemiBold)
                 if (entry.meaning.isNotBlank()) { Spacer(Modifier.height(10.dp)); Text(entry.meaning, color = muted, fontSize = 13.sp, lineHeight = 22.sp) }
                 Spacer(Modifier.height(23.dp)); Text(entry.sourceLabel(), color = muted, fontSize = 11.sp)
                 Spacer(Modifier.height(8.dp)); Text(entry.sourceDetails(), color = fg, fontSize = 14.sp, lineHeight = 25.sp)
