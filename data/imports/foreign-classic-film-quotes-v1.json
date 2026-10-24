@@ -1,0 +1,1708 @@
+{
+  "format": "yanjian-content",
+  "schemaVersion": 1,
+  "packageId": "yanjian-foreign-classic-film-quotes-v1",
+  "notes": "中文台词摘自各条来源页面，未核对具体发行字幕版本；释义为句意说明。",
+  "entries": [
+    {
+      "externalId": "foreign-film-001",
+      "kind": "sentence",
+      "text": "因为这是前所未有的，我们现在的所作所为都将至关重要。",
+      "shortMeaning": "面对从未有人走过的道路，每一步探索都有重要意义。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "开拓",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《隐藏人物》",
+        "quote": "因为这是前所未有的，我们现在的所作所为都将至关重要。",
+        "url": "https://33tc.net/lines/268"
+      }
+    },
+    {
+      "externalId": "foreign-film-002",
+      "kind": "sentence",
+      "text": "这里是世界上最讨厌的监狱，原因是：希望。",
+      "shortMeaning": "希望能够支撑人，也可能成为被人操纵和折磨的软肋。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "希望",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《蝙蝠侠：黑暗骑士崛起》",
+        "quote": "这里是世界上最讨厌的监狱，原因是：希望。",
+        "url": "https://33tc.net/lines/288"
+      }
+    },
+    {
+      "externalId": "foreign-film-003",
+      "kind": "sentence",
+      "text": "霍默，你不需要向任何人证明什么。记住这一点。",
+      "shortMeaning": "人生的价值不必依靠别人的认可，重要的是相信自己。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自我",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《十月的天空》",
+        "quote": "霍默，你不需要向任何人证明什么。记住这一点。",
+        "url": "https://33tc.net/lines/346"
+      }
+    },
+    {
+      "externalId": "foreign-film-004",
+      "kind": "sentence",
+      "text": "无论是作为人类还是为了我们国家的存续，现实并不总如人意。",
+      "shortMeaning": "无论怀有怎样的期待，人都必须面对并不完美的现实。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "现实",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《奇爱博士》",
+        "quote": "无论是作为人类还是为了我们国家的存续，现实并不总如人意。",
+        "url": "https://33tc.net/lines/446"
+      }
+    },
+    {
+      "externalId": "foreign-film-005",
+      "kind": "sentence",
+      "text": "人生的转机有时就得靠一次疯狂的举动。",
+      "shortMeaning": "有时打破惯常的选择，才可能为人生打开新的出口。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "勇气",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《阿凡达》",
+        "quote": "人生的转机有时就得靠一次疯狂的举动。",
+        "url": "https://33tc.net/lines/487"
+      }
+    },
+    {
+      "externalId": "foreign-film-006",
+      "kind": "sentence",
+      "text": "就算你是唯一反抗的人，真理却永远是真理。",
+      "shortMeaning": "真理的价值不由支持者的人数决定，孤独也不能使它失效。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "真理",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《甘地传》",
+        "quote": "就算你是唯一反抗的人，真理却永远是真理。",
+        "url": "https://33tc.net/lines/507"
+      }
+    },
+    {
+      "externalId": "foreign-film-007",
+      "kind": "sentence",
+      "text": "唯有一口气，一个逗号，将生命与永恒的生命分隔开来。",
+      "shortMeaning": "借极微小的停顿，表达生死之间既接近又遥远的界限。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "生命",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《抛开自我空间》",
+        "quote": "唯有一口气，一个逗号，将生命与永恒的生命分隔开来。",
+        "url": "https://33tc.net/lines/536"
+      }
+    },
+    {
+      "externalId": "foreign-film-008",
+      "kind": "sentence",
+      "text": "你的心是自由的。勇敢地去跟随吧。",
+      "shortMeaning": "听从内心真实的愿望，需要有直面未知和压力的勇气。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自由",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《勇敢的心》",
+        "quote": "你的心是自由的。勇敢地去跟随吧。",
+        "url": "https://33tc.net/lines/579"
+      }
+    },
+    {
+      "externalId": "foreign-film-009",
+      "kind": "sentence",
+      "text": "梦想不能把你带到大马士革，但纪律可以。",
+      "shortMeaning": "理想需要纪律和持续行动支撑，空想无法代替前进。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "行动",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《阿拉伯的劳伦斯》",
+        "quote": "梦想不能把你带到大马士革，但纪律可以。",
+        "url": "https://33tc.net/lines/644"
+      }
+    },
+    {
+      "externalId": "foreign-film-010",
+      "kind": "sentence",
+      "text": "我仍然能做到每天起床，过我的生活 并且对自己感到很满意。",
+      "shortMeaning": "经历关系的变化后，仍然能够独立生活并接纳自己。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自我",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《婚姻故事》",
+        "quote": "我仍然能做到每天起床，过我的生活 并且对自己感到很满意。",
+        "url": "https://33tc.net/lines/646"
+      }
+    },
+    {
+      "externalId": "foreign-film-011",
+      "kind": "sentence",
+      "text": "不，你早已在我心里了。",
+      "shortMeaning": "真正珍视的人早已存在心中，不受距离和处境影响。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "牵挂",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《小公主》",
+        "quote": "不，你早已在我心里了。",
+        "url": "https://33tc.net/lines/723"
+      }
+    },
+    {
+      "externalId": "foreign-film-012",
+      "kind": "sentence",
+      "text": "离开人世却没有让你爱的人知道你是谁，是很可悲的。",
+      "shortMeaning": "亲密关系中的遗憾，是直到离别也未曾被对方真正了解。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "理解",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《廊桥遗梦》",
+        "quote": "离开人世却没有让你爱的人知道你是谁，是很可悲的。",
+        "url": "https://33tc.net/lines/884"
+      }
+    },
+    {
+      "externalId": "foreign-film-013",
+      "kind": "sentence",
+      "text": "绝不能重建你记忆里的场景，必须创造新的东西。",
+      "shortMeaning": "过度依赖已有记忆容易失去创造力，应当尝试新的可能。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "创造",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《盗梦空间》",
+        "quote": "绝不能重建你记忆里的场景，必须创造新的东西。",
+        "url": "https://33tc.net/lines/885"
+      }
+    },
+    {
+      "externalId": "foreign-film-014",
+      "kind": "sentence",
+      "text": "你我的答案一模一样，我总觉得安全。",
+      "shortMeaning": "彼此相同的回应带来熟悉感，让人在关系中感到安心。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "信任",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《楚门的世界》",
+        "quote": "你我的答案一模一样，我总觉得安全。",
+        "url": "https://33tc.net/lines/898"
+      }
+    },
+    {
+      "externalId": "foreign-film-015",
+      "kind": "sentence",
+      "text": "我藏在您的门廊下面是因为我爱您。我能留下吗？",
+      "shortMeaning": "因为真挚的喜欢而靠近，希望能被允许留下来陪伴。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "陪伴",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《飞屋环游记》",
+        "quote": "我藏在您的门廊下面是因为我爱您。我能留下吗？",
+        "url": "https://33tc.net/lines/904"
+      }
+    },
+    {
+      "externalId": "foreign-film-016",
+      "kind": "sentence",
+      "text": "也包括阿利安娜。她那样爱他，他给了她一切却没给她时间。",
+      "shortMeaning": "爱一个人也需要给对方时间，不能只停留在口头和心意。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "陪伴",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《哈利·波特与死亡圣器(下)》",
+        "quote": "也包括阿利安娜。她那样爱他，他给了她一切却没给她时间。",
+        "url": "https://33tc.net/lines/910"
+      }
+    },
+    {
+      "externalId": "foreign-film-017",
+      "kind": "sentence",
+      "text": "人不能活在梦里，而忘记生活。",
+      "shortMeaning": "梦想可以滋养人，但不应让人忘记眼前真实的生活。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "生活",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《哈利·波特与魔法石》",
+        "quote": "人不能活在梦里，而忘记生活。",
+        "url": "https://33tc.net/lines/909"
+      }
+    },
+    {
+      "externalId": "foreign-film-018",
+      "kind": "sentence",
+      "text": "我一切都挺好的。我会梦到你，因为梦里一直都是你。",
+      "shortMeaning": "把深爱的人放在梦里，表现分离之中始终不变的牵挂。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "思念",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《复仇者联盟4：终局之战》",
+        "quote": "我一切都挺好的。我会梦到你，因为梦里一直都是你。",
+        "url": "https://33tc.net/lines/908"
+      }
+    },
+    {
+      "externalId": "foreign-film-019",
+      "kind": "sentence",
+      "text": "但是快乐是无处不在的，无论多么黑暗，只要我们记得点亮心灯。",
+      "shortMeaning": "即使身处黑暗，也可以主动寻找和点亮内心的快乐。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "希望",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《哈利·波特与阿兹卡班的囚徒》",
+        "quote": "但是快乐是无处不在的，无论多么黑暗，只要我们记得点亮心灯。",
+        "url": "https://33tc.net/lines/911"
+      }
+    },
+    {
+      "externalId": "foreign-film-020",
+      "kind": "sentence",
+      "text": "凤凰在寿终正寝时会化为火焰，然后从灰烬中重生。",
+      "shortMeaning": "以凤凰的消亡与新生，比喻结束之中仍然孕育新的开始。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "重生",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《哈利·波特与密室》",
+        "quote": "凤凰在寿终正寝时会化为火焰，然后从灰烬中重生。",
+        "url": "https://33tc.net/lines/912"
+      }
+    },
+    {
+      "externalId": "foreign-film-021",
+      "kind": "sentence",
+      "text": "不管她在做什么，我希望她开心。我时刻想念着珍妮。",
+      "shortMeaning": "真诚的爱包含祝福，即使不能相伴也希望对方快乐。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "祝愿",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《阿甘正传》",
+        "quote": "不管她在做什么，我希望她开心。我时刻想念着珍妮。",
+        "url": "https://33tc.net/lines/914"
+      }
+    },
+    {
+      "externalId": "foreign-film-022",
+      "kind": "sentence",
+      "text": "她渴望自由，但只有真爱才能解除魔咒。",
+      "shortMeaning": "把解除束缚的希望寄托在真爱上，表达对自由的渴望。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自由",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《黑天鹅》",
+        "quote": "她渴望自由，但只有真爱才能解除魔咒。",
+        "url": "https://33tc.net/lines/922"
+      }
+    },
+    {
+      "externalId": "foreign-film-023",
+      "kind": "sentence",
+      "text": "父亲说她从不曾喜欢这儿。我想他们深爱的是彼此的意念。",
+      "shortMeaning": "有时人爱上的只是心中想象的形象，并非真实的对方。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "爱情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《燃情岁月》",
+        "quote": "父亲说她从不曾喜欢这儿。我想他们深爱的是彼此的意念。",
+        "url": "https://33tc.net/lines/921"
+      }
+    },
+    {
+      "externalId": "foreign-film-024",
+      "kind": "sentence",
+      "text": "并不是所有的宝藏都是金银财宝，哥们。",
+      "shortMeaning": "值得珍藏的事物不只有财富，也有感情、经历与自由。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "珍惜",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《加勒比海盗》",
+        "quote": "并不是所有的宝藏都是金银财宝，哥们。",
+        "url": "https://33tc.net/lines/925"
+      }
+    },
+    {
+      "externalId": "foreign-film-025",
+      "kind": "sentence",
+      "text": "别让外人知道你在想什么。",
+      "shortMeaning": "在复杂的人际关系中，保留内心想法是一种自我保护。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "分寸",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《教父》",
+        "quote": "别让外人知道你在想什么。",
+        "url": "https://33tc.net/lines/930"
+      }
+    },
+    {
+      "externalId": "foreign-film-026",
+      "kind": "sentence",
+      "text": "我喜欢看爸爸画画，或者说我是喜欢他边画画边与我聊天。",
+      "shortMeaning": "珍贵的陪伴藏在平常小事里，交流常比事情本身更动人。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "亲情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《怦然心动》",
+        "quote": "我喜欢看爸爸画画，或者说我是喜欢他边画画边与我聊天。",
+        "url": "https://33tc.net/lines/936"
+      }
+    },
+    {
+      "externalId": "foreign-film-027",
+      "kind": "sentence",
+      "text": "真理就象一床总让你双脚冰凉的毯子。",
+      "shortMeaning": "用无法盖暖的毯子作比，表达真相未必能带来安慰。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "真相",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《死亡诗社》",
+        "quote": "真理就象一床总让你双脚冰凉的毯子。",
+        "url": "https://33tc.net/lines/939"
+      }
+    },
+    {
+      "externalId": "foreign-film-028",
+      "kind": "sentence",
+      "text": "“是表白好还是死去好？”我永远没有勇气问出这种问题。",
+      "shortMeaning": "害怕被拒绝使人犹豫，表达爱意有时比沉默更需要勇气。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "勇气",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《请以你的名字呼唤我》",
+        "quote": "“是表白好还是死去好？”我永远没有勇气问出这种问题。",
+        "url": "https://33tc.net/lines/937"
+      }
+    },
+    {
+      "externalId": "foreign-film-029",
+      "kind": "sentence",
+      "text": "他是我的死党，仅此而已。即使我们在现实生活中从未谋面。",
+      "shortMeaning": "即使未曾在现实里见面，共同经历也可以形成深厚友谊。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "友谊",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《头号玩家》",
+        "quote": "他是我的死党，仅此而已。即使我们在现实生活中从未谋面。",
+        "url": "https://33tc.net/lines/942"
+      }
+    },
+    {
+      "externalId": "foreign-film-030",
+      "kind": "sentence",
+      "text": "如今我走到人生的十字路口。我知道哪条路是对的。",
+      "shortMeaning": "站在人生的分岔处，明白正确方向之后仍需作出决定。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "选择",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《闻香识女人》",
+        "quote": "如今我走到人生的十字路口。我知道哪条路是对的。",
+        "url": "https://33tc.net/lines/943"
+      }
+    },
+    {
+      "externalId": "foreign-film-031",
+      "kind": "sentence",
+      "text": "我希望记住他快乐的日子，所以我画了他。",
+      "shortMeaning": "绘画保留了所爱之人快乐的样子，也让珍贵的记忆得以延续。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "记忆",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《莫娣》",
+        "quote": "我希望记住他快乐的日子，所以我画了他。",
+        "url": "https://33tc.net/lines/4643"
+      }
+    },
+    {
+      "externalId": "foreign-film-032",
+      "kind": "sentence",
+      "text": "我知道这不中听，但事实是你不可能永远保护他。",
+      "shortMeaning": "保护无法持续一生，所爱之人终究需要独自面对世界。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "成长",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《驯龙高手》",
+        "quote": "我知道这不中听，但事实是你不可能永远保护他。",
+        "url": "https://33tc.net/lines/945"
+      }
+    },
+    {
+      "externalId": "foreign-film-033",
+      "kind": "sentence",
+      "text": "不管我承受多少打击，我总会想办法回归。",
+      "shortMeaning": "挫折并不意味着结束，受伤之后仍能寻找重新出发的办法。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "坚韧",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《蜘蛛侠：平行宇宙》",
+        "quote": "不管我承受多少打击，我总会想办法回归。",
+        "url": "https://33tc.net/lines/952"
+      }
+    },
+    {
+      "externalId": "foreign-film-034",
+      "kind": "sentence",
+      "text": "我如今成为了我生来就要成为的那个人，我什么都不怕。",
+      "shortMeaning": "当人接受真正的自己，就更有勇气面对外界的目光。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自我",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《波西米亚狂想曲》",
+        "quote": "我如今成为了我生来就要成为的那个人，我什么都不怕。",
+        "url": "https://33tc.net/lines/953"
+      }
+    },
+    {
+      "externalId": "foreign-film-035",
+      "kind": "sentence",
+      "text": "我从不知道这个国家是如此美丽，现在我亲眼见识到了。",
+      "shortMeaning": "亲身经历让抽象的认识变得具体，也让人重新发现世界。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "见识",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《绿皮书》",
+        "quote": "我从不知道这个国家是如此美丽，现在我亲眼见识到了。",
+        "url": "https://33tc.net/lines/954"
+      }
+    },
+    {
+      "externalId": "foreign-film-036",
+      "kind": "sentence",
+      "text": "我希望能跟我的朋友重逢并握手，我希望太平洋如梦中一般湛蓝。",
+      "shortMeaning": "以重逢和海洋的景象，寄托对自由与未来生活的向往。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "希望",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《肖申克的救赎》",
+        "quote": "我希望能跟我的朋友重逢并握手，我希望太平洋如梦中一般湛蓝。",
+        "url": "https://33tc.net/lines/958"
+      }
+    },
+    {
+      "externalId": "foreign-film-037",
+      "kind": "sentence",
+      "text": "那些痛失所爱的人 更需要朋友家人的关心和支持。",
+      "shortMeaning": "遭遇失去的人需要他人的陪伴，关心能够帮助他们渡过悲伤。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "关怀",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《超能陆战队》",
+        "quote": "那些痛失所爱的人 更需要朋友家人的关心和支持。",
+        "url": "https://33tc.net/lines/961"
+      }
+    },
+    {
+      "externalId": "foreign-film-038",
+      "kind": "sentence",
+      "text": "婚姻不应该被金钱的欲望所驱使，只有真挚的爱情才能说服我结婚。",
+      "shortMeaning": "婚姻应建立在真挚感情之上，而不是被物质利益推动。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "婚姻",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《傲慢与偏见》",
+        "quote": "婚姻不应该被金钱的欲望所驱使，只有真挚的爱情才能说服我结婚。",
+        "url": "https://33tc.net/lines/965"
+      }
+    },
+    {
+      "externalId": "foreign-film-039",
+      "kind": "sentence",
+      "text": "我一直希望能再见到她，希望她会想我。",
+      "shortMeaning": "分别之后仍盼望重逢，也希望自己始终留在对方心里。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "思念",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《寻梦环游记》",
+        "quote": "我一直希望能再见到她，希望她会想我。",
+        "url": "https://33tc.net/lines/962"
+      }
+    },
+    {
+      "externalId": "foreign-film-040",
+      "kind": "sentence",
+      "text": "我的心像一颗被虫蛀的牙，这空洞只能由孩子来填补。",
+      "shortMeaning": "以心中的空洞作比，表达孩子带来的情感依靠与温暖。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "亲情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《神偷奶爸》",
+        "quote": "我的心像一颗被虫蛀的牙，这空洞只能由孩子来填补。",
+        "url": "https://33tc.net/lines/963"
+      }
+    },
+    {
+      "externalId": "foreign-film-041",
+      "kind": "sentence",
+      "text": "我生命中最伟大的发现，只存在于那神秘的爱情方程式中。",
+      "shortMeaning": "用数学的比喻赞美爱情，说明最重要的发现也可能来自感情。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "爱情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《美丽心灵》",
+        "quote": "我生命中最伟大的发现，只存在于那神秘的爱情方程式中。",
+        "url": "https://33tc.net/lines/966"
+      }
+    },
+    {
+      "externalId": "foreign-film-042",
+      "kind": "sentence",
+      "text": "你的生命一分一分的消逝。",
+      "shortMeaning": "生命在日常中不断流逝，提醒人看见每一分钟的分量。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "时间",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《搏击俱乐部》",
+        "quote": "你的生命一分一分的消逝。",
+        "url": "https://33tc.net/lines/975"
+      }
+    },
+    {
+      "externalId": "foreign-film-043",
+      "kind": "sentence",
+      "text": "离别总会发生，只是我们不知道何时到来。",
+      "shortMeaning": "离别无法完全避免，也无法预知，因此更应珍惜眼前相聚。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "离别",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《忠犬八公的故事》",
+        "quote": "离别总会发生，只是我们不知道何时到来。",
+        "url": "https://33tc.net/lines/978"
+      }
+    },
+    {
+      "externalId": "foreign-film-044",
+      "kind": "sentence",
+      "text": "我做梦都想当个医生。",
+      "shortMeaning": "成为医生的愿望长久扎根心中，表现对救人事业的向往。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "理想",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《血战钢锯岭》",
+        "quote": "我做梦都想当个医生。",
+        "url": "https://33tc.net/lines/979"
+      }
+    },
+    {
+      "externalId": "foreign-film-045",
+      "kind": "sentence",
+      "text": "我总想在有生之年做件大事，只是不知道要做什么。",
+      "shortMeaning": "渴望让生命有所作为，却暂时还没有找到明确的方向。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "追求",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《战争之王》",
+        "quote": "我总想在有生之年做件大事，只是不知道要做什么。",
+        "url": "https://33tc.net/lines/984"
+      }
+    },
+    {
+      "externalId": "foreign-film-046",
+      "kind": "sentence",
+      "text": "独自沉思只会增加疏离感，你记得吗？",
+      "shortMeaning": "一味独自思索可能使人更加孤立，也需要与他人交流。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "沟通",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《飞越疯人院》",
+        "quote": "独自沉思只会增加疏离感，你记得吗？",
+        "url": "https://33tc.net/lines/988"
+      }
+    },
+    {
+      "externalId": "foreign-film-047",
+      "kind": "sentence",
+      "text": "即使有些事情我记不起来，也不代表我的行动没有意义。",
+      "shortMeaning": "记忆的缺失不能抹去行动本身的价值，人仍可以主动生活。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "意义",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《记忆碎片》",
+        "quote": "即使有些事情我记不起来，也不代表我的行动没有意义。",
+        "url": "https://33tc.net/lines/986"
+      }
+    },
+    {
+      "externalId": "foreign-film-048",
+      "kind": "sentence",
+      "text": "早餐吃派？一天中的任何时候吃派都是好时候。",
+      "shortMeaning": "不必拘泥于规定的时刻，生活中的小快乐随时可以享受。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "日常",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《低俗小说》",
+        "quote": "早餐吃派？一天中的任何时候吃派都是好时候。",
+        "url": "https://33tc.net/lines/990"
+      }
+    },
+    {
+      "externalId": "foreign-film-049",
+      "kind": "sentence",
+      "text": "这张名单就是至善。这张名单就是生命。",
+      "shortMeaning": "一份名单不只是纸上的名字，更承载着具体生命获救的希望。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "生命",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《辛德勒的名单》",
+        "quote": "这张名单就是至善。这张名单就是生命。",
+        "url": "https://33tc.net/lines/993"
+      }
+    },
+    {
+      "externalId": "foreign-film-050",
+      "kind": "sentence",
+      "text": "我不知道，我只是以前从来没放弃过什么。",
+      "shortMeaning": "回望自己一贯的坚持，也流露出面对困境时不愿认输的心情。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "坚持",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《禁闭岛》",
+        "quote": "我不知道，我只是以前从来没放弃过什么。",
+        "url": "https://33tc.net/lines/995"
+      }
+    },
+    {
+      "externalId": "foreign-film-051",
+      "kind": "sentence",
+      "text": "在我身上发生了一些事，我需要知道真相，否则我永远无法摆脱。",
+      "shortMeaning": "被过去困住的人，需要弄清真实经历才能继续向前。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "真相",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《谍影重重3》",
+        "quote": "在我身上发生了一些事，我需要知道真相，否则我永远无法摆脱。",
+        "url": "https://33tc.net/lines/998"
+      }
+    },
+    {
+      "externalId": "foreign-film-052",
+      "kind": "sentence",
+      "text": "他是个好人吗？你一直认为他是个好人吗？",
+      "shortMeaning": "对一个人的评价值得重新审视，不能仅靠一直以来的印象。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "判断",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《穿条纹睡衣的男孩》",
+        "quote": "他是个好人吗？你一直认为他是个好人吗？",
+        "url": "https://33tc.net/lines/999"
+      }
+    },
+    {
+      "externalId": "foreign-film-053",
+      "kind": "sentence",
+      "text": "一切都是崭新的开始。一种期冀，希望今天比昨天更好。",
+      "shortMeaning": "每天都可以成为新的起点，对明天的期待让生活继续向前。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "希望",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《疯狂原始人》",
+        "quote": "一切都是崭新的开始。一种期冀，希望今天比昨天更好。",
+        "url": "https://33tc.net/lines/1001"
+      }
+    },
+    {
+      "externalId": "foreign-film-054",
+      "kind": "sentence",
+      "text": "生活中真正的麻烦，永远是你意料之外的事情。",
+      "shortMeaning": "真正棘手的事常常超出预料，提醒人接纳生活的不确定性。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "无常",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《时空恋旅人》",
+        "quote": "生活中真正的麻烦，永远是你意料之外的事情。",
+        "url": "https://33tc.net/lines/1002"
+      }
+    },
+    {
+      "externalId": "foreign-film-055",
+      "kind": "sentence",
+      "text": "所以人们永不厌倦旅行，总是在追寻 四季如春的远方。",
+      "shortMeaning": "人们向往旅行，往往是在寻找想象中更温暖美好的生活。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "远方",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《海上钢琴师》",
+        "quote": "所以人们永不厌倦旅行，总是在追寻 四季如春的远方。",
+        "url": "https://33tc.net/lines/1005"
+      }
+    },
+    {
+      "externalId": "foreign-film-056",
+      "kind": "sentence",
+      "text": "门童要毫不显眼 却始终处于视线之内。",
+      "shortMeaning": "服务既要随时提供帮助，又要尊重对方的空间和感受。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "分寸",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《布达佩斯大饭店》",
+        "quote": "门童要毫不显眼 却始终处于视线之内。",
+        "url": "https://33tc.net/lines/1003"
+      }
+    },
+    {
+      "externalId": "foreign-film-057",
+      "kind": "sentence",
+      "text": "那些有权有势的人都想要什么？更多的权力。",
+      "shortMeaning": "以直白的问答揭示权力欲望可能不断膨胀，难以自我满足。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "权力",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《黑客帝国2：重装上阵》",
+        "quote": "那些有权有势的人都想要什么？更多的权力。",
+        "url": "https://33tc.net/lines/1007"
+      }
+    },
+    {
+      "externalId": "foreign-film-058",
+      "kind": "sentence",
+      "text": "我全心全意地爱过另一个人，对我而言，这就足够了。",
+      "shortMeaning": "衡量一生是否充实，也可以看自己是否曾经真诚地爱过。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "爱情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《恋恋笔记本》",
+        "quote": "我全心全意地爱过另一个人，对我而言，这就足够了。",
+        "url": "https://33tc.net/lines/1008"
+      }
+    },
+    {
+      "externalId": "foreign-film-059",
+      "kind": "sentence",
+      "text": "但有时候我仍不确定自己是在墙的哪一边。",
+      "shortMeaning": "身处隔离与压迫中，安全和自由的边界也可能变得模糊。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "处境",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《钢琴家》",
+        "quote": "但有时候我仍不确定自己是在墙的哪一边。",
+        "url": "https://33tc.net/lines/1010"
+      }
+    },
+    {
+      "externalId": "foreign-film-060",
+      "kind": "sentence",
+      "text": "你对我一直都是最重要的，永远都是，我爱你。",
+      "shortMeaning": "明确告诉所爱的人其重要性，让长久的感情被真正听见。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "牵挂",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《第六感》",
+        "quote": "你对我一直都是最重要的，永远都是，我爱你。",
+        "url": "https://33tc.net/lines/1011"
+      }
+    },
+    {
+      "externalId": "foreign-film-061",
+      "kind": "sentence",
+      "text": "这里是我的家 我的家庭 我的生命。",
+      "shortMeaning": "家不仅是居住的地方，也承载着最亲近的人和无法割舍的生活。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "归属",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《音乐之声》",
+        "quote": "这里是我的家 我的家庭 我的生命。",
+        "url": "https://33tc.net/lines/1012"
+      }
+    },
+    {
+      "externalId": "foreign-film-062",
+      "kind": "sentence",
+      "text": "这是我的问题。我总是按照我希望的样子去看待男人。",
+      "shortMeaning": "对关系的失望有时来自投射，人容易只看见自己期待的样子。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "期待",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《幸福终点站》",
+        "quote": "这是我的问题。我总是按照我希望的样子去看待男人。",
+        "url": "https://33tc.net/lines/1013"
+      }
+    },
+    {
+      "externalId": "foreign-film-063",
+      "kind": "sentence",
+      "text": "亲爱的，你在改变这个孩子的生活。不，是他在改变我的生活。",
+      "shortMeaning": "帮助他人并非单向付出，施助者自身也可能因此改变。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "互助",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《弱点》",
+        "quote": "亲爱的，你在改变这个孩子的生活。不，是他在改变我的生活。",
+        "url": "https://33tc.net/lines/1017"
+      }
+    },
+    {
+      "externalId": "foreign-film-064",
+      "kind": "sentence",
+      "text": "成功不是偶然的 我们很努力。",
+      "shortMeaning": "成果背后往往有长期投入，不应把持续的努力归结为运气。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "努力",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《致命魔术》",
+        "quote": "成功不是偶然的 我们很努力。",
+        "url": "https://33tc.net/lines/1019"
+      }
+    },
+    {
+      "externalId": "foreign-film-065",
+      "kind": "sentence",
+      "text": "安迪已经开始新的生活了，胡迪。我们也该这样做了。",
+      "shortMeaning": "面对生活阶段的变化，学会告别过去并开始自己的新生活。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "成长",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《玩具总动员3》",
+        "quote": "安迪已经开始新的生活了，胡迪。我们也该这样做了。",
+        "url": "https://33tc.net/lines/1023"
+      }
+    },
+    {
+      "externalId": "foreign-film-066",
+      "kind": "sentence",
+      "text": "他这一生中第一次，来到了一个美梦诞生的地方。",
+      "shortMeaning": "经过漫长寻找，终于来到承载希望与想象的地方。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "梦想",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《人工智能》",
+        "quote": "他这一生中第一次，来到了一个美梦诞生的地方。",
+        "url": "https://33tc.net/lines/1029"
+      }
+    },
+    {
+      "externalId": "foreign-film-067",
+      "kind": "sentence",
+      "text": "我写了一个虚构的版本，说你最后出现了。",
+      "shortMeaning": "把现实中的错过写成另一种结局，是对未竟愿望的温柔补偿。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "遗憾",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《爱在日落黄昏时》",
+        "quote": "我写了一个虚构的版本，说你最后出现了。",
+        "url": "https://33tc.net/lines/1034"
+      }
+    },
+    {
+      "externalId": "foreign-film-068",
+      "kind": "sentence",
+      "text": "我有个很疯狂的想法，但如果我不问你，这辈子都会被我困扰。",
+      "shortMeaning": "因为不愿留下终身遗憾，鼓起勇气提出心中大胆的想法。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "勇气",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《爱在黎明破晓前》",
+        "quote": "我有个很疯狂的想法，但如果我不问你，这辈子都会被我困扰。",
+        "url": "https://33tc.net/lines/1031"
+      }
+    },
+    {
+      "externalId": "foreign-film-069",
+      "kind": "sentence",
+      "text": "我们就像互相间很熟悉的陌生人。",
+      "shortMeaning": "表面上的熟悉并不等于理解，亲近的人也可能彼此陌生。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "隔阂",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《大鱼》",
+        "quote": "我们就像互相间很熟悉的陌生人。",
+        "url": "https://33tc.net/lines/1036"
+      }
+    },
+    {
+      "externalId": "foreign-film-070",
+      "kind": "sentence",
+      "text": "我还爱着你们爸爸，但那不意味着我们继续一起才是最好的选择。",
+      "shortMeaning": "仍有感情不代表适合继续相处，关系的选择需要面对现实。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "关系",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《少年时代》",
+        "quote": "我还爱着你们爸爸，但那不意味着我们继续一起才是最好的选择。",
+        "url": "https://33tc.net/lines/1039"
+      }
+    },
+    {
+      "externalId": "foreign-film-071",
+      "kind": "sentence",
+      "text": "整个世界快倒下来了 我们却挑上这时候来谈恋爱，对 真不巧。",
+      "shortMeaning": "外部世界动荡之时，爱情仍会以难以预料的方式发生。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "爱情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《卡萨布兰卡》",
+        "quote": "整个世界快倒下来了 我们却挑上这时候来谈恋爱，对 真不巧。",
+        "url": "https://33tc.net/lines/1043"
+      }
+    },
+    {
+      "externalId": "foreign-film-072",
+      "kind": "sentence",
+      "text": "我经常看到那种表情，但我从不把它放在心上。",
+      "shortMeaning": "他人的异样目光不应决定自己的价值，专注生活才能向前。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自信",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《叫我第一名》",
+        "quote": "我经常看到那种表情，但我从不把它放在心上。",
+        "url": "https://33tc.net/lines/1051"
+      }
+    },
+    {
+      "externalId": "foreign-film-073",
+      "kind": "sentence",
+      "text": "人民总是喜欢胜利。为什么？因为他们并没有目睹战争的残酷。",
+      "shortMeaning": "远离战场的人容易赞美胜利，却忽略胜利背后的痛苦代价。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "战争",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《角斗士》",
+        "quote": "人民总是喜欢胜利。为什么？因为他们并没有目睹战争的残酷。",
+        "url": "https://33tc.net/lines/1053"
+      }
+    },
+    {
+      "externalId": "foreign-film-074",
+      "kind": "sentence",
+      "text": "哭泣让我慢下步伐，免被生活的重担所困扰。",
+      "shortMeaning": "悲伤并非毫无意义，它也能让人暂停脚步、照顾自己。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "情绪",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《头脑特工队》",
+        "quote": "哭泣让我慢下步伐，免被生活的重担所困扰。",
+        "url": "https://33tc.net/lines/1061"
+      }
+    },
+    {
+      "externalId": "foreign-film-075",
+      "kind": "sentence",
+      "text": "然而我的心已经支离破碎。它永远都好不了了。",
+      "shortMeaning": "深重的伤害有时难以痊愈，这句话承认了悲伤的真实重量。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "伤痛",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《海边的曼彻斯特》",
+        "quote": "然而我的心已经支离破碎。它永远都好不了了。",
+        "url": "https://33tc.net/lines/1069"
+      }
+    },
+    {
+      "externalId": "foreign-film-076",
+      "kind": "sentence",
+      "text": "不可否认，无拘无束的行走总是让人振奋。",
+      "shortMeaning": "走出束缚、自在行走，能够给人重新感受世界的力量。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自由",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《荒野生存》",
+        "quote": "不可否认，无拘无束的行走总是让人振奋。",
+        "url": "https://33tc.net/lines/1062"
+      }
+    },
+    {
+      "externalId": "foreign-film-077",
+      "kind": "sentence",
+      "text": "但爱情不像马克思的魔方，它永远也没法破解。",
+      "shortMeaning": "爱情不像可以计算的谜题，无法靠固定步骤得到全部答案。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "爱情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《玛丽和马克思》",
+        "quote": "但爱情不像马克思的魔方，它永远也没法破解。",
+        "url": "https://33tc.net/lines/1071"
+      }
+    },
+    {
+      "externalId": "foreign-film-078",
+      "kind": "sentence",
+      "text": "但文森特坚持要用最后的时间探讨生命，而不是死亡。",
+      "shortMeaning": "即使接近生命尽头，仍然可以把目光放在活着的意义上。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "生命",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《至爱梵高·星空之谜》",
+        "quote": "但文森特坚持要用最后的时间探讨生命，而不是死亡。",
+        "url": "https://33tc.net/lines/1070"
+      }
+    },
+    {
+      "externalId": "foreign-film-079",
+      "kind": "sentence",
+      "text": "你今天学到了什么？随时保护我自己。",
+      "shortMeaning": "无论面对竞争还是困境，都应记得先保护自己的安全。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "自护",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《百万美元宝贝》",
+        "quote": "你今天学到了什么？随时保护我自己。",
+        "url": "https://33tc.net/lines/1074"
+      }
+    },
+    {
+      "externalId": "foreign-film-080",
+      "kind": "sentence",
+      "text": "我只想在生活中得到一点平静和快乐。这就够了。",
+      "shortMeaning": "对生活的愿望不必宏大，简单的平静和快乐也值得珍视。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "安宁",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《梦之安魂曲》",
+        "quote": "我只想在生活中得到一点平静和快乐。这就够了。",
+        "url": "https://33tc.net/lines/1083"
+      }
+    },
+    {
+      "externalId": "foreign-film-081",
+      "kind": "sentence",
+      "text": "有时候 正是那些无人看好的人，能取得无人能及的成就。",
+      "shortMeaning": "人的可能性不由他人的预判决定，被轻视者也能有所成就。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "潜能",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《模仿游戏》",
+        "quote": "有时候 正是那些无人看好的人，能取得无人能及的成就。",
+        "url": "https://33tc.net/lines/1088"
+      }
+    },
+    {
+      "externalId": "foreign-film-082",
+      "kind": "sentence",
+      "text": "我知道事情比你想像的要复杂，尊重生命意味着尊重所有生命。",
+      "shortMeaning": "对生命的尊重应当一视同仁，不能只关心符合自己期待的人。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "尊重",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《大卫·戈尔的一生》",
+        "quote": "我知道事情比你想像的要复杂，尊重生命意味着尊重所有生命。",
+        "url": "https://33tc.net/lines/1089"
+      }
+    },
+    {
+      "externalId": "foreign-film-083",
+      "kind": "sentence",
+      "text": "因为下一个查理·帕克永远不会灰心。",
+      "shortMeaning": "真正执着于技艺的人，不会轻易因挫败放弃继续追求。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "坚持",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《爆裂鼓手》",
+        "quote": "因为下一个查理·帕克永远不会灰心。",
+        "url": "https://33tc.net/lines/1100"
+      }
+    },
+    {
+      "externalId": "foreign-film-084",
+      "kind": "sentence",
+      "text": "你觉得你会记得我吗？我想会。我想会。用我余生来记得。",
+      "shortMeaning": "用余生记住一个人，表达短暂相遇也可能留下长久回响。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "思念",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《魂断蓝桥》",
+        "quote": "你觉得你会记得我吗？我想会。我想会。用我余生来记得。",
+        "url": "https://33tc.net/lines/1099"
+      }
+    },
+    {
+      "externalId": "foreign-film-085",
+      "kind": "sentence",
+      "text": "如果你有梦想，就要去捍卫它。",
+      "shortMeaning": "梦想需要主动守护，不能轻易交给他人的否定来决定。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "理想",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《当幸福来敲门》",
+        "quote": "如果你有梦想，就要去捍卫它。",
+        "url": "https://33tc.net/lines/3158"
+      }
+    },
+    {
+      "externalId": "foreign-film-086",
+      "kind": "sentence",
+      "text": "绝对别恨你的敌人，这会影响到你的判断力。",
+      "shortMeaning": "仇恨容易遮蔽理智，保持清醒才能作出准确的判断。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "判断",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《教父3》",
+        "quote": "绝对别恨你的敌人，这会影响到你的判断力。",
+        "url": "https://33tc.net/lines/3422"
+      }
+    },
+    {
+      "externalId": "foreign-film-087",
+      "kind": "sentence",
+      "text": "为了生活我必须绘画，因此我没时间为了空虚而吊儿郎当。",
+      "shortMeaning": "绘画既是谋生方式也是生活重心，让人不再被空虚消耗。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "创作",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《弗里达》",
+        "quote": "为了生活我必须绘画，因此我没时间为了空虚而吊儿郎当。",
+        "url": "https://33tc.net/lines/4551"
+      }
+    },
+    {
+      "externalId": "foreign-film-088",
+      "kind": "sentence",
+      "text": "让我永垂不朽吧。在我死后，让人们永远记得我和我的音乐。",
+      "shortMeaning": "希望作品能越过个人生命的终点，使自己长久被人记住。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "艺术",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《莫扎特传》",
+        "quote": "让我永垂不朽吧。在我死后，让人们永远记得我和我的音乐。",
+        "url": "https://33tc.net/lines/4556"
+      }
+    },
+    {
+      "externalId": "foreign-film-089",
+      "kind": "sentence",
+      "text": "有时候生活就是艰难。毫无理由。",
+      "shortMeaning": "生活中的艰难未必都有明确原因，承认它也是理解现实。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "现实",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《光辉岁月》",
+        "quote": "有时候生活就是艰难。毫无理由。",
+        "url": "https://33tc.net/lines/4554"
+      }
+    },
+    {
+      "externalId": "foreign-film-090",
+      "kind": "sentence",
+      "text": "对我而言，一名士兵的生命比法国所有的勋章和荣誉更有意义。",
+      "shortMeaning": "具体人的生命比抽象荣誉更值得珍惜，反思战争中的价值选择。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "生命",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《光荣之路》",
+        "quote": "对我而言，一名士兵的生命比法国所有的勋章和荣誉更有意义。",
+        "url": "https://33tc.net/lines/4555"
+      }
+    },
+    {
+      "externalId": "foreign-film-091",
+      "kind": "sentence",
+      "text": "不是许多人的赞赏，而是一个女人的爱改变了他的一生。",
+      "shortMeaning": "来自一个人的真诚关爱，可能比众人的赞美更有改变的力量。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "爱情",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《西力传》",
+        "quote": "不是许多人的赞赏，而是一个女人的爱改变了他的一生。",
+        "url": "https://33tc.net/lines/4558"
+      }
+    },
+    {
+      "externalId": "foreign-film-092",
+      "kind": "sentence",
+      "text": "有时候，不是我们挑选要读的书，而是书挑选了我们。",
+      "shortMeaning": "一本书有时会恰好回应人的处境，仿佛主动来到读者身边。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "阅读",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《飓风》",
+        "quote": "有时候，不是我们挑选要读的书，而是书挑选了我们。",
+        "url": "https://33tc.net/lines/4559"
+      }
+    },
+    {
+      "externalId": "foreign-film-093",
+      "kind": "sentence",
+      "text": "你知道 人們很少揭開事物表象，去瞭解真正的內在。",
+      "shortMeaning": "认识人和事需要越过表面，愿意深入了解才能接近真实。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "理解",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《街角的商店》",
+        "quote": "你知道 人們很少揭開事物表象，去瞭解真正的內在。",
+        "url": "https://33tc.net/lines/4564"
+      }
+    },
+    {
+      "externalId": "foreign-film-094",
+      "kind": "sentence",
+      "text": "那个他们从未需要的东西变成了必需品，陌生的情感开始滋生。",
+      "shortMeaning": "原本无关紧要的物品成为必需后，也可能带来新的烦恼和冲突。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "欲望",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《上帝也疯狂》",
+        "quote": "那个他们从未需要的东西变成了必需品，陌生的情感开始滋生。",
+        "url": "https://33tc.net/lines/4563"
+      }
+    },
+    {
+      "externalId": "foreign-film-095",
+      "kind": "sentence",
+      "text": "时间是查理·卓别林最亲密且永恒的朋友。",
+      "shortMeaning": "以亲密朋友作比，表达岁月与一个人的创作和人生始终相伴。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "时间",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《卓别林》",
+        "quote": "时间是查理·卓别林最亲密且永恒的朋友。",
+        "url": "https://33tc.net/lines/4562"
+      }
+    },
+    {
+      "externalId": "foreign-film-096",
+      "kind": "sentence",
+      "text": "我总是容易陷入情网，在错误的时间、错误的地点爱上不该爱的人。",
+      "shortMeaning": "反复在不合适的关系中投入感情，表达清醒却难以避免的无奈。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "关系",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《桃色公寓》",
+        "quote": "我总是容易陷入情网，在错误的时间、错误的地点爱上不该爱的人。",
+        "url": "https://33tc.net/lines/4571"
+      }
+    },
+    {
+      "externalId": "foreign-film-097",
+      "kind": "sentence",
+      "text": "最为无私的奉献，不是吗？总能激发更多的善意。从不会失败。",
+      "shortMeaning": "无私的付出能够感染他人，使善意在相互回应中继续传递。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "善意",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《克劳斯：圣诞节的秘密》",
+        "quote": "最为无私的奉献，不是吗？总能激发更多的善意。从不会失败。",
+        "url": "https://33tc.net/lines/4575"
+      }
+    },
+    {
+      "externalId": "foreign-film-098",
+      "kind": "sentence",
+      "text": "走进房间时，我觉得生活中的所有问题似乎都不再那么重要了。",
+      "shortMeaning": "一个让人感到安全的空间，能够暂时减轻生活中的重重压力。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "陪伴",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《自由作家》",
+        "quote": "走进房间时，我觉得生活中的所有问题似乎都不再那么重要了。",
+        "url": "https://33tc.net/lines/4574"
+      }
+    },
+    {
+      "externalId": "foreign-film-099",
+      "kind": "sentence",
+      "text": "没有人想当英雄，只是有时事势所迫。",
+      "shortMeaning": "英雄有时并非主动追求荣耀，而是在危急时刻承担责任。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "担当",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《黑鹰坠落》",
+        "quote": "没有人想当英雄，只是有时事势所迫。",
+        "url": "https://33tc.net/lines/4590"
+      }
+    },
+    {
+      "externalId": "foreign-film-100",
+      "kind": "sentence",
+      "text": "无论你去到哪里，偏见总是遮蔽了真相。",
+      "shortMeaning": "固有成见会干扰对事实的判断，应当警惕自以为是的认识。",
+      "category": "影视台词",
+      "tags": [
+        "电影台词",
+        "偏见",
+        "film-classics-v1"
+      ],
+      "source": {
+        "title": "《十二怒汉》",
+        "quote": "无论你去到哪里，偏见总是遮蔽了真相。",
+        "url": "https://33tc.net/lines/4601"
+      }
+    }
+  ]
+}
