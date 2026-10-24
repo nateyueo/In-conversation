@@ -1,0 +1,281 @@
+{
+  "note": "言间官方内容数据侧的来源登记表。sources[].license* 记录的是【数据/内容许可】；上游仓库的【代码许可证】单列在 codeLicense*，两者不混写。未知字段一律 null，不填猜测值。",
+  "datasetId": "yanjian-official-content",
+  "collectedAt": "2026-10-24",
+  "sources": [
+    {
+      "id": "cc-cedict",
+      "type": "dictionary",
+      "title": "CC-CEDICT",
+      "homepage": "https://cc-cedict.org/wiki/",
+      "licenseName": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "licenseScope": "content",
+      "rightsStatus": "allowed",
+      "codeLicenseName": null,
+      "codeLicenseUrl": null,
+      "allowedUses": [
+        "wordform",
+        "pinyin",
+        "english-gloss",
+        "existence-check"
+      ],
+      "forbiddenUses": [
+        "中文短释义直接照抄（本项目短释义为原创，避免整包被 BY-SA 传染）"
+      ],
+      "attributionRequired": true,
+      "shareAlikeRequired": true,
+      "attributionText": "CC-CEDICT (https://cc-cedict.org/wiki/), CC BY-SA 4.0, https://creativecommons.org/licenses/by-sa/4.0/；本项目仅使用词形、拼音与英文释义字段，中文短释义为本项目原创。",
+      "artifacts": [
+        {
+          "name": "cedict_1_0_ts_utf-8_mdbg.txt.gz",
+          "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+          "rawPath": "raw/cc-cedict/2026-10-24/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+          "sha256": "46e34d0555e180873fe88f02c8171cf399accf0709cbaafb0178720565b80409",
+          "bytes": 3981626
+        }
+      ],
+      "evidence": [
+        {
+          "title": "CC-CEDICT 官网许可声明",
+          "url": "https://cc-cedict.org/wiki/",
+          "outPath": "evidence/cc-cedict-license.txt"
+        },
+        {
+          "title": "CC BY-SA 4.0 许可正文（Creative Commons 官方）",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode.txt",
+          "outPath": "evidence/cc-by-sa-4.0-legalcode.txt"
+        }
+      ],
+      "notes": "站点原文：'This dictionary is licensed under a Creative Commons Attribution-Share Alike 4.0 License'。英文释义仅内部候选参考字段 definitionEn，不作为中文释义来源。"
+    },
+    {
+      "id": "tatoeba",
+      "type": "sentence-corpus",
+      "title": "Tatoeba 普通话语料（cmn per-language exports）",
+      "homepage": "https://tatoeba.org/en/downloads",
+      "licenseName": "CC BY 2.0 FR（逐句）+ 部分 CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/fr/",
+      "licenseScope": "content",
+      "rightsStatus": "allowed",
+      "codeLicenseName": null,
+      "codeLicenseUrl": null,
+      "allowedUses": [
+        "practical-sentence-text",
+        "owner-attribution"
+      ],
+      "forbiddenUses": [
+        "标注为影视台词",
+        "一律声称 CC0"
+      ],
+      "attributionRequired": true,
+      "shareAlikeRequired": false,
+      "attributionText": "句子来自 Tatoeba（https://tatoeba.org），许可 CC BY 2.0 FR 或 CC0 1.0，逐条按 license/owner 字段署名。",
+      "artifacts": [
+        {
+          "name": "cmn_sentences_detailed.tsv.bz2",
+          "url": "https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences_detailed.tsv.bz2",
+          "rawPath": "raw/tatoeba/2026-10-24/cmn_sentences_detailed.tsv.bz2",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "cmn_sentences_CC0.tsv.bz2",
+          "url": "https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences_CC0.tsv.bz2",
+          "rawPath": "raw/tatoeba/2026-10-24/cmn_sentences_CC0.tsv.bz2",
+          "sha256": null,
+          "bytes": null
+        }
+      ],
+      "evidence": [
+        {
+          "title": "Tatoeba 下载页许可说明",
+          "url": "https://tatoeba.org/en/downloads",
+          "outPath": "evidence/tatoeba-downloads-license.txt",
+          "reuseScratchFile": "tatoeba.html"
+        },
+        {
+          "title": "Tatoeba 使用条款",
+          "url": "https://tatoeba.org/en/terms_of_use",
+          "outPath": "evidence/tatoeba-terms-of-use.txt"
+        },
+        {
+          "title": "CC BY 2.0 FR 许可页（deed，legalcode.txt 该版本返回 404，故存 deed 页）",
+          "url": "https://creativecommons.org/licenses/by/2.0/fr/",
+          "outPath": "evidence/cc-by-2.0-fr-license.txt"
+        },
+        {
+          "title": "CC0 1.0 许可正文",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt",
+          "outPath": "evidence/cc0-1.0-legalcode.txt"
+        }
+      ],
+      "notes": "downloads 页原文标注 'released under CC BY 2.0 FR'，'A part ... also available under CC0 1.0'。detailed 导出含 username/creation date/last modified date/license 列，用于逐条署名与许可判定。"
+    },
+    {
+      "id": "jieba-dict",
+      "type": "frequency-signal",
+      "title": "jieba 词典（extra_dict/dict.txt.big）",
+      "homepage": "https://github.com/fxsjy/jieba",
+      "licenseName": null,
+      "licenseUrl": null,
+      "licenseScope": "selection-only",
+      "rightsStatus": "selection_signal_only",
+      "codeLicenseName": "MIT",
+      "codeLicenseUrl": "https://github.com/fxsjy/jieba/blob/master/LICENSE",
+      "allowedUses": [
+        "词频排序与'无频次证据'判定（不复制其文本入包）"
+      ],
+      "forbiddenUses": [
+        "作为可发布文本内容"
+      ],
+      "attributionRequired": false,
+      "shareAlikeRequired": false,
+      "attributionText": null,
+      "artifacts": [
+        {
+          "name": "dict.txt.big",
+          "url": "https://raw.githubusercontent.com/fxsjy/jieba/master/extra_dict/dict.txt.big",
+          "rawPath": "raw/jieba-dict/2026-10-24/dict.txt.big",
+          "sha256": null,
+          "bytes": null
+        }
+      ],
+      "evidence": [
+        {
+          "title": "jieba 仓库 LICENSE（代码 MIT）",
+          "url": "https://raw.githubusercontent.com/fxsjy/jieba/master/LICENSE",
+          "outPath": "evidence/jieba-license.txt"
+        }
+      ],
+      "notes": "仅作词频信号（判别词形是否在通用语料中出现过），词典文本本身不进入发布库；dict.txt.big 的词频来源未在仓库中逐项标注，故 rightsStatus 只写 selection_signal_only。"
+    },
+    {
+      "id": "chinese-poetry",
+      "type": "classical-text",
+      "title": "chinese-poetry 仓库（全唐诗/宋词 JSON）",
+      "homepage": "https://github.com/chinese-poetry/chinese-poetry",
+      "licenseName": "MIT（仓库整理层）；古诗原文属公有领域（作者逝世逾千年）",
+      "licenseUrl": "https://github.com/chinese-poetry/chinese-poetry/blob/master/LICENSE",
+      "licenseScope": "content",
+      "rightsStatus": "allowed",
+      "codeLicenseName": "MIT",
+      "codeLicenseUrl": "https://github.com/chinese-poetry/chinese-poetry/blob/master/LICENSE",
+      "allowedUses": [
+        "classical-original-text",
+        "title-author-attribution"
+      ],
+      "forbiddenUses": [
+        "现代译文",
+        "注释与赏析文字"
+      ],
+      "attributionRequired": true,
+      "shareAlikeRequired": false,
+      "attributionText": "古典原文取自 chinese-poetry 仓库（https://github.com/chinese-poetry/chinese-poetry，MIT 整理层）；唐代诗词原文属公有领域，未使用任何现代译文。",
+      "artifacts": [
+        {
+          "name": "poet.tang.0.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.0.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.0.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.1000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.1000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.1000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.2000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.2000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.2000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.3000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.3000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.3000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.4000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.4000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.4000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.5000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.5000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.5000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.6000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.6000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.6000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "poet.tang.7000.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.7000.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/poet.tang.7000.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "shuimotangshi.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E6%B0%B4%E5%A2%A8%E5%94%90%E8%AF%97/shuimotangshi.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/shuimotangshi.json",
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "name": "song300.json",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%AE%8B%E8%AF%8D/%E5%AE%8B%E8%AF%8D%E4%B8%89%E7%99%BE%E9%A6%96.json",
+          "rawPath": "raw/chinese-poetry/2026-10-24/song300.json",
+          "sha256": null,
+          "bytes": null
+        }
+      ],
+      "evidence": [
+        {
+          "title": "chinese-poetry 仓库 LICENSE",
+          "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/LICENSE",
+          "outPath": "evidence/chinese-poetry-license.txt"
+        }
+      ],
+      "notes": "README 自述数据整理自互联网，故只取公有领域的古典原文（唐代诗作，作者卒年早于公元 1000 年），不取其任何译文、注释或赏析。 追加两卷精选（水墨唐诗、宋词三百首）仅用于补强写作类经典，未扫全库。"
+    },
+    {
+      "id": "chinese-xinhua",
+      "type": "excluded",
+      "title": "chinese-xinhua（本轮不入发布库）",
+      "homepage": "https://github.com/pwxcoo/chinese-xinhua",
+      "licenseName": "MIT（仓库声明）",
+      "licenseUrl": "https://github.com/pwxcoo/chinese-xinhua/blob/master/LICENSE",
+      "licenseScope": "content",
+      "rightsStatus": "unresolved",
+      "codeLicenseName": "MIT",
+      "codeLicenseUrl": "https://github.com/pwxcoo/chinese-xinhua/blob/master/LICENSE",
+      "allowedUses": [
+        "仅作候选线索的人工排查"
+      ],
+      "forbiddenUses": [
+        "释义/例句/出处字段进入 processed 或发布包"
+      ],
+      "attributionRequired": null,
+      "shareAlikeRequired": null,
+      "attributionText": null,
+      "artifacts": [],
+      "evidence": [],
+      "notes": "README 自述'数据都是我从网上收集整理的'，scripts 为抓取脚本；仓库 MIT 只能证明代码许可，不能证明逐条释义与例句的再发布权。本轮不下载、不入库。"
+    }
+  ]
+}

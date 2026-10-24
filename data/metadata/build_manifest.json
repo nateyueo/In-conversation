@@ -1,0 +1,99 @@
+{
+  "format": "yanjian-official-content/schemaVersion1",
+  "schemaVersion": 1,
+  "schemaVersionStatus": "provisional（正式 schema 正在网页审核，本文件不代表已发布包）",
+  "datasetId": "yanjian-official-content",
+  "contentVersion": "0.1.0-candidate.1",
+  "contentVersionStatus": "candidate: 未经发布审批，不得当作发布版本号",
+  "builtAt": "2026-10-24T09:21:23Z",
+  "ruleset": "yanjian-gate/1",
+  "inputs": {
+    "raw/cc-cedict/2026-10-24/cedict_1_0_ts_utf-8_mdbg.txt.gz": {
+      "sha256": "46e34d0555e180873fe88f02c8171cf399accf0709cbaafb0178720565b80409",
+      "bytes": 3981626,
+      "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.0.json": {
+      "sha256": "4f88f429938082523cdc72a1612bd7a7c3e3f7a33f8192c61ae51340efc3c92d",
+      "bytes": 408405,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.0.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.1000.json": {
+      "sha256": "6e703b8d8dcedbd6110f6d48d043665ca2131db2035a5bfcef5e59a19aeb6d75",
+      "bytes": 477519,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.1000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.2000.json": {
+      "sha256": "ec28efa7e2ae9cdbbba09f0ed186e32ccae47a325ad1e5816b7ad56071c1665a",
+      "bytes": 417948,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.2000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.3000.json": {
+      "sha256": "9e4ba2323752b6b9fbdba875cdbc6a26636fe0cabc85fd066370d4915952001f",
+      "bytes": 453811,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.3000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.4000.json": {
+      "sha256": "b8a7946c879b9658a6c667a4c55f776fae7e5e00a17789ab06b274c1429afc66",
+      "bytes": 488655,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.4000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.5000.json": {
+      "sha256": "a0306e6962cff01639ad9a00b042a201b8dec1f30fa5d768a7b112589887861e",
+      "bytes": 467225,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.5000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.6000.json": {
+      "sha256": "982a21d2b15922b406911f1c825785054314c686da86b2155d7aebb362d22771",
+      "bytes": 470031,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.6000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.7000.json": {
+      "sha256": "a6fb69d7b4343c904dc56ae5aae34facc2478d196b51c37ceba9d1e2f171b342",
+      "bytes": 474558,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.7000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/shuimotangshi.json": {
+      "sha256": "e175adf044f015cd7283d96a793eedde89a2847f567ecd58cd8d605a7ce69f8a",
+      "bytes": 95878,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E6%B0%B4%E5%A2%A8%E5%94%90%E8%AF%97/shuimotangshi.json"
+    },
+    "raw/chinese-poetry/2026-10-24/song300.json": {
+      "sha256": "ca5d74f7fdb9d5a6acc22a7c8b4395228cad4bb8be53df44c19ba83ab6983b20",
+      "bytes": 151283,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%AE%8B%E8%AF%8D/%E5%AE%8B%E8%AF%8D%E4%B8%89%E7%99%BE%E9%A6%96.json"
+    },
+    "raw/jieba-dict/2026-10-24/dict.txt.big": {
+      "sha256": "b16011275c42955ccd81fc1adecc93a59dbb7926af69d93fc95d4943d40f6aad",
+      "bytes": 8583143,
+      "url": "https://raw.githubusercontent.com/fxsjy/jieba/master/extra_dict/dict.txt.big"
+    },
+    "raw/tatoeba/2026-10-24/cmn_sentences_CC0.tsv.bz2": {
+      "sha256": "72c6ac699497cbc9b75f6c021ef16dfaa91ab760fbb407217902b6b5388401c0",
+      "bytes": 102,
+      "url": "https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences_CC0.tsv.bz2"
+    },
+    "raw/tatoeba/2026-10-24/cmn_sentences_detailed.tsv.bz2": {
+      "sha256": "7af009b234bbb21ed6a254c2b55fa7c81c9dd53509d0982cd92c1097573f9af5",
+      "bytes": 1725873,
+      "url": "https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences_detailed.tsv.bz2"
+    }
+  },
+  "counts": {
+    "words_candidates": 50227,
+    "words_glossed": 635,
+    "sentences_practical": 29180,
+    "sentences_classic": 728,
+    "sentences_total": 29908
+  },
+  "outputs": {
+    "processed/entries.words.candidate.jsonl": 50227,
+    "processed/entries.sentences.practical.candidate.jsonl": 29180,
+    "processed/entries.sentences.classic.candidate.jsonl": 728,
+    "processed/attribution.owners.jsonl": 669,
+    "candidate/rejected.words.jsonl": 20000,
+    "candidate/rejected.sentences.jsonl": 20000
+  },
+  "publicationStatus": "candidate（全部条目）",
+  "verificationStatement": "条目仅经规则闸门与自动统计；未做人工逐条核验，evidenceStatus=located 仅表示原文已在上述快照中定位。"
+}

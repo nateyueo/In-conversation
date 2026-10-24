@@ -1,0 +1,227 @@
+{
+  "builtAt": "2026-10-24T09:21:03Z",
+  "ruleset": "yanjian-gate/1",
+  "stages": {
+    "cedict_wordforms": 121545,
+    "cedict_entries_total": 125310,
+    "cedict_word_entries_2char": 62346,
+    "cedict_word_entries_4char": 19255,
+    "words_candidates": 50227,
+    "words_glossed": 635,
+    "words_candidates_2char": 39053,
+    "words_candidates_4char": 11174,
+    "words_glossed_2char": 463,
+    "words_glossed_4char": 172,
+    "tatoeba_rows": 89211,
+    "tatoeba_cc0_ids": 1,
+    "sentences_practical": 29180,
+    "sentences_practical_traditional_deferred": 26169,
+    "sentences_classic": 728,
+    "poem_files": 8,
+    "sentences_classic_traditional_deferred": 37384,
+    "words_frequency_override_by_editorial": 6,
+    "sentences_total": 29908
+  },
+  "rules": {
+    "words": {
+      "word_no_usage_frequency": 25156,
+      "word_length_3_not_2_or_4": 24347,
+      "word_length_1_not_2_or_4": 10567,
+      "word_def_reference_only": 4356,
+      "word_length_5_not_2_or_4": 2830,
+      "word_length_6_not_2_or_4": 1102,
+      "word_not_han_only": 1068,
+      "word_def_proper_noun_only": 719,
+      "word_length_7_not_2_or_4": 681,
+      "word_length_8_not_2_or_4": 238,
+      "word_length_9_not_2_or_4": 94,
+      "word_length_10_not_2_or_4": 77,
+      "word_length_11_not_2_or_4": 30,
+      "word_def_noise": 26,
+      "word_length_12_not_2_or_4": 11,
+      "word_length_13_not_2_or_4": 8,
+      "word_length_14_not_2_or_4": 5,
+      "word_length_15_not_2_or_4": 2,
+      "word_length_19_not_2_or_4": 1
+    },
+    "sentences_practical": {
+      "sentence_too_short": 28140,
+      "sentence_too_repetitive": 2252,
+      "sentence_not_complete": 1647,
+      "sentence_contains_latin": 1505,
+      "sentence_too_long": 171,
+      "sentence_safety_keyword_heuristic": 84,
+      "sentence_duplicate": 22,
+      "sentence_weird_script": 21,
+      "sentence_ellipsis_placeholder": 17,
+      "sentence_contains_url": 3
+    },
+    "sentences_classic": {
+      "classic_duplicate": 1794,
+      "sentence_too_short": 464,
+      "sentence_too_repetitive": 60,
+      "sentence_safety_keyword_heuristic": 1,
+      "classic_missing_meta": 1
+    }
+  },
+  "samples": {},
+  "editorial": {
+    "words_tsv_entries": 466,
+    "idioms_tsv_entries": 177,
+    "glossed_matched_to_cedict": 635,
+    "glossed_not_in_cedict": [
+      "不辞辛劳",
+      "娓娓道来",
+      "悠然自得",
+      "湖面",
+      "秋风",
+      "绕开",
+      "谦虚谨慎",
+      "骄傲自满"
+    ],
+    "glossed_present_but_rejected": []
+  },
+  "inputs": {
+    "raw/cc-cedict/2026-10-24/cedict_1_0_ts_utf-8_mdbg.txt.gz": {
+      "sha256": "46e34d0555e180873fe88f02c8171cf399accf0709cbaafb0178720565b80409",
+      "bytes": 3981626,
+      "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.0.json": {
+      "sha256": "4f88f429938082523cdc72a1612bd7a7c3e3f7a33f8192c61ae51340efc3c92d",
+      "bytes": 408405,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.0.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.1000.json": {
+      "sha256": "6e703b8d8dcedbd6110f6d48d043665ca2131db2035a5bfcef5e59a19aeb6d75",
+      "bytes": 477519,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.1000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.2000.json": {
+      "sha256": "ec28efa7e2ae9cdbbba09f0ed186e32ccae47a325ad1e5816b7ad56071c1665a",
+      "bytes": 417948,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.2000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.3000.json": {
+      "sha256": "9e4ba2323752b6b9fbdba875cdbc6a26636fe0cabc85fd066370d4915952001f",
+      "bytes": 453811,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.3000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.4000.json": {
+      "sha256": "b8a7946c879b9658a6c667a4c55f776fae7e5e00a17789ab06b274c1429afc66",
+      "bytes": 488655,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.4000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.5000.json": {
+      "sha256": "a0306e6962cff01639ad9a00b042a201b8dec1f30fa5d768a7b112589887861e",
+      "bytes": 467225,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.5000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.6000.json": {
+      "sha256": "982a21d2b15922b406911f1c825785054314c686da86b2155d7aebb362d22771",
+      "bytes": 470031,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.6000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/poet.tang.7000.json": {
+      "sha256": "a6fb69d7b4343c904dc56ae5aae34facc2478d196b51c37ceba9d1e2f171b342",
+      "bytes": 474558,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%85%A8%E5%94%90%E8%AF%97/poet.tang.7000.json"
+    },
+    "raw/chinese-poetry/2026-10-24/shuimotangshi.json": {
+      "sha256": "e175adf044f015cd7283d96a793eedde89a2847f567ecd58cd8d605a7ce69f8a",
+      "bytes": 95878,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E6%B0%B4%E5%A2%A8%E5%94%90%E8%AF%97/shuimotangshi.json"
+    },
+    "raw/chinese-poetry/2026-10-24/song300.json": {
+      "sha256": "ca5d74f7fdb9d5a6acc22a7c8b4395228cad4bb8be53df44c19ba83ab6983b20",
+      "bytes": 151283,
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/master/%E5%AE%8B%E8%AF%8D/%E5%AE%8B%E8%AF%8D%E4%B8%89%E7%99%BE%E9%A6%96.json"
+    },
+    "raw/jieba-dict/2026-10-24/dict.txt.big": {
+      "sha256": "b16011275c42955ccd81fc1adecc93a59dbb7926af69d93fc95d4943d40f6aad",
+      "bytes": 8583143,
+      "url": "https://raw.githubusercontent.com/fxsjy/jieba/master/extra_dict/dict.txt.big"
+    },
+    "raw/tatoeba/2026-10-24/cmn_sentences_CC0.tsv.bz2": {
+      "sha256": "72c6ac699497cbc9b75f6c021ef16dfaa91ab760fbb407217902b6b5388401c0",
+      "bytes": 102,
+      "url": "https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences_CC0.tsv.bz2"
+    },
+    "raw/tatoeba/2026-10-24/cmn_sentences_detailed.tsv.bz2": {
+      "sha256": "7af009b234bbb21ed6a254c2b55fa7c81c9dd53509d0982cd92c1097573f9af5",
+      "bytes": 1725873,
+      "url": "https://downloads.tatoeba.org/exports/per_language/cmn/cmn_sentences_detailed.tsv.bz2"
+    }
+  },
+  "cedict_header": {
+    "time": "1792746706"
+  },
+  "distributions": {
+    "words_by_genre": {
+      "practical": 50055,
+      "classic": 172
+    },
+    "words_by_category": {
+      "null": 49592,
+      "评价": 95,
+      "人际": 89,
+      "表达": 62,
+      "情感": 60,
+      "行动": 55,
+      "思维": 51,
+      "生活": 45,
+      "时间": 39,
+      "自然": 25,
+      "学习": 22,
+      "状态": 17,
+      "态度": 14,
+      "工作": 13,
+      "品格": 10,
+      "批评": 10,
+      "方法": 9,
+      "行为": 8,
+      "比喻": 3,
+      "经历": 2,
+      "性格": 2,
+      "道理": 2,
+      "祝愿": 1,
+      "鼓励": 1
+    },
+    "sentences_by_genre": {
+      "practical": 29180,
+      "classic": 728
+    },
+    "sentence_len_practical": {
+      "8": 5276,
+      "9": 4727,
+      "10": 4073,
+      "11": 3212,
+      "12": 2639,
+      "13": 1890,
+      "14": 1495,
+      "15": 1183,
+      "16": 930,
+      "17": 676
+    },
+    "sentence_len_classic": {
+      "10": 563,
+      "8": 135,
+      "14": 26,
+      "9": 2,
+      "11": 1,
+      "12": 1
+    },
+    "top_tatoeba_owners": {
+      "fucongcong / CC BY 2.0 FR": 5886,
+      "GlossaMatik / CC BY 2.0 FR": 2302,
+      "sadhen / CC BY 2.0 FR": 1436,
+      "sysko / CC BY 2.0 FR": 1430,
+      "jan_OkulaJu / CC BY 2.0 FR": 1332,
+      "verdastelo9604 / CC BY 2.0 FR": 1162,
+      "crescat / CC BY 2.0 FR": 685,
+      "fenfang557 / CC BY 2.0 FR": 652,
+      "U2FS / CC BY 2.0 FR": 478,
+      "vicch / CC BY 2.0 FR": 468
+    }
+  }
+}

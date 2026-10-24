@@ -24,6 +24,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
+    sourceSets["main"].assets.srcDir(layout.buildDirectory.dir("generated/officialAssets"))
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 kapt {
@@ -48,5 +50,27 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.4")
     implementation("androidx.room:room-ktx:2.8.4")
     kapt("androidx.room:room-compiler:2.8.4")
+    implementation("com.google.code.gson:gson:2.11.0")
+    testImplementation("org.robolectric:robolectric:4.16.1")
     testImplementation("junit:junit:4.13.2")
+}
+
+// Only the production file is packaged; tests never supply a substitute for it.
+val officialContentFile = rootProject.file("data/processed/official-content.json")
+val syncOfficialContent by tasks.registering {
+    inputs.files(officialContentFile)
+    outputs.dir(layout.buildDirectory.dir("generated/officialAssets/content"))
+    doLast {
+        val destination = layout.buildDirectory.dir("generated/officialAssets/content").get().asFile
+        if (officialContentFile.isFile) {
+            project.sync { from(officialContentFile); into(destination) }
+        } else {
+            project.delete(destination)
+            logger.warn("Official content is not ready; the app will show an explicit empty state.")
+        }
+    }
+}
+tasks.named("preBuild").configure { dependsOn(syncOfficialContent) }
+tasks.withType<Test>().configureEach {
+    systemProperty("robolectric.dependency.repo.url", "https://repo.maven.apache.org/maven2")
 }

@@ -1,0 +1,4 @@
+# 言间正文校改表（仅修已确认的具体问题；不改 raw、不批量改写同形字）
+# 分隔：stableId|sourceId|oldText|newText|recordVersion|verifiedAgainst|note|correctedAt
+# 说明：ID 与 recordVersion 由本表钉住——正文改动不产生新 ID，只升 recordVersion。
+official:sentence:428f1f1d-15af-421d-89b1-1d53ba613fe2|chinese-poetry:song300-113|万事一身伤老矣，戌葵凝笑墙东。|万事一身伤老矣，戎葵凝笑墙东。|2|https://zh.wikisource.org/wiki/Page%3ASibu_Congkan1050-%E9%99%B3%E8%88%87%E7%BE%A9-%E5%A2%9E%E5%BB%A3%E7%AE%8B%E8%A8%BB%E7%B0%A1%E9%BD%8B%E8%A9%A9%E9%9B%86-4-4.djvu/122|底本数字化误字「戌」，据四库本《簡齋集》影印页作「戎葵」；只改此一字，不推广到其他含「戌」句，不改「凝笑」等版本差异|2026-10-24

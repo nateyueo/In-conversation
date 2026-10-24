@@ -48,13 +48,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.room.*
-import androidx.room.withTransaction
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
 private val Paper = Color(0xFFF4F1EA)
 private val PaperCard = Color(0xFFFFFDF8)
 private val Ink = Color(0xFF242622)
@@ -71,133 +65,8 @@ enum class StudyMode { WORD, SENTENCE }
 enum class Page { DISCOVER, SAVED, REVIEW, STATS, SETTINGS }
 enum class Mastery(val label: String) { NEW("待学习"), UNFAMILIAR("不熟悉"), FAMILIAR("熟悉"), KNOWN("已会") }
 
-@Entity(tableName = "entries", indices = [Index(value = ["kind"]), Index(value = ["text"])])
-data class EntryEntity(
-    @PrimaryKey val id: String,
-    val kind: String,
-    val text: String,
-    val meaning: String,
-    val workTitle: String,
-    val quote: String,
-    val category: String,
-    val genre: String,
-    val context: String,
-    val isSample: Boolean = true
-)
-
-@Entity(tableName = "user_entries", primaryKeys = ["entryId"])
-data class UserEntryEntity(
-    val entryId: String,
-    val isFavorite: Boolean = false,
-    val isHidden: Boolean = false,
-    val mastery: String = Mastery.UNFAMILIAR.name,
-    val reviewCount: Int = 0,
-    val lastReviewedAt: Long? = null
-)
-
-@Dao
-interface EntryDao {
-    @Query("SELECT * FROM entries WHERE kind = :kind ORDER BY id")
-    suspend fun byKind(kind: String): List<EntryEntity>
-    @Query("SELECT * FROM entries ORDER BY id")
-    suspend fun all(): List<EntryEntity>
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(entries: List<EntryEntity>)
-}
-
-@Dao
-interface UserEntryDao {
-    @Query("SELECT * FROM user_entries WHERE entryId = :id LIMIT 1")
-    suspend fun get(id: String): UserEntryEntity?
-    @Query("SELECT * FROM user_entries")
-    suspend fun all(): List<UserEntryEntity>
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun put(item: UserEntryEntity)
-}
-
-@Database(entities = [EntryEntity::class, UserEntryEntity::class], version = 1, exportSchema = true)
-abstract class YanjianDatabase : RoomDatabase() {
-    abstract fun entryDao(): EntryDao
-    abstract fun userEntryDao(): UserEntryDao
-    companion object {
-        @Volatile private var instance: YanjianDatabase? = null
-        fun get(context: android.content.Context): YanjianDatabase = instance ?: synchronized(this) {
-            instance ?: Room.databaseBuilder(context.applicationContext, YanjianDatabase::class.java, "yanjian-local.db")
-                .build().also { instance = it }
-        }
-    }
-}
-
-private fun seedEntries() = listOf(
-    EntryEntity("sample-word-001", "word", "希冀", "怀着期待与盼望。", "待补充经核验作品", "", "期待", "classic", "书面色彩较浓，适合描述对未来的期待。该条为原创演示样例，不是影视原句。"),
-    EntryEntity("sample-word-002", "word", "怅然", "因有所失而感到失落。", "待补充经核验作品", "", "情绪", "practical", "表达心里空落落的失落感，常用于事情结束或愿望落空之后。该条为原创演示样例，不是影视原句。"),
-    EntryEntity("sample-word-003", "word", "欲言又止", "想说什么，却又停住了。", "待补充经核验作品", "", "沟通", "practical", "常用于有顾虑、难以启齿或情绪复杂的场景。该条为原创演示样例，不是影视原句。"),
-    EntryEntity("sample-sentence-001", "sentence", "我想把这句话好好说完。", "表达希望被认真倾听。", "原创演示句", "我想把这句话好好说完。", "沟通", "practical", "这是原创教学示例，不归属于任何影视作品。"),
-    EntryEntity("sample-sentence-002", "sentence", "有些告别，不一定要说得很响亮。", "温和地表达告别与释怀。", "原创演示句", "有些告别，不一定要说得很响亮。", "告别", "classic", "这是原创教学示例，不归属于任何影视作品。"),
-    EntryEntity("sample-sentence-003", "sentence", "愿你有勇气，也有选择的余地。", "表达祝福与支持。", "原创演示句", "愿你有勇气，也有选择的余地。", "鼓励", "classic", "这是原创教学示例，不归属于任何影视作品。")
-)
-
-class StudyViewModel : ViewModel() {
-    var mode by mutableStateOf(StudyMode.WORD); private set
-    var page by mutableStateOf(Page.DISCOVER); private set
-    var settingsOpen by mutableStateOf(false); private set
-    var entries by mutableStateOf<List<EntryEntity>>(emptyList()); private set
-    var users by mutableStateOf<Map<String, UserEntryEntity>>(emptyMap()); private set
-    var currentIndex by mutableIntStateOf(0); private set
-    var flipped by mutableStateOf(false); private set
-    var detailOpen by mutableStateOf(false); private set
-    var selectedDetailId by mutableStateOf<String?>(null); private set
-    var filter by mutableStateOf(Mastery.UNFAMILIAR); private set
-    private var reviewedThisSession by mutableStateOf(setOf<String>())
-    var sentenceRatio by mutableIntStateOf(60); private set
-    var selectedCategories by mutableStateOf(setOf("日常实用", "经典表达", "情感表达", "人生感悟")); private set
-    var toast by mutableStateOf<String?>(null); private set
-    private lateinit var db: YanjianDatabase
-    private val scope = kotlinx.coroutines.CoroutineScope(Dispatchers.Main)
-
-    fun initialize(context: android.content.Context) {
-        if (::db.isInitialized) return
-        db = YanjianDatabase.get(context)
-        scope.launch {
-            val dao = db.entryDao()
-            if (dao.all().isEmpty()) dao.insertAll(seedEntries())
-            refresh()
-        }
-    }
-    private suspend fun refresh() {
-        entries = db.entryDao().all()
-        users = db.userEntryDao().all().associateBy { it.entryId }
-    }
-    fun toggleMode() { mode = if (mode == StudyMode.WORD) StudyMode.SENTENCE else StudyMode.WORD; currentIndex = 0; flipped = false; detailOpen = false }
-    fun navigate(target: Page) { page = target; flipped = false; detailOpen = false; if (target == Page.REVIEW) reviewedThisSession = emptySet() }
-    fun toggleSettings() { settingsOpen = !settingsOpen; if (settingsOpen) detailOpen = false }
-    fun updateFilter(value: Mastery) { filter = value; flipped = false; reviewedThisSession = emptySet() }
-    fun setRatio(value: Int) { sentenceRatio = value.coerceIn(0, 100) }
-    fun toggleCategory(value: String) { selectedCategories = if (value in selectedCategories) selectedCategories - value else selectedCategories + value }
-    fun showDetail(entry: EntryEntity? = current()) { selectedDetailId = entry?.id; detailOpen = entry != null }
-    fun detailEntry(): EntryEntity? = entries.firstOrNull { it.id == selectedDetailId }
-    fun closeDetail() { detailOpen = false; selectedDetailId = null }
-    fun flip() { flipped = !flipped }
-    fun next(delta: Int = 1) { val list = discoverEntries(); if (list.isNotEmpty()) currentIndex = (currentIndex + delta + list.size) % list.size; flipped = false; detailOpen = false }
-    fun discoverEntries(): List<EntryEntity> {
-        val base = entries.filter { it.kind == (if (mode == StudyMode.WORD) "word" else "sentence") && users[it.id]?.isHidden != true }
-        if (mode == StudyMode.WORD) return base
-        val practical = base.filter { it.genre == "practical" }; val classic = base.filter { it.genre == "classic" }
-        return (practical.take((base.size * sentenceRatio / 100).coerceAtLeast(if (sentenceRatio > 0) 1 else 0)) + classic).distinctBy { it.id } + practical.drop((base.size * sentenceRatio / 100).coerceAtLeast(if (sentenceRatio > 0) 1 else 0))
-    }
-    fun current(): EntryEntity? { val list = discoverEntries(); return list.getOrNull(currentIndex.mod(maxOf(list.size, 1))) }
-    fun isFavorite(id: String) = users[id]?.isFavorite == true
-    fun favorites(): List<EntryEntity> = entries.filter { e -> e.kind == (if (mode == StudyMode.WORD) "word" else "sentence") && users[e.id]?.isFavorite == true }
-    fun toggleFavorite(entry: EntryEntity) { scope.launch { val old = db.userEntryDao().get(entry.id) ?: UserEntryEntity(entry.id); db.userEntryDao().put(old.copy(isFavorite = !old.isFavorite, mastery = if (!old.isFavorite) Mastery.UNFAMILIAR.name else old.mastery)); refresh(); toast = if (!old.isFavorite) "已收藏" else "已取消收藏" } }
-    fun hide(entry: EntryEntity) { scope.launch { val old = db.userEntryDao().get(entry.id) ?: UserEntryEntity(entry.id); db.userEntryDao().put(old.copy(isHidden = true)); refresh(); next(); toast = "已加入不再推荐" } }
-    fun rate(entry: EntryEntity, grade: Mastery) { scope.launch { val old = db.userEntryDao().get(entry.id) ?: UserEntryEntity(entry.id, isFavorite = true); db.userEntryDao().put(old.copy(isFavorite = true, mastery = grade.name, reviewCount = old.reviewCount + 1, lastReviewedAt = System.currentTimeMillis())); reviewedThisSession = reviewedThisSession + entry.id; refresh(); flipped = false; toast = "已记录：${grade.label}" } }
-    fun reviewEntries(): List<EntryEntity> = favorites().filter { it.id !in reviewedThisSession && (users[it.id]?.mastery ?: Mastery.UNFAMILIAR.name) == filter.name }
-    fun allUserRecords() = users.values.toList()
-    fun clearToast() { toast = null }
-}
-
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); val db = YanjianDatabase.get(this); kotlinx.coroutines.CoroutineScope(Dispatchers.IO).launch { if (db.entryDao().all().isEmpty()) db.entryDao().insertAll(seedEntries()) }; setContent { YanjianApp() } }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { YanjianApp() } }
 }
 
 @Composable fun YanjianApp(vm: StudyViewModel = viewModel()) {
@@ -250,18 +119,19 @@ class MainActivity : ComponentActivity() {
     Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 24.dp, vertical = 24.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) { Text(if (vm.mode == StudyMode.WORD) "WORDS, IN CONTEXT" else "LINES, IN CONTEXT", color = muted, fontSize = 10.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold); Spacer(Modifier.weight(1f)); Text("每日发现", color = muted, fontSize = 11.sp) }
         Spacer(Modifier.height(18.dp))
-        Row(verticalAlignment = Alignment.Bottom) { Text(if (vm.mode == StudyMode.WORD) "从一句台词，\n遇见一个好词。" else "有些话，\n值得慢慢说。", fontFamily = FontFamily.Serif, fontSize = 23.sp, lineHeight = 34.sp, color = fg, modifier = Modifier.weight(1f)); Text("${(vm.currentIndex + 1).toString().padStart(2, '0')} / ${vm.discoverEntries().size.toString().padStart(2, '0')}", color = muted, fontSize = 12.sp) }
+        Row(verticalAlignment = Alignment.Bottom) { Text(if (vm.mode == StudyMode.WORD) "在日常与文字中，\n遇见一个好词。" else "有些话，\n值得慢慢说。", fontFamily = FontFamily.Serif, fontSize = 23.sp, lineHeight = 34.sp, color = fg, modifier = Modifier.weight(1f)); Text("${if (entry == null) 0 else vm.currentIndex + 1} / ${vm.discoverEntries().size}", color = muted, fontSize = 12.sp) }
         Spacer(Modifier.height(18.dp))
         if (entry != null) {
+            vm.contentMessage?.let { Text(it, color = muted, fontSize = 12.sp, lineHeight = 20.sp, modifier = Modifier.padding(bottom = 12.dp)) }
             Surface(Modifier.fillMaxWidth().heightIn(min = 310.dp).clickable { vm.flip() }, shape = RoundedCornerShape(28.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line), shadowElevation = 3.dp) {
                 Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.SpaceBetween, horizontalAlignment = Alignment.CenterHorizontally) {
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) { Box(Modifier.size(6.dp).background(accent, CircleShape)); Spacer(Modifier.width(8.dp)); Text(if (vm.mode == StudyMode.WORD) if (entry.text.length == 2) "双字表达" else "四字表达" else if (entry.genre == "practical") "日常实用" else "经典表达", color = muted, fontSize = 11.sp); Spacer(Modifier.weight(1f)); Text("言 · ${entry.category}", color = muted, fontSize = 10.sp) }
                     Column(Modifier.fillMaxWidth().weight(1f).padding(vertical = 30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                        AnimatedContent(targetState = vm.flipped, label = "flipText") { flipped -> if (!flipped) Text(entry.text, fontFamily = FontFamily.Serif, fontSize = if (vm.mode == StudyMode.WORD) 38.sp else 26.sp, lineHeight = 39.sp, textAlign = TextAlign.Center, color = fg, fontWeight = FontWeight.Medium) else Text(entry.meaning, fontFamily = FontFamily.Serif, fontSize = 20.sp, lineHeight = 32.sp, textAlign = TextAlign.Center, color = fg) }
-                        Spacer(Modifier.height(16.dp)); Text(if (vm.flipped) "点击返回词语" else "点击翻面查看简释", color = muted, fontSize = 11.sp)
+                        AnimatedContent(targetState = vm.flipped, label = "flipText") { flipped -> Text(if (flipped) entry.backText() else entry.text, fontFamily = FontFamily.Serif, fontSize = if (flipped) 20.sp else if (vm.mode == StudyMode.WORD) 38.sp else 26.sp, lineHeight = 39.sp, textAlign = TextAlign.Center, color = fg, fontWeight = FontWeight.Medium) }
+                        Spacer(Modifier.height(16.dp)); Text(if (vm.flipped) "点击返回正文" else if (entry.meaning.isBlank()) "点击翻面查看用法或来源" else "点击翻面查看简释", color = muted, fontSize = 11.sp)
                     }
                     HorizontalDivider(color = line); Spacer(Modifier.height(13.dp))
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) { Text(if (entry.quote.isBlank()) "原创演示内容 · 非影视原句" else "影视原句 · 作品来源", color = muted, fontSize = 10.sp); Text(entry.workTitle, color = accent, fontSize = 11.sp) }
+                    Column(Modifier.fillMaxWidth()) { Text(entry.sourceLabel(), color = muted, fontSize = 10.sp); if (entry.workTitle.isNotBlank()) Text(entry.workTitle, color = accent, fontSize = 11.sp) }
                 }
             }
             Spacer(Modifier.height(15.dp)); Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Outlined.KeyboardArrowUp, null, tint = muted, modifier = Modifier.size(16.dp)); Text("查看原句与详情", color = muted, fontSize = 11.sp, modifier = Modifier.clickable { vm.showDetail() }) }
@@ -271,6 +141,7 @@ class MainActivity : ComponentActivity() {
             }
             Row(Modifier.fillMaxWidth().padding(top = 14.dp), horizontalArrangement = Arrangement.SpaceBetween) { TextButton(onClick = { vm.next(-1) }) { Icon(Icons.Outlined.ChevronLeft, null); Text("上一条", color = muted, fontSize = 11.sp) }; TextButton(onClick = { vm.next() }) { Text("下一条", color = muted, fontSize = 11.sp); Icon(Icons.Outlined.ChevronRight, null) } }
         }
+        else Text(vm.contentMessage ?: "当前偏好暂无内容，请调整领域、用途或比例。", color = muted, fontSize = 14.sp, lineHeight = 24.sp, modifier = Modifier.padding(vertical = 35.dp))
     }
 }
 
@@ -278,10 +149,13 @@ class MainActivity : ComponentActivity() {
     val saved = vm.favorites()
     Column(Modifier.fillMaxSize().padding(horizontal = 23.dp, vertical = 23.dp)) {
         Eyebrow("YOUR COLLECTION", "收藏夹", muted)
-        Row(Modifier.fillMaxWidth().padding(top = 15.dp), verticalAlignment = Alignment.CenterVertically) { Text("收好喜欢的表达", fontFamily = FontFamily.Serif, fontSize = 24.sp, color = fg, modifier = Modifier.weight(1f)); Text("${saved.size} 个", color = muted, fontSize = 11.sp) }
+        Row(Modifier.fillMaxWidth().padding(top = 15.dp), verticalAlignment = Alignment.CenterVertically) { Text("收好喜欢的表达", fontFamily = FontFamily.Serif, fontSize = 24.sp, color = fg, modifier = Modifier.weight(1f)); Text("${vm.allUserRecords().count { it.isFavorite }} 个", color = muted, fontSize = 11.sp) }
         Surface(Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 20.dp), shape = RoundedCornerShape(18.dp), color = if (vm.mode == StudyMode.WORD) Color(0xFFE9E5DC) else Color(0xFF28343F)) { Row(Modifier.padding(17.dp), verticalAlignment = Alignment.CenterVertically) { Column(Modifier.weight(1f)) { Text("今日复习", color = fg, fontWeight = FontWeight.SemiBold, fontSize = 13.sp); Text("按记忆状态，重新遇见这些表达", color = muted, fontSize = 11.sp, modifier = Modifier.padding(top = 5.dp)) }; Button(onClick = { vm.navigate(Page.REVIEW) }, colors = ButtonDefaults.buttonColors(containerColor = accent, contentColor = if (vm.mode == StudyMode.WORD) Color.White else Night), shape = RoundedCornerShape(12.dp)) { Text("开始复习", fontSize = 11.sp) } } }
         if (saved.isEmpty()) Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("还没有收藏的表达。\n去发现页挑几个喜欢的吧。", color = muted, textAlign = TextAlign.Center, lineHeight = 26.sp) }
-        else LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) { items(saved, key = { it.id }) { entry -> Surface(shape = RoundedCornerShape(17.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line), modifier = Modifier.fillMaxWidth().clickable { vm.showDetail(entry) }) { Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) { Column(Modifier.weight(1f)) { Text(entry.text, fontFamily = FontFamily.Serif, fontSize = 17.sp, color = fg); Text(entry.meaning, fontSize = 11.sp, color = muted, modifier = Modifier.padding(top = 6.dp)) }; Text(vm.allUserRecords().firstOrNull { it.entryId == entry.id }?.mastery?.let { runCatching { Mastery.valueOf(it).label }.getOrDefault("待学习") } ?: "待学习", color = accent, fontSize = 10.sp) } } } }
+        else LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            items(saved, key = { it.id }) { entry -> Surface(shape = RoundedCornerShape(17.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line), modifier = Modifier.fillMaxWidth().clickable { vm.showDetail(entry) }) { Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) { Column(Modifier.weight(1f)) { Text(entry.text, fontFamily = FontFamily.Serif, fontSize = 17.sp, color = fg); Text(entry.backText(), fontSize = 11.sp, color = muted, modifier = Modifier.padding(top = 6.dp)) }; Text(vm.users[entry.id]?.mastery?.let { runCatching { Mastery.valueOf(it).label }.getOrDefault("待学习") } ?: "待学习", color = accent, fontSize = 10.sp) } } }
+            if (vm.hasMoreSaved) item { TextButton(onClick = { vm.loadMoreSaved() }, enabled = !vm.busy) { Text("加载更多收藏") } }
+        }
     }
 }
 
@@ -293,15 +167,15 @@ class MainActivity : ComponentActivity() {
         Spacer(Modifier.height(25.dp)); Row(verticalAlignment = Alignment.CenterVertically) { Box(Modifier.weight(1f).height(3.dp).clip(CircleShape).background(line)); Spacer(Modifier.width(10.dp)); Text("${if (entry == null) 0 else 1} / ${all.size}", color = muted, fontSize = 10.sp) }
         if (entry == null) Box(Modifier.fillMaxWidth().height(270.dp), contentAlignment = Alignment.Center) { Column(horizontalAlignment = Alignment.CenterHorizontally) { Icon(Icons.Outlined.CheckCircle, null, tint = accent, modifier = Modifier.size(36.dp)); Spacer(Modifier.height(15.dp)); Text("本组暂无待复习内容", color = fg, fontSize = 14.sp); Text("先到发现页收藏一些表达", color = muted, fontSize = 11.sp, modifier = Modifier.padding(top = 8.dp)) } }
         else {
-            Surface(Modifier.fillMaxWidth().height(248.dp).padding(top = 18.dp).clickable { vm.flip() }, shape = RoundedCornerShape(23.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line), shadowElevation = 2.dp) { Box(Modifier.padding(28.dp), contentAlignment = Alignment.Center) { AnimatedContent(vm.flipped, label = "reviewFlip") { isBack -> Column(horizontalAlignment = Alignment.CenterHorizontally) { Text(entry.text, fontFamily = FontFamily.Serif, fontSize = if (vm.mode == StudyMode.WORD) 31.sp else 21.sp, textAlign = TextAlign.Center, color = fg, lineHeight = 34.sp); if (isBack) { Spacer(Modifier.height(14.dp)); Text(entry.meaning, color = muted, fontSize = 13.sp, lineHeight = 22.sp, textAlign = TextAlign.Center) } } } } }
-            if (vm.flipped) { TextButton(onClick = { vm.showDetail(entry) }, modifier = Modifier.fillMaxWidth()) { Icon(Icons.Outlined.KeyboardArrowUp, null); Text("影视原句与详情", fontSize = 11.sp, color = muted) }; Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { labels.forEach { grade -> OutlinedButton(onClick = { vm.rate(entry, grade) }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(13.dp), border = androidx.compose.foundation.BorderStroke(1.dp, line)) { Text(grade.label, color = if (grade == Mastery.KNOWN) accent else fg, fontSize = 11.sp) } } } } else Text("点击卡片 · 查看释义", color = muted, fontSize = 11.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 16.dp))
+            Surface(Modifier.fillMaxWidth().heightIn(min = 248.dp).padding(top = 18.dp).clickable { vm.flip() }, shape = RoundedCornerShape(23.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line), shadowElevation = 2.dp) { Box(Modifier.padding(28.dp), contentAlignment = Alignment.Center) { AnimatedContent(vm.flipped, label = "reviewFlip") { isBack -> Column(horizontalAlignment = Alignment.CenterHorizontally) { Text(entry.text, fontFamily = FontFamily.Serif, fontSize = if (vm.mode == StudyMode.WORD) 31.sp else 21.sp, textAlign = TextAlign.Center, color = fg, lineHeight = 34.sp); if (isBack) { Spacer(Modifier.height(14.dp)); Text(entry.backText(), color = muted, fontSize = 13.sp, lineHeight = 22.sp, textAlign = TextAlign.Center) } } } } }
+            if (vm.flipped) { TextButton(onClick = { vm.showDetail(entry) }, modifier = Modifier.fillMaxWidth()) { Icon(Icons.Outlined.KeyboardArrowUp, null); Text("来源与详情", fontSize = 11.sp, color = muted) }; Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { labels.forEach { grade -> OutlinedButton(onClick = { vm.rate(entry, grade) }, enabled = !vm.busy, modifier = Modifier.weight(1f), shape = RoundedCornerShape(13.dp), border = androidx.compose.foundation.BorderStroke(1.dp, line)) { Text(grade.label, color = if (grade == Mastery.KNOWN) accent else fg, fontSize = 11.sp) } } } } else Text("点击卡片 · 查看简释或来源", color = muted, fontSize = 11.sp, modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 16.dp))
         }
+        if (vm.hasMoreSaved) TextButton(onClick = { vm.loadMoreSaved() }, enabled = !vm.busy) { Text("加载更多收藏供复习") }
     }
 }
 
 @Composable private fun StatsPage(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color) {
-    val idsInMode = vm.entries.filter { it.kind == (if (vm.mode == StudyMode.WORD) "word" else "sentence") }.map { it.id }.toSet()
-    val records = vm.allUserRecords().filter { it.entryId in idsInMode }; val favorites = vm.favorites().size; val reviewed = records.sumOf { it.reviewCount }; val counts = Mastery.entries.associateWith { grade -> records.count { it.mastery == grade.name } }
+    val records = vm.allUserRecords(); val favorites = records.count { it.isFavorite }; val reviewed = records.sumOf { it.reviewCount }; val counts = Mastery.entries.associateWith { grade -> records.count { it.mastery == grade.name } }
     Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 23.dp, vertical = 23.dp)) {
         Eyebrow("LEARNING INSIGHTS", "学习数据", muted); Text("一点一点，变成自己的话。", fontFamily = FontFamily.Serif, fontSize = 23.sp, lineHeight = 34.sp, color = fg, modifier = Modifier.padding(top = 15.dp))
         Row(Modifier.padding(top = 20.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) { StatCard("累计收藏", favorites.toString().padStart(2, '0'), if (vm.mode == StudyMode.WORD) "个词语" else "个句子", Modifier.weight(1f), card, line, fg, muted); StatCard("累计复习", reviewed.toString().padStart(2, '0'), "次记忆评分", Modifier.weight(1f), card, line, fg, muted) }
@@ -312,14 +186,17 @@ class MainActivity : ComponentActivity() {
 @Composable private fun StatCard(title: String, value: String, foot: String, modifier: Modifier, card: Color, line: Color, fg: Color, muted: Color) { Surface(modifier, shape = RoundedCornerShape(16.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line)) { Column(Modifier.padding(17.dp)) { Text(title, color = muted, fontSize = 11.sp); Text(value, color = fg, fontFamily = FontFamily.Serif, fontSize = 30.sp, modifier = Modifier.padding(vertical = 7.dp)); Text(foot, color = muted, fontSize = 10.sp) } } }
 
 @Composable private fun SettingsPage(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color) {
-    val cats = listOf("日常实用", "经典表达", "情感表达", "人生感悟", "安慰", "拒绝", "告别", "思念", "鼓励", "克制")
+    val cats = CONTENT_CATEGORIES.toList()
     Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 23.dp, vertical = 23.dp)) {
         Eyebrow("PERSONALIZE", "偏好设置", muted); Text("让推荐更像你。", fontFamily = FontFamily.Serif, fontSize = 26.sp, color = fg, modifier = Modifier.padding(top = 17.dp, bottom = 28.dp))
         Text("句子内容比例", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("默认 60% 日常实用，40% 经典表达。", color = muted, fontSize = 12.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 9.dp)); Spacer(Modifier.height(20.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) { Text("日常实用 ${vm.sentenceRatio}%", color = fg, fontSize = 12.sp); Text("经典表达 ${100 - vm.sentenceRatio}%", color = fg, fontSize = 12.sp) }
         Slider(value = vm.sentenceRatio.toFloat(), onValueChange = { vm.setRatio(it.toInt() / 10 * 10) }, valueRange = 0f..100f, steps = 9, colors = SliderDefaults.colors(thumbColor = accent, activeTrackColor = accent))
-        HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("情感表达偏好", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("选择希望看到的类型板块。", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp, bottom = 14.dp))
+        HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("内容领域", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("多选领域取并集；全不选时不推荐。所需类型为空时请调整偏好。", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp, bottom = 14.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { cats.chunked(2).forEach { row -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { row.forEach { cat -> val selected = cat in vm.selectedCategories; Surface(Modifier.weight(1f).clickable { vm.toggleCategory(cat) }, shape = CircleShape, color = if (selected) (if (vm.mode == StudyMode.WORD) Color(0xFFEAE6DD) else Color(0xFF39434B)) else card, border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) accent else line)) { Text(cat, Modifier.padding(horizontal = 9.dp, vertical = 12.dp), textAlign = TextAlign.Center, color = if (selected) fg else muted, fontSize = 11.sp) } }; if (row.size == 1) Spacer(Modifier.weight(1f)) } } }
+        HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line)
+        Text("内容用途", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { listOf("daily" to "日常", "writing" to "写作").forEach { (tag, label) -> FilterChip(selected = tag in vm.selectedPurposes, onClick = { vm.togglePurpose(tag) }, label = { Text(label) }) } }
         HorizontalDivider(Modifier.padding(vertical = 22.dp), color = line); Text("数据保存在本机", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("首版无需账号或数据库服务器。用户导入与备份将在后续版本接入。", color = muted, fontSize = 12.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 8.dp, bottom = 26.dp))
     }
 }
@@ -339,7 +216,14 @@ class MainActivity : ComponentActivity() {
     Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = .38f)).clickable(onClick = close), contentAlignment = Alignment.BottomCenter) {
         Surface(Modifier.fillMaxWidth().fillMaxHeight(.76f).clickable(enabled = false) {}, shape = RoundedCornerShape(topStart = 26.dp, topEnd = 26.dp), color = card) {
             Column(Modifier.verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 25.dp, vertical = 13.dp)) {
-                Box(Modifier.width(40.dp).height(4.dp).clip(CircleShape).background(line).align(Alignment.CenterHorizontally)); Spacer(Modifier.height(20.dp)); Text("${entry.category} · ${if (entry.kind == "word") "词语释义" else "句子语境"}", color = accent, fontSize = 10.sp, letterSpacing = 1.2.sp); Spacer(Modifier.height(12.dp)); Text(entry.text, fontFamily = FontFamily.Serif, fontSize = 27.sp, color = fg, fontWeight = FontWeight.SemiBold); Spacer(Modifier.height(10.dp)); Text(entry.meaning, color = muted, fontSize = 13.sp, lineHeight = 22.sp); Spacer(Modifier.height(23.dp)); Text("影视原句", color = muted, fontSize = 11.sp); Spacer(Modifier.height(8.dp)); Text(if (entry.quote.isBlank()) "该条是原创演示内容，尚未关联可核验影视原句。" else "“${entry.quote}”", fontFamily = FontFamily.Serif, color = fg, fontSize = 17.sp, lineHeight = 29.sp); Spacer(Modifier.height(9.dp)); Text(entry.workTitle, color = accent, fontSize = 11.sp); HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("语境与使用", color = muted, fontSize = 11.sp); Spacer(Modifier.height(8.dp)); Text(entry.context, color = fg, fontSize = 13.sp, lineHeight = 23.sp); Spacer(Modifier.height(25.dp)); OutlinedButton(onClick = close, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp)) { Text("收起详情", color = fg) }; Spacer(Modifier.height(20.dp))
+                Box(Modifier.width(40.dp).height(4.dp).clip(CircleShape).background(line).align(Alignment.CenterHorizontally))
+                Spacer(Modifier.height(20.dp)); Text(entry.category, color = accent, fontSize = 10.sp)
+                Spacer(Modifier.height(12.dp)); Text(entry.text, fontFamily = FontFamily.Serif, fontSize = 27.sp, color = fg, fontWeight = FontWeight.SemiBold)
+                if (entry.meaning.isNotBlank()) { Spacer(Modifier.height(10.dp)); Text(entry.meaning, color = muted, fontSize = 13.sp, lineHeight = 22.sp) }
+                Spacer(Modifier.height(23.dp)); Text(entry.sourceLabel(), color = muted, fontSize = 11.sp)
+                Spacer(Modifier.height(8.dp)); Text(entry.sourceDetails(), color = fg, fontSize = 14.sp, lineHeight = 25.sp)
+                if (entry.context.isNotBlank()) { HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("语境与使用", color = muted, fontSize = 11.sp); Spacer(Modifier.height(8.dp)); Text(entry.context, color = fg, fontSize = 13.sp, lineHeight = 23.sp) }
+                Spacer(Modifier.height(25.dp)); OutlinedButton(onClick = close, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp)) { Text("收起详情", color = fg) }; Spacer(Modifier.height(20.dp))
             }
         }
     }

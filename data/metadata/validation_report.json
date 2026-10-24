@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-24T09:21:59Z",
+  "result": "PASS",
+  "errors": [],
+  "warnings": [],
+  "warningCount": 0,
+  "stats": {
+    "file_words": 50227,
+    "words": 50227,
+    "words_with_gloss": 635,
+    "file_practical": 29180,
+    "sentences": 29908,
+    "sentences_practical": 29180,
+    "file_classic": 728,
+    "sentences_classic": 728,
+    "registry_ids": 99352,
+    "registry_unused": 19217,
+    "contentVersion": "0.1.0-candidate.1",
+    "hash_ok": 22,
+    "hash_bad": 0
+  },
+  "scope": "只校验结构与声明规则一致性；不构成内容质量、许可法务或人工逐条核验结论。"
+}

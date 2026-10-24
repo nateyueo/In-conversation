@@ -1,0 +1,115 @@
+{
+  "_status": "provisional：正式枚举与工程映射在后续 schema 审核中确定；本文件只记录本轮候选实际用到的取值，不是最终契约。",
+  "datasetId": "yanjian-official-content",
+  "schemaVersion": 1,
+  "kind": {
+    "values": [
+      "word",
+      "sentence"
+    ],
+    "note": "词与句共用同一 entries[] 结构，用 kind 区分。"
+  },
+  "genre": {
+    "values": [
+      "practical",
+      "classic"
+    ],
+    "note": "对应 docx/06 第 6 节的句子主分类（practical:classic 目标 60:40，按推荐序列趋近）；词语暂定：成语与文言色彩四字表达=classic，其余=practical。该映射为临时约定，不是用户最终决定。",
+    "counts": {
+      "practical": 79235,
+      "classic": 900
+    }
+  },
+  "wordCategory": {
+    "values": [
+      "人际",
+      "品格",
+      "学习",
+      "工作",
+      "态度",
+      "思维",
+      "性格",
+      "情感",
+      "批评",
+      "方法",
+      "时间",
+      "比喻",
+      "状态",
+      "生活",
+      "祝愿",
+      "经历",
+      "自然",
+      "行为",
+      "行动",
+      "表达",
+      "评价",
+      "道理",
+      "鼓励"
+    ],
+    "note": "仅编辑撰写释义时人工赋值；无释义词条为 null，程序不自动猜分类。"
+  },
+  "sentenceCategory": {
+    "values": [],
+    "note": "句子主题/表达目的需编辑标注，本轮全部为 null。"
+  },
+  "tags": {
+    "values": [
+      "中性",
+      "书面",
+      "交际",
+      "修辞",
+      "写作",
+      "冲突",
+      "口语",
+      "学术",
+      "工作",
+      "态度",
+      "思维",
+      "性格",
+      "情绪",
+      "正式",
+      "状态",
+      "礼貌",
+      "网络",
+      "行为",
+      "褒义",
+      "评价",
+      "贬义",
+      "风格"
+    ],
+    "note": "来自编辑释义文件的自由标签，未归一化。"
+  },
+  "publicationStatus": {
+    "values": [
+      "candidate"
+    ],
+    "note": "本轮没有任何条目进入 sample/published 状态。"
+  },
+  "publicationBlockers": {
+    "values": [
+      "missing_short_meaning",
+      "pending_editorial_review",
+      "pending_expression_purpose_tagging"
+    ]
+  },
+  "script": {
+    "values": [
+      "simplified"
+    ],
+    "note": "繁简只判别不转换；traditional 条目默认不写盘、不计入可发布候选。"
+  },
+  "rightsStatus": {
+    "values": [
+      "allowed",
+      "project_owned"
+    ],
+    "note": "project_owned=本项目原创释义；allowed=外部来源权利已登记。来源表另有 unresolved/selection_signal_only，但未进入候选。"
+  },
+  "evidenceStatus": {
+    "values": [
+      "None",
+      "located"
+    ],
+    "note": "located=原文能在登记快照中定位；null=本项目原创文本，不适用外部核验。"
+  }
+}
