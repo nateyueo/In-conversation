@@ -1,0 +1,56 @@
+# ---- Gradle ----
+.gradle/
+.kotlin/
+build/
+*/build/
+**/build/
+# 保留 Gradle Wrapper（含 jar），工程需自带 wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
+# ---- 本机配置（含 SDK 路径等机器相关值）----
+local.properties
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+*.hprof
+
+# ---- 构建产物 ----
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+lint-results*.html
+lint-results*.xml
+output-metadata.json
+
+# ---- 签名、凭证与密钥（任何情况不入库）----
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+keystore.properties
+signing.properties
+secrets.properties
+google-services.json
+
+# ---- 本地日志与临时文件 ----
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+
+# ---- 历史会话存档 ----
+# 含用户聊天原话与会话 key，公共仓库不收录（本地文件保留）
+docs/history-session/
+
+# ---- 操作系统与编辑器 ----
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
