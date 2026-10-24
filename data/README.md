@@ -2,7 +2,7 @@
 
 ## 0. 状态一句话
 
-- **正式包**：`data/processed/official-content.json`（30,278 条，`contentVersion=3`，`publicationStatus=published`），按固定契约输出，可离线分发。
+- **正式包**：`data/processed/official-content.json`（30,278 条，`contentVersion=5`，`publicationStatus=published`），按固定契约输出，可离线分发；29,635条句子全部有中文释义。
 - **候选池**：`data/processed/entries.*.candidate.jsonl` 等，仅供编辑扩充与重跑，**已 git 忽略**，不代表正式数量。
 - 所有条目的 `evidenceStatus=source_checked` 只表示"原文与登记的公开来源快照匹配"；处理方式是**自动过滤 + 抽样查看**，**不是**全部条目经编辑逐条批准，也**不是**影视级别的严格 verified。
 
@@ -13,7 +13,7 @@
   "format": "yanjian-official-content",
   "schemaVersion": 1,
   "datasetId": "yanjian-text",
-  "contentVersion": 3,
+  "contentVersion": 5,
   "entries": [ { "id": "official:word:<uuid4>" | "official:sentence:<uuid4>",
                  "recordVersion": 1 | 2 | 3, "kind": "word" | "sentence",
                  "text": "…", "shortMeaning": "…", "genre": "practical" | "classic",
@@ -27,7 +27,7 @@
 
 - `type` ∈ `dictionary` / `community_sentence` / `public_domain_text` / `original` / `film`（本轮无 film）。
 - `rightsStatus` ∈ `open_license` / `public_domain` / `original`；`evidenceStatus` ∈ `source_checked` / `verified`。
-- 句子 `shortMeaning`：已逐条写好原创短释义的句子为**非空**（6–60 字现代汉语一句话释义，来源里追加 `type=original` 的「言间原创中文句意短释义」块）；其余句子仍为空串 `""`（表示尚未释义），程序不自动补、不臆造；这类句子翻面提示「释义待补充」，可阅读收藏但不参与评分。
+- 句子 `shortMeaning`：v5 的29,635条句子均为非空中文短释义（6–60字符，来源里追加 `type=original` 的「言间原创中文句意短释义」块），构建与校验拒绝漏项。App仍兼容个人导入缺释义：提示待补充，可阅读收藏但不评分。
 - `usageNote` 允许空串；仅当古典原文含繁体/异体字形时写入说明，不编造语境。
 
 ## 2. 数量（以 `metadata/release_report.json` 与 `metadata/release_validation.json` 为准）
@@ -38,8 +38,8 @@
 | 词语 | **643**（两字 466 通用 + 四字 177 成语/固定表达） | 词形候选 50,227（其中带原创释义 635） |
 | 实用句 | **26,011**（Tatoeba 普通话） | 29,180 |
 | 古典句 | **3,624**（唐诗宋词精选 + 李白/杜甫/白居易） | 728（未挑选的全唐诗简体切片） |
-| 句子短释义 | **83**（编辑原创，`editorial/sentences.psv`）；其余 29,552 条 `shortMeaning` 为空串 | — |
-| 包体大小 | 23,338,610 字节（约 22.3 MiB） | — |
+| 句子短释义 | **29,635**（既有83条保留，补齐29,552条），未覆盖 **0** | — |
+| 包体大小 | 38,761,015 字节（约 37.0 MiB） | — |
 
 `genre` 分布：practical 26,477 / classic 3,801（**不是**按 60:40 配比强行凑数，60:40 是日后推荐采样比例，不是库存硬指标）。
 
@@ -55,15 +55,18 @@ python data/scripts/fetch.py --scratch-dir $env:PI_SCRATCH_DIR
 python data/scripts/build_candidates.py
 python data/scripts/validate.py                 # 期望 {"result": "PASS"}
 
-# 3) 正式包（候选 + 原创释义 + 精选题集 → official-content.json）
+# 3) 检查并合并已补齐的批次（只读检查不带 --apply）
+python data/scripts/merge_sentence_gloss_batches.py --apply
+
+# 4) 正式包（候选 + 原创释义 + 精选题集 → official-content.json）
 python data/scripts/build_release.py            # 可加 --sample N
 python data/scripts/validate_release.py         # 期望 {"result": "PASS"}
 
-# 4) 繁体原文（默认不写盘）
+# 5) 繁体原文（默认不写盘）
 python data/scripts/build_candidates.py --include-traditional
 ```
 
-两次重跑 `official-content.json` 字节完全一致；候选重建后再跑正式包，ID 也不变（`metadata/id_registry.jsonl.gz` 是唯一权威登记表，`official:<kind>:<uuid4>`）。
+早期版本已验证两次重跑正式包字节一致、候选重建后ID不变；本轮与v3逐条比较确认30,278个稳定ID及既有726条内容（643词语与83条句意）保留。`metadata/id_registry.jsonl.gz` 是唯一权威登记表。
 
 ## 4. 来源与许可（数据许可 ≠ 代码许可）
 
@@ -90,7 +93,7 @@ python data/scripts/build_candidates.py --include-traditional
 
 ## 6. 已知局限（不要当作"全部人工核验"）
 
-1. 没有编辑逐条批准：只有自动过滤 + 抽样查看（`metadata/release-sample.jsonl`）。句子短释义目前只覆盖 83 条（`editorial/sentences.psv`），其余 29,552 条句子仍无中文释义。
+1. 没有编辑逐条批准：主代理随机分层抽查50条（实用35、古典15），13处问题交回DeepSeek修正并读回。收尾另发现classic-a末4片遗漏的繁简/词序替换，DeepSeek重写184条；主代理随机抽查其中35条，14处误解交回修正并读回。全覆盖不等于全库逐条人工或专业校订；生成批次保留在 `editorial/sentence-gloss-batches/`。
 2. Tatoeba 句仍有翻译腔、书面腔与不自然表达，翻译腔只做了"长句的≥4"这类启发式判断，不是判定器。
 3. 分类是关键词启发式，74% 实用句与 90% 古典句落在中性类（`日常交流` / `古典诗词`），不等于已做主题标注。
 4. 古典句保留原字形，**未经权威繁简判定**；含繁体用字者 `usageNote` 已注明"保留当时字形，未作繁简转换"，但个别两体同形字可能漏判。
@@ -102,11 +105,12 @@ python data/scripts/build_candidates.py --include-traditional
 - 校改表：`data/corrections/text-corrections.psv`（`stableId|sourceId|oldText|newText|recordVersion|证据链接|说明|日期`）。
 - 规则：**只修已确认的具体字词错误**；ID 由校改表钉住，文字变化**不生成新 ID**，只把该条 `recordVersion` 升到表内值；`raw/` 原文不改；不把单字校改推广到其他同形字句，也不做异体字/版本差异的统一改字。
 - 校验：`validate_release.py` 会逐条核对"新正文已生效、旧正文不再出现、recordVersion 已升、来源匹配"；`build_release.py` 会把已应用的校改写入 `metadata/release_report.json` 的 `correctionsApplied`。
-- 本轮唯一一条：`official:sentence:428f1f1d-15af-421d-89b1-1d53ba613fe2`（陈与义《临江仙》，底本 chinese-poetry `song300-113`）
+- v2校改：`official:sentence:428f1f1d-15af-421d-89b1-1d53ba613fe2`（陈与义《临江仙》，底本 chinese-poetry `song300-113`）
   - 原：`万事一身伤老矣，戌葵凝笑墙东。` → 校：`万事一身伤老矣，戎葵凝笑墙东。`
   - 依据：四库本《簡齋集》影印页 https://zh.wikisource.org/wiki/Page%3ASibu_Congkan1050-%E9%99%B3%E8%88%87%E7%BE%A9-%E5%A2%9E%E5%BB%A3%E7%AE%8B%E8%A8%BB%E7%B0%A1%E9%BD%8B%E8%A9%A9%E9%9B%86-4-4.djvu/122（页面含「萬事一身傷老矣戎葵」）；核对记录见 `data/evidence/correction-sentence-428f1f1d-15af-421d-89b1-1d53ba613fe2.txt`。
   - 边界：只改「戌→戎」一字；「凝笑」等版本差异保持原样，不做统一。
-- 只要校改改变正文，顶层 `contentVersion` 必须加 1（v1 → v2），以便已加载旧版的工程能识别并更新；本次总量与其他条目均未变。
+- v4新增校改：`official:sentence:1144675d-4cc6-4e3c-9b1d-af8da301ceb9`（杜甫《三绝句》/底本题《绝句三首》，`chinese-poetry:shuimo-71`），末字「器→哭」：《全唐詩》卷229与《補註杜詩》卷09均作「回頭卻向秦雲哭」。证据见 `data/evidence/correction-sentence-1144675d-4cc6-4e3c-9b1d-af8da301ceb9.txt`；只修此字，ID不变，校改与释义累计 `recordVersion=3`。
+- 正文或释义变化均递增顶层 `contentVersion`；v4补齐全量释义，v5修订184条遗漏的古典白话；总量、ID、分类与筛选计数保持。
 
 ## 9. 仓库里保留什么
 
@@ -114,11 +118,12 @@ python data/scripts/build_candidates.py --include-traditional
 
 `git` 忽略（可重跑再生）：`raw/`、`processed/entries.*.jsonl`、`processed/attribution.owners.jsonl`、`candidate/`、`metadata/id_registry.jsonl`（未压缩副本）。见 `data/.gitignore`。
 
-## 10. 句子短释义与未覆盖范围（v3 起）
+## 10. 句子短释义（v3 起，v4 全量补齐，v5 古典白话修订）
 
 - 表：`data/editorial/sentences.psv`（`stableId|原句|短释义|撰写日期`）。只登记已经逐条写好的释义，可重跑读入。
-- 规则：只按**原文字面**把句意写成一句现代汉语；不用"出自《…》"式来源代释义，不套通用套话，不复制任何第三方译文或注本；不确定的不写，宁可留空。
-- 接入（`build_release.py`）：按 `stableId` 挂释义，**原句正文与原有来源块一字不动**，只填 `shortMeaning`、把该条 `recordVersion` 加 1，并追加一条 `type=original` / `rightsStatus=original` 的来源块（`id=yanjian-original-sentence-gloss`，`locator=data/editorial/sentences.psv`）。
-- 校验（`validate_release.py`）：逐条核对表内 `stableId` 在包内、原句一致、释义已生效、`recordVersion ≥ 2`、附原创来源块；句子短释义长度限 6–60 字、不含拉丁字母。
-- 覆盖面：**83 / 29,635 条**（古典 69 条 + 实用 14 条），**仍缺 29,552 条**，其 `shortMeaning` 保持空串，翻面提示「释义待补充」，可阅读收藏但不参与评分。已覆盖含截图句 `official:sentence:000eede8-4120-45fe-b5ec-f09064fd6844`（周密《曲游春》「楚苑东风外，暖丝情絮，春思如织。」）及一批唐诗宋词名句与推荐队列靠前的口语句；**这不等于整个语料已补齐**，也未做逐条第三方校订。
-- 因内容变化，顶层 `contentVersion` 由 2 升到 3；条目总量 30,278、全部 `id`、分类与筛选计数均未变，包体 23,338,610 字节。
+- 后续修订号：`data/editorial/sentence-gloss-revisions.psv`（`stableId|recordVersion`），只登记已发布后发生修订的释义；本轮184条由2升3，构建与发布校验核对，防止同修订内容冲突。四列释义表格式保持。
+- 规则：只按原句支持的意思写现代汉语，保留否定、条件、人物关系、数量、时态和语气；不以来源代释义，不套感悟，不复制第三方译文；古典句须解释关键古词，不能只换繁简/词序。确有歧义先列疑难，核对原上下文或采用可说明边界的保守释读后再合并。
+- 接入（`build_release.py`）：按稳定ID挂释义，原始来源块保留，只填 `shortMeaning`、递增对应 `recordVersion`、追加原创来源块（`id=yanjian-original-sentence-gloss`，`locator=data/editorial/sentences.psv`）。正文校改独立按有据校改表先执行，不靠释义流程偷偷改正文。
+- 校验（`validate_release.py`）：逐条核对表内ID、校改后原句、释义、修订号与原创来源；6–60字符且不含拉丁字母，v4缺释义直接失败。合并脚本检查重复ID、原句对应、覆盖率、照抄和格式。
+- 覆盖面：**29,635 / 29,635条**（实用26,011、古典3,624），缺失0；DeepSeek补齐原缺29,552条，既有83条保留。随机50条及遗漏修订184条中的随机35条审查范围见上文；不做全库逐条审校。疑难保守释读与校改边界记在批次README。
+- `contentVersion=5`，条目30,278、稳定ID无增删；包体38,761,015字节。APK与实际入库验证见 `docx/10-本轮交付与运行.md`。

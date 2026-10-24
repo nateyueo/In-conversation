@@ -66,8 +66,8 @@ def main() -> int:
         errors.append(f"datasetId 不符：{pkg.get('datasetId')}")
     if pkg.get("schemaVersion") != 1 or not isinstance(pkg.get("schemaVersion"), int):
         errors.append(f"schemaVersion 必须是整数 1：{pkg.get('schemaVersion')}")
-    if pkg.get("contentVersion") != 3 or not isinstance(pkg.get("contentVersion"), int):
-        errors.append(f"contentVersion 必须是整数 3（v2 一条正文校改，v3 句子原创短释义）：{pkg.get('contentVersion')}")
+    if pkg.get("contentVersion") != 5 or not isinstance(pkg.get("contentVersion"), int):
+        errors.append(f"contentVersion 必须是整数 5（全量句意及古典白话修订）：{pkg.get('contentVersion')}")
 
     entries = pkg.get("entries") or []
     stats: Counter = Counter()
@@ -129,7 +129,8 @@ def main() -> int:
             if not isinstance(meaning, str):
                 errors.append(f"句子 shortMeaning 必须是字符串：{e['id']}")
             elif meaning == "":
-                stats["sentencesWithoutMeaning"] += 1      # 尚未释义：允许，但不计入覆盖
+                stats["sentencesWithoutMeaning"] += 1
+                errors.append(f"v4 句子仍缺释义：{e['id']}")
             elif not (SENTENCE_GLOSS_MIN_LEN <= len(meaning) <= SENTENCE_GLOSS_MAX_LEN):
                 errors.append(f"句子短释义长度异常（{len(meaning)}）：{e['id']}")
             elif RE_LATIN.search(meaning):
@@ -233,6 +234,23 @@ def main() -> int:
             glosses_checked += 1
 
     reg_ids = load_registry()
+    revision_path = DATA / "editorial" / "sentence-gloss-revisions.psv"
+    seen_revisions = set()
+    if revision_path.exists():
+        by_id = {e["id"]: e for e in entries}
+        for ln, line in enumerate(revision_path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip() or line.startswith("#"):
+                continue
+            fields = line.split("|")
+            if len(fields) != 2 or not fields[1].isdigit() or int(fields[1]) < 3 or fields[0] in seen_revisions:
+                errors.append(f"释义修订表第 {ln} 行无效或重复")
+                continue
+            sid, revision = fields[0], int(fields[1])
+            seen_revisions.add(sid)
+            e = by_id.get(sid)
+            if e is None or e["kind"] != "sentence" or e["recordVersion"] != revision:
+                errors.append(f"释义修订号未生效：{sid}")
+
     unknown = [i for i in ids if i not in reg_ids]
     if unknown:
         errors.append(f"{len(unknown)} 个 id 未在稳定注册表中，例：{unknown[:3]}")

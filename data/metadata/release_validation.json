@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-24T11:28:52Z",
+  "checkedAt": "2026-10-24T14:17:39Z",
   "result": "PASS",
   "errors": [],
   "warnings": [],
   "package": {
     "path": "data/processed/official-content.json",
-    "bytes": 23338610,
+    "bytes": 38761015,
     "entries": 30278,
     "words": 643,
     "sentences": 29635,
-    "sentencesWithMeaning": 83,
-    "sentencesWithoutMeaning": 29552
+    "sentencesWithMeaning": 29635,
+    "sentencesWithoutMeaning": 0
   },
   "genreCounts": {
     "sentence:classic": 3624,
@@ -89,7 +89,7 @@
     "工作": 1
   },
   "registryIds": 99352,
-  "contentVersion": 3,
-  "correctionsChecked": 1,
-  "sentenceGlossesChecked": 83
+  "contentVersion": 5,
+  "correctionsChecked": 2,
+  "sentenceGlossesChecked": 29635
 }

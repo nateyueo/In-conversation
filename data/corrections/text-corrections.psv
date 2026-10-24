@@ -2,3 +2,4 @@
 # 分隔：stableId|sourceId|oldText|newText|recordVersion|verifiedAgainst|note|correctedAt
 # 说明：ID 与 recordVersion 由本表钉住——正文改动不产生新 ID，只升 recordVersion。
 official:sentence:428f1f1d-15af-421d-89b1-1d53ba613fe2|chinese-poetry:song300-113|万事一身伤老矣，戌葵凝笑墙东。|万事一身伤老矣，戎葵凝笑墙东。|2|https://zh.wikisource.org/wiki/Page%3ASibu_Congkan1050-%E9%99%B3%E8%88%87%E7%BE%A9-%E5%A2%9E%E5%BB%A3%E7%AE%8B%E8%A8%BB%E7%B0%A1%E9%BD%8B%E8%A9%A9%E9%9B%86-4-4.djvu/122|底本数字化误字「戌」，据四库本《簡齋集》影印页作「戎葵」；只改此一字，不推广到其他含「戌」句，不改「凝笑」等版本差异|2026-10-24
+official:sentence:1144675d-4cc6-4e3c-9b1d-af8da301ceb9|chinese-poetry:shuimo-71|自说二女啮臂时，回头却向秦云器。|自说二女啮臂时，回头却向秦云哭。|2|https://zh.wikisource.org/wiki/%E5%85%A8%E5%94%90%E8%A9%A9/%E5%8D%B7229|底本数字化误字「器」，据《全唐詩》卷229与《補註杜詩》卷09同联并作「哭」，注文「回頭望蜀而哭」直指哭泣义；只改末字，不推广到其他含「器」句，不改源包同诗「二十一人」「刺吏」等他处讹字|2026-10-24

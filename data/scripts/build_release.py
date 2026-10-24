@@ -38,7 +38,7 @@ SNAPSHOT = "2026-10-24"
 FORMAT = "yanjian-official-content"
 SCHEMA_VERSION = 1
 DATASET_ID = "yanjian-text"
-CONTENT_VERSION = 3   # v3：句子补编辑原创短释义（data/editorial/sentences.psv），原句与来源元数据不变
+CONTENT_VERSION = 5   # v5：古典白话修订；保持稳定 ID，登记已发布释义的修订号
 
 OUT_PATH = PROCESSED / "official-content.json"
 
@@ -347,10 +347,28 @@ def load_sentence_meanings() -> dict[str, dict]:
     return out
 
 
+def load_sentence_revisions() -> dict[str, int]:
+    """已发布释义的后续修订号；不改变四列释义表的既有格式。"""
+    path = EDITORIAL / "sentence-gloss-revisions.psv"
+    revisions = {}
+    if path.exists():
+        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip() or line.startswith("#"):
+                continue
+            fields = line.split("|")
+            if len(fields) != 2 or not fields[1].isdigit() or int(fields[1]) < 3 or fields[0] in revisions:
+                raise SystemExit(f"{path}:{number} 无效或重复的释义修订号")
+            revisions[fields[0]] = int(fields[1])
+    return revisions
+
+
 def apply_sentence_meanings(entries: list[dict], meanings: dict[str, dict]) -> list[dict]:
     """按稳定 ID 挂上原创句意短释义：原文与来源不动，只填 shortMeaning、升 recordVersion。"""
     by_id = {e["id"]: e for e in entries}
     applied = []
+    revisions = load_sentence_revisions()
+    if revisions.keys() - meanings.keys():
+        raise SystemExit("释义修订表包含未登记的句子")
     for stable_id, m in meanings.items():
         e = by_id.get(stable_id)
         if e is None:
@@ -368,6 +386,10 @@ def apply_sentence_meanings(entries: list[dict], meanings: dict[str, dict]) -> l
             raise SystemExit(f"句释义与包内既有释义冲突：{stable_id}")
         e["shortMeaning"] = gloss
         e["recordVersion"] += 1                 # 新增释义即一条记录变更
+        if stable_id in revisions:
+            if revisions[stable_id] < e["recordVersion"]:
+                raise SystemExit(f"释义修订号低于正文修订号：{stable_id}")
+            e["recordVersion"] = revisions[stable_id]
         if not any(s["type"] == "original" for s in e["sources"]):
             e["sources"].append(src_sentence_gloss("data/editorial/sentences.psv"))
         applied.append({"id": stable_id, "text": e["text"], "shortMeaning": gloss,
@@ -623,6 +645,9 @@ def main(argv: list[str] | None = None) -> int:
     corrections_applied = apply_corrections(entries, corrections)
     sentence_meanings = load_sentence_meanings()
     sentence_applied = apply_sentence_meanings(entries, sentence_meanings)
+    missing_meanings = sum(e["kind"] == "sentence" and not e["shortMeaning"].strip() for e in entries)
+    if missing_meanings:
+        raise SystemExit(f"v4 全量释义尚未就绪，仍缺 {missing_meanings} 条，正式包保持不变")
     entries.sort(key=lambda e: (e["kind"] != "word", e["genre"], e["category"], e["text"]))
 
     ids = [e["id"] for e in entries]
@@ -677,7 +702,7 @@ def main(argv: list[str] | None = None) -> int:
         "registryEntries": len(reg.map),
         "evidenceStatus": "全部条目 evidenceStatus=source_checked：原文与登记的公开来源快照匹配，未做人工逐条核验",
         "limits": [
-            "句子短释义为编辑原创，目前只覆盖 %d 条（data/editorial/sentences.psv）；其余 %d 条 shortMeaning 仍为空串（尚未释义），这类句子翻面提示「释义待补充」，可阅读收藏但不参与评分。"
+            "句子短释义覆盖 %d 条（data/editorial/sentences.psv），未覆盖 %d 条；主代理只作抽样检查，不代表全库逐条人工审校。"
             % (len(sentence_applied), len(practical) + len(classic) - len(sentence_applied)),
             "句释义只按原文字面重述句意，不代表全篇主旨，也未经第三方注本校订。",
             "Tatoeba 句名占位/不宜内容/近似重复已过滤，但翻译腔与自然度仍靠抽样，不是全量判定。",
