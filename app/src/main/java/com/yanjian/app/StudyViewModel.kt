@@ -89,7 +89,19 @@ class StudyViewModel : ViewModel() {
         } else loadQueue()
         if (page == Page.REVIEW && session == null) page = Page.SAVED
     }
-    private suspend fun loadSessionEntries() { reviewContent = session?.cards?.mapNotNull { db.entryDao().get(it.entryId) }?.associateBy { it.id } ?: emptyMap() }
+    private suspend fun loadSessionEntries() {
+        reviewContent = session?.cards?.mapNotNull { db.entryDao().get(it.entryId) }?.associateBy { it.id } ?: emptyMap()
+        session?.let { old ->
+            val cards = old.cards.filter { reviewContent[it.entryId]?.reviewable() == true }
+            if (cards.size != old.cards.size) {
+                val currentId = old.cards.getOrNull(old.position)?.presentationId
+                val position = cards.indexOfFirst { it.presentationId == currentId }.takeIf { it >= 0 }
+                    ?: cards.indexOfFirst { !it.scored && !it.skipped }.takeIf { it >= 0 } ?: cards.size
+                session = old.copy(cards = cards, position = position)
+                learning.save(session!!)
+            }
+        }
+    }
     private suspend fun saveMode() {
         draft = draft.copy(page = page.name)
         db.withTransaction {

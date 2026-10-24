@@ -31,6 +31,8 @@ RE_ID = re.compile(r"^official:(word|sentence):[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]
                    r"[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
 RE_HAN = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]")
 RE_LATIN = re.compile(r"[A-Za-z]")
+SENTENCE_GLOSS_MIN_LEN, SENTENCE_GLOSS_MAX_LEN = 6, 60
+SENTENCE_GLOSS_MIN_RECORD_VERSION = 2
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -64,8 +66,8 @@ def main() -> int:
         errors.append(f"datasetId 不符：{pkg.get('datasetId')}")
     if pkg.get("schemaVersion") != 1 or not isinstance(pkg.get("schemaVersion"), int):
         errors.append(f"schemaVersion 必须是整数 1：{pkg.get('schemaVersion')}")
-    if pkg.get("contentVersion") != 2 or not isinstance(pkg.get("contentVersion"), int):
-        errors.append(f"contentVersion 必须是整数 2（v2 已含一条正文校改）：{pkg.get('contentVersion')}")
+    if pkg.get("contentVersion") != 3 or not isinstance(pkg.get("contentVersion"), int):
+        errors.append(f"contentVersion 必须是整数 3（v2 一条正文校改，v3 句子原创短释义）：{pkg.get('contentVersion')}")
 
     entries = pkg.get("entries") or []
     stats: Counter = Counter()
@@ -123,8 +125,17 @@ def main() -> int:
             genres[f"sentence:{e['genre']}"] += 1
             if not (8 <= n_han <= 60):
                 errors.append(f"句子汉字数 {n_han} 越界：{text[:16]}")
-            if e["shortMeaning"] != "":
-                errors.append(f"句子 shortMeaning 应为空串：{e['id']}")
+            meaning = e["shortMeaning"]
+            if not isinstance(meaning, str):
+                errors.append(f"句子 shortMeaning 必须是字符串：{e['id']}")
+            elif meaning == "":
+                stats["sentencesWithoutMeaning"] += 1      # 尚未释义：允许，但不计入覆盖
+            elif not (SENTENCE_GLOSS_MIN_LEN <= len(meaning) <= SENTENCE_GLOSS_MAX_LEN):
+                errors.append(f"句子短释义长度异常（{len(meaning)}）：{e['id']}")
+            elif RE_LATIN.search(meaning):
+                errors.append(f"句子短释义含拉丁字母：{e['id']}")
+            else:
+                stats["sentencesWithMeaning"] += 1
             if RE_LATIN.search(text):
                 errors.append(f"句子含拉丁字母：{text[:16]}")
         cats[e["category"]] += 1
@@ -156,6 +167,9 @@ def main() -> int:
         for s in srcs:
             if s["type"] == "community_sentence" and not s["id"].startswith("tatoeba:"):
                 errors.append(f"community_sentence 来源 id 缺原 sentenceId：{s['id']}")
+        if e["kind"] == "sentence" and e["shortMeaning"]:
+            if not any(s["type"] == "original" for s in srcs):
+                errors.append(f"句子有短释义但缺原创来源：{e['id']}")
 
     dup = [i for i, c in ids.items() if c > 1]
     if dup:
@@ -188,6 +202,36 @@ def main() -> int:
                 errors.append(f"校改来源不匹配：{sid}")
             corrections_checked += 1
 
+    # 句子短释义表与包内条目一致性（原文未改、释义已生效、recordVersion 已升、附原创来源）
+    gloss_path = DATA / "editorial" / "sentences.psv"
+    glosses_checked = 0
+    if gloss_path.exists():
+        by_id = {e["id"]: e for e in entries}
+        for ln, line in enumerate(gloss_path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip() or line.startswith("#"):
+                continue
+            cols = [c.strip() for c in line.split("|")]
+            if len(cols) != 4:
+                errors.append(f"句释义表第 {ln} 行列数不是 4")
+                continue
+            sid, text, meaning = cols[0], cols[1], cols[2]
+            e = by_id.get(sid)
+            if e is None:
+                errors.append(f"句释义目标 id 不在包内：{sid}")
+                continue
+            if e["kind"] != "sentence":
+                errors.append(f"句释义目标不是句子：{sid}")
+                continue
+            if e["text"] != text:
+                errors.append(f"句释义表原句与包内正文不一致：{sid}")
+            if e["shortMeaning"] != meaning:
+                errors.append(f"句释义未生效：{sid}")
+            if e["recordVersion"] < SENTENCE_GLOSS_MIN_RECORD_VERSION:
+                errors.append(f"句释义已挂但 recordVersion 未升：{sid}")
+            if not any(s["type"] == "original" for s in e["sources"]):
+                errors.append(f"句释义缺原创来源：{sid}")
+            glosses_checked += 1
+
     reg_ids = load_registry()
     unknown = [i for i in ids if i not in reg_ids]
     if unknown:
@@ -204,6 +248,8 @@ def main() -> int:
             "entries": len(entries),
             "words": stats["words"],
             "sentences": stats["sentences"],
+            "sentencesWithMeaning": stats["sentencesWithMeaning"],
+            "sentencesWithoutMeaning": stats["sentencesWithoutMeaning"],
         },
         "genreCounts": dict(sorted(genres.items())),
         "categoryCounts": dict(cats.most_common()),
@@ -211,6 +257,7 @@ def main() -> int:
         "registryIds": len(reg_ids),
         "contentVersion": pkg.get("contentVersion"),
         "correctionsChecked": corrections_checked,
+        "sentenceGlossesChecked": glosses_checked,
     }
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"result": report["result"], "errors": len(errors),

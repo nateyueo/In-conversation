@@ -20,7 +20,7 @@ fun scored(old: UserEntryEntity, grade: Mastery): UserEntryEntity {
     return old.copy(mastery = grade.name, reviewCount = old.reviewCount + 1, lastReviewedAt = now,
         dueAt = now + days * 86400000L, schedulerVersion = "demo-1", revision = old.revision + 1)
 }
-fun EntryEntity.reviewable() = !id.startsWith("personal:") || meaning.isNotBlank()
+fun EntryEntity.reviewable() = meaning.isNotBlank()
 
 data class ReviewCard(val entryId: String, val presentationId: String = newId(), val revealed: Boolean = false,
     val flipped: Boolean = false, val skipped: Boolean = false, val scored: Boolean = false, val initial: Boolean = false)
@@ -37,7 +37,7 @@ class LearningRepository(private val db: YanjianDatabase) {
     suspend fun eligible(kind: String, practice: Boolean = false): List<EntryEntity> {
         val sql = """SELECT e.* FROM entries e JOIN user_entries u ON e.id=u.entryId
             WHERE e.kind=? AND u.isFavorite=1 ${if (practice) "" else "AND (u.reviewCount=0 OR (u.dueAt IS NOT NULL AND u.dueAt<=?))"}
-            AND (e.id NOT LIKE 'personal:%' OR trim(e.meaning)<>'')
+            AND trim(e.meaning)<>''
             ORDER BY CASE WHEN u.reviewCount>0 THEN 0 ELSE 1 END,u.dueAt, u.collectedAt IS NULL,u.collectedAt,e.id"""
         return db.entryDao().query(SimpleSQLiteQuery(sql, if (practice) arrayOf<Any>(kind) else arrayOf<Any>(kind, System.currentTimeMillis())))
     }

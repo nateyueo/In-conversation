@@ -31,13 +31,14 @@ PROCESSED = DATA / "processed"
 METADATA = DATA / "metadata"
 EDITORIAL = DATA / "editorial"
 CORRECTIONS = DATA / "corrections" / "text-corrections.psv"
+SENTENCE_GLOSS = EDITORIAL / "sentences.psv"
 RAW = DATA / "raw"
 SNAPSHOT = "2026-10-24"
 
 FORMAT = "yanjian-official-content"
 SCHEMA_VERSION = 1
 DATASET_ID = "yanjian-text"
-CONTENT_VERSION = 2   # v2：仅因一条正文按底本校改（见 data/corrections/text-corrections.psv）
+CONTENT_VERSION = 3   # v3：句子补编辑原创短释义（data/editorial/sentences.psv），原句与来源元数据不变
 
 OUT_PATH = PROCESSED / "official-content.json"
 
@@ -52,6 +53,7 @@ CJK_PUNCT = "，。！？、；：“”‘’（）《》…—·〈〉「」�
 WORD_LEN = (2, 4)
 SENT_LEN = (8, 60)
 GLOSS_LEN = (6, 60)
+SENTENCE_GLOSS_LEN = (6, 60)
 
 # ---- 二次筛选词表（保守、可复核，不是内容安全全覆盖）
 NAME_TERMS = [
@@ -257,6 +259,24 @@ def src_classic(pid: str, title: str, author: str, url: str, edition_name: str,
     }
 
 
+def src_sentence_gloss(locator: str) -> dict:
+    """句意短释义的原创来源块：type=original、rightsStatus=original，申明非第三方译文。"""
+    return {
+        "id": "yanjian-original-sentence-gloss",
+        "type": "original",
+        "title": "言间原创中文句意短释义",
+        "quote": None,
+        "locator": locator,
+        "url": None,
+        "edition": None,
+        "licenseName": "言间自制内容（本项目原创，随应用分发）",
+        "licenseUrl": None,
+        "attribution": "本句短释义为言间编辑原创：只按原文字面重述句意，未采用任何第三方译文、注本或词典释义。",
+        "evidenceStatus": "source_checked",
+        "rightsStatus": "original",
+    }
+
+
 
 # ---------------------------------------------------------------- 正文校改
 def load_corrections() -> list[dict]:
@@ -300,6 +320,58 @@ def apply_corrections(entries: list[dict], corrections: list[dict]) -> list[dict
         applied.append({"id": c["stableId"], "oldText": c["oldText"], "newText": c["newText"],
                         "recordVersion": e["recordVersion"], "verifiedAgainst": c["verifiedAgainst"],
                         "correctedAt": c["correctedAt"]})
+    return applied
+
+
+# ---------------------------------------------------------------- 句子原创短释义
+def load_sentence_meanings() -> dict[str, dict]:
+    """读取编辑原创句意短释义（stableId|原句|短释义|撰写日期）。
+
+    只登记已逐条写好的释义；未登记的句子 shortMeaning 保持空串，程序不自动补、不臆造。
+    """
+    if not SENTENCE_GLOSS.exists():
+        return {}
+    out: dict[str, dict] = {}
+    for ln, line in enumerate(SENTENCE_GLOSS.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip() or line.startswith("#"):
+            continue
+        cols = [c.strip() for c in line.split("|")]
+        if len(cols) != 4:
+            raise SystemExit(f"{SENTENCE_GLOSS}:{ln} 列数应为 4，实际 {len(cols)}")
+        stable_id, text, meaning, authored = cols
+        if not (stable_id and text and meaning and authored):
+            raise SystemExit(f"{SENTENCE_GLOSS}:{ln} 有空列")
+        if stable_id in out:
+            raise SystemExit(f"{SENTENCE_GLOSS}:{ln} 重复 stableId：{stable_id}")
+        out[stable_id] = {"text": text, "shortMeaning": meaning, "authoredOn": authored}
+    return out
+
+
+def apply_sentence_meanings(entries: list[dict], meanings: dict[str, dict]) -> list[dict]:
+    """按稳定 ID 挂上原创句意短释义：原文与来源不动，只填 shortMeaning、升 recordVersion。"""
+    by_id = {e["id"]: e for e in entries}
+    applied = []
+    for stable_id, m in meanings.items():
+        e = by_id.get(stable_id)
+        if e is None:
+            raise SystemExit(f"释义目标 id 不在包内：{stable_id}")
+        if e["kind"] != "sentence":
+            raise SystemExit(f"释义目标不是句子：{stable_id}")
+        if e["text"] != m["text"]:
+            raise SystemExit(f"释义表原句与包内正文不一致：{stable_id}\n  表内：{m['text']}\n  包内：{e['text']}")
+        gloss = m["shortMeaning"]
+        if not (SENTENCE_GLOSS_LEN[0] <= len(gloss) <= SENTENCE_GLOSS_LEN[1]):
+            raise SystemExit(f"句释义长度越界（{len(gloss)}）：{stable_id}")
+        if RE_LATIN.search(gloss) or RE_WEIRD.search(gloss) or not RE_HAN.search(gloss):
+            raise SystemExit(f"句释义含不允许的字形：{stable_id}")
+        if e["shortMeaning"] not in ("", gloss):
+            raise SystemExit(f"句释义与包内既有释义冲突：{stable_id}")
+        e["shortMeaning"] = gloss
+        e["recordVersion"] += 1                 # 新增释义即一条记录变更
+        if not any(s["type"] == "original" for s in e["sources"]):
+            e["sources"].append(src_sentence_gloss("data/editorial/sentences.psv"))
+        applied.append({"id": stable_id, "text": e["text"], "shortMeaning": gloss,
+                        "recordVersion": e["recordVersion"], "authoredOn": m["authoredOn"]})
     return applied
 
 # ---------------------------------------------------------------- 分类
@@ -549,6 +621,8 @@ def main(argv: list[str] | None = None) -> int:
     entries = words + practical + classic
     corrections = load_corrections()
     corrections_applied = apply_corrections(entries, corrections)
+    sentence_meanings = load_sentence_meanings()
+    sentence_applied = apply_sentence_meanings(entries, sentence_meanings)
     entries.sort(key=lambda e: (e["kind"] != "word", e["genre"], e["category"], e["text"]))
 
     ids = [e["id"] for e in entries]
@@ -589,6 +663,8 @@ def main(argv: list[str] | None = None) -> int:
             "words": len(words),
             "sentencesPractical": len(practical),
             "sentencesClassic": len(classic),
+            "sentencesWithMeaning": len(sentence_applied),
+            "sentencesWithoutMeaning": len(practical) + len(classic) - len(sentence_applied),
         },
         "kindGenre": dict(kind_genre),
         "genre": dict(genre_dist),
@@ -596,11 +672,14 @@ def main(argv: list[str] | None = None) -> int:
         "tags": dict(tag_dist.most_common()),
         "filteredCounts": dict(REJECT_RULES.most_common()),
         "correctionsApplied": corrections_applied,
+        "sentenceMeaningsApplied": sentence_applied,
         "newIdsAssigned": reg.new_count,
         "registryEntries": len(reg.map),
         "evidenceStatus": "全部条目 evidenceStatus=source_checked：原文与登记的公开来源快照匹配，未做人工逐条核验",
         "limits": [
-            "句子 shortMeaning 为空：不编造释义，卡片背面暂无中文解释。",
+            "句子短释义为编辑原创，目前只覆盖 %d 条（data/editorial/sentences.psv）；其余 %d 条 shortMeaning 仍为空串（尚未释义），这类句子翻面提示「释义待补充」，可阅读收藏但不参与评分。"
+            % (len(sentence_applied), len(practical) + len(classic) - len(sentence_applied)),
+            "句释义只按原文字面重述句意，不代表全篇主旨，也未经第三方注本校订。",
             "Tatoeba 句名占位/不宜内容/近似重复已过滤，但翻译腔与自然度仍靠抽样，不是全量判定。",
             "古典句保留原字形（含繁体），未做繁简转换，usageNote 已标注需注意字形的情况。",
             "词语释义为编辑撰写共 643 条规模，未做第三方专业词典校订。",

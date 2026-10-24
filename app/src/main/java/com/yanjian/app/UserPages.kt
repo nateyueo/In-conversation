@@ -4,7 +4,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,20 +27,24 @@ import androidx.compose.ui.window.DialogProperties
 import com.google.gson.JsonParser
 import kotlin.math.abs
 
-fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit, up: () -> Unit): Modifier = pointerInput(left,right,up) {
-    var total = Offset.Zero
-    detectDragGestures(onDragStart = { total = Offset.Zero }, onDragEnd = {
-        val threshold = 48.dp.toPx()
-        if (abs(total.x) > threshold && abs(total.x) > abs(total.y) * 1.25f) { if (total.x < 0) left() else right() }
-        else if (total.y < -threshold && abs(total.y) > abs(total.x) * 1.25f) up()
-    }, onDrag = { change, delta -> total += delta; if (abs(total.x) > 12.dp.toPx() || total.y < -12.dp.toPx()) change.consume() })
+fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit): Modifier = pointerInput(left, right) {
+    var distance = 0f
+    detectHorizontalDragGestures(
+        onDragStart = { distance = 0f },
+        onDragCancel = { distance = 0f },
+        onDragEnd = { if (abs(distance) > 64.dp.toPx()) { if (distance < 0) left() else right() }; distance = 0f },
+        onHorizontalDrag = { change, delta -> distance += delta; change.consume() }
+    )
 }
 
 @Composable fun CollectionPage(vm: StudyViewModel) {
     val items = vm.favorites(); val favorites = vm.allUserRecords().count { it.isFavorite }
     Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 12.dp)) {
         if (!vm.managerOpen) {
-            Text("收藏", fontSize = 26.sp, fontFamily = FontFamily.Serif)
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) { Text("我的收藏", fontSize = 25.sp, fontFamily = FontFamily.Serif); Text("把喜欢的表达，留给以后的自己", fontSize = 11.sp, color = Muted, modifier = Modifier.padding(top = 6.dp)) }
+                androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.reading_books), null, Modifier.size(65.dp))
+            }
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text("$favorites 条 · 到期 ${vm.dueCount} · 初次 ${vm.initialCount}", Modifier.weight(1f), fontSize = 12.sp)
                 Button(onClick = { vm.startReview(practice = vm.dueCount + vm.initialCount == 0) }, enabled = favorites > 0 && !vm.busy) {
@@ -48,7 +52,7 @@ fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit, up: () -> Unit): 
                 }
             }
         }
-        OutlinedTextField(vm.draft.search, { vm.setDraft(vm.draft.copy(search = it)) }, Modifier.fillMaxWidth(), label = { Text("搜索正文、释义、来源或标签") }, singleLine = true)
+        OutlinedTextField(vm.draft.search, { vm.setDraft(vm.draft.copy(search = it)) }, Modifier.fillMaxWidth(), placeholder = { Text("搜索收藏的文字", fontSize = 13.sp) }, singleLine = true, shape = RoundedCornerShape(18.dp))
         if (vm.scope == "favorite") {
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 (listOf("ALL" to "全部") + Mastery.entries.map { it.name to it.label }).forEach { (id,label) -> FilterChip(vm.draft.status == id, { vm.setDraft(vm.draft.copy(status = id)) }, { Text(label) }) }
@@ -66,10 +70,10 @@ fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit, up: () -> Unit): 
             }
         } else LazyColumn(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             items(items,key = { it.id }) { e ->
-                Surface(Modifier.fillMaxWidth().clickable { if (vm.managerOpen && e.id.startsWith("personal:")) vm.edit(e) else vm.showDetail(e) }, shape = RoundedCornerShape(18.dp), tonalElevation = 1.dp) {
+                Surface(Modifier.fillMaxWidth().clickable { if (vm.managerOpen && e.id.startsWith("personal:")) vm.edit(e) else vm.showDetail(e) }, shape = RoundedCornerShape(18.dp), color = PaperCard) {
                     Column(Modifier.padding(16.dp)) {
                         Text(e.text, fontFamily = FontFamily.Serif, fontSize = 19.sp, lineHeight = 28.sp, maxLines = 3)
-                        Text(if (!e.reviewable()) "待补充释义" else e.meaning.ifBlank { e.sourceLabel() }, fontSize = 12.sp, maxLines = 2, modifier = Modifier.padding(top = 6.dp))
+                        Text(e.meaning.ifBlank { "待补充释义" }, fontSize = 12.sp, lineHeight = 20.sp, color = Muted, maxLines = 2, modifier = Modifier.padding(top = 6.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(vm.users[e.id]?.mastery?.let { Mastery.valueOf(it).label } ?: "待学习", Modifier.weight(1f), fontSize = 12.sp, color = MaterialTheme.colorScheme.primary)
                             if (vm.scope == "hidden") TextButton(onClick = { vm.restoreHidden(e) }) { Text("恢复推荐") }
@@ -99,18 +103,23 @@ fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit, up: () -> Unit): 
         } }
         if (entry != null && c != null) {
             Text(if (c.scored) "已记录" else if (c.initial) "初次" else "待复习", fontSize = 12.sp, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(vertical = 10.dp))
-            Surface(Modifier.weight(1f).fillMaxWidth().cardGestures({ vm.reviewNext() }, { vm.reviewPrevious() }, { vm.showDetail(entry) }).clickable { vm.flip() }, shape = RoundedCornerShape(24.dp), tonalElevation = 2.dp) {
-                Column(Modifier.verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                    Text(if (c.flipped) entry.backText() else entry.text, fontFamily = FontFamily.Serif, fontSize = if (vm.mode == StudyMode.WORD && !c.flipped) 34.sp else 23.sp, lineHeight = 36.sp, textAlign = TextAlign.Center)
-                    Text(if (c.flipped) "点击返回正文" else "点击揭晓", fontSize = 12.sp, modifier = Modifier.padding(top = 20.dp))
+            Surface(Modifier.weight(1f).fillMaxWidth().cardGestures({ vm.reviewNext() }, { vm.reviewPrevious() }).clickable { vm.flip() }, shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
+                Column {
+                    key(entry.id, c.flipped) {
+                        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                            Text(if (c.flipped) entry.backText() else entry.text, fontFamily = FontFamily.Serif, fontSize = if (vm.mode == StudyMode.WORD && !c.flipped) 34.sp else 23.sp, lineHeight = 38.sp, textAlign = TextAlign.Center)
+                            Text(if (c.flipped) "点击返回正文" else "点击查看释义", fontSize = 12.sp, color = Muted, modifier = Modifier.padding(top = 20.dp))
+                        }
+                    }
+                    Landscape(Modifier.fillMaxWidth().height(85.dp))
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 TextButton(onClick = { vm.reviewPrevious() }) { Text("上一张") }
-                TextButton(onClick = { vm.showDetail(entry) }) { Text("来源与详情") }
+                TextButton(onClick = { vm.showDetail(entry) }) { Text("查看详情") }
                 TextButton(onClick = { vm.reviewNext() }) { Text(if (c.scored || s?.practice == true) "下一张" else "跳过") }
             }
-            if (s?.practice != true) Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(bottom = 12.dp)) { labels.forEach { grade -> Button(onClick = { vm.rate(entry,grade) }, enabled = c.revealed && !c.scored && !vm.busy, modifier = Modifier.weight(1f).heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 4.dp)) { Text(grade.label) } } }
+            if (s?.practice != true) Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(bottom = 12.dp)) { labels.forEach { grade -> Button(onClick = { vm.rate(entry,grade) }, enabled = entry.reviewable() && c.revealed && !c.scored && !vm.busy, modifier = Modifier.weight(1f).heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 4.dp)) { Text(grade.label) } } }
         } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             val skipped = s?.cards?.count { it.skipped && !it.scored } ?: 0
             Text(if (vm.filter != null) "这一类暂时没有到期内容" else if (skipped > 0) "还有 $skipped 条" else "本轮已完成", fontSize = 22.sp)
@@ -124,27 +133,7 @@ fun Modifier.cardGestures(left: () -> Unit, right: () -> Unit, up: () -> Unit): 
     }
 }
 
-@Composable fun InsightsPage(vm: StudyViewModel) {
-    val events = vm.filteredEvents(); val records = vm.allUserRecords().filter { it.isFavorite }; val reviews = events.filter { it.type == "review" }
-    val seen = events.filter { it.type == "exposure" }.map { it.entryId }.distinct().size
-    val added = events.filter { it.type == "favorite" }.map { it.entryId }.distinct().size
-    val historical = (vm.allUserRecords().sumOf { it.reviewCount } - vm.events.count { it.type == "review" && it.undoneAt == null }).coerceAtLeast(0)
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(22.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("学习数据", fontSize = 26.sp, fontFamily = FontFamily.Serif)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { listOf(1 to "今日",7 to "7日",30 to "30日",0 to "全部").forEach { (n,label) -> FilterChip(vm.draft.period == n,{ vm.setDraft(vm.draft.copy(period = n)) },{ Text(label) }) } }
-        listOf("浏览内容" to seen,"有效复习次数" to reviews.size,"复习内容" to reviews.map { it.entryId }.distinct().size,"期间新增收藏" to added).forEach { (label,n) -> Row(Modifier.fillMaxWidth()) { Text(label,Modifier.weight(1f)); Text(n.toString(),fontSize = 23.sp) } }
-        val exposedIds = events.filter { it.type == "exposure" }.map { it.entryId }.toSet()
-        val converted = events.filter { it.type == "favorite" && it.entryId in exposedIds }.map { it.entryId }.distinct().size
-        Text("浏览后收藏 $converted / $seen",fontSize = 13.sp)
-        HorizontalDivider(); Text("当前收藏 ${records.size}",fontSize = 18.sp)
-        Mastery.entries.forEach { grade -> val n = records.count { it.mastery == grade.name }; Row(Modifier.fillMaxWidth(),verticalAlignment = Alignment.CenterVertically) { Text(grade.label,Modifier.width(80.dp)); LinearProgressIndicator(progress = { if (records.isEmpty()) 0f else n.toFloat() / records.size }, modifier = Modifier.weight(1f)); Text("  $n") } }
-        Text("真实复习趋势",fontSize = 18.sp)
-        if (reviews.isEmpty()) Text("完成复习后出现记录",fontSize = 13.sp)
-        else reviews.groupBy { it.localDate }.toSortedMap().forEach { (date,list) -> Row(Modifier.fillMaxWidth()) { Text(date,Modifier.weight(1f)); Text("${list.size} 次") } }
-        if (historical > 0) Text("旧版本历史合计 $historical 次，缺少事件日期，不计入日期趋势。",fontSize = 12.sp)
-        Text("按事件发生时的当地日期记录；撤销评分不计入有效次数。",fontSize = 12.sp)
-    }
-}
+@Composable fun InsightsPage(vm: StudyViewModel) = PaperInsights(vm)
 
 @Composable fun DataTools(vm: StudyViewModel) {
     var expanded by remember { mutableStateOf(false) }

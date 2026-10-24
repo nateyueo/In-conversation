@@ -1,16 +1,18 @@
 {
-  "builtAt": "2026-10-24T09:25:35Z",
+  "builtAt": "2026-10-24T11:28:51Z",
   "format": "yanjian-official-content",
   "schemaVersion": 1,
   "datasetId": "yanjian-text",
-  "contentVersion": 2,
+  "contentVersion": 3,
   "path": "processed/official-content.json",
-  "bytes": 23293368,
+  "bytes": 23338610,
   "counts": {
     "entries": 30278,
     "words": 643,
     "sentencesPractical": 26011,
-    "sentencesClassic": 3624
+    "sentencesClassic": 3624,
+    "sentencesWithMeaning": 83,
+    "sentencesWithoutMeaning": 29552
   },
   "kindGenre": {
     "word:classic": 177,
@@ -115,11 +117,595 @@
       "correctedAt": "2026-10-24"
     }
   ],
+  "sentenceMeaningsApplied": [
+    {
+      "id": "official:sentence:000eede8-4120-45fe-b5ec-f09064fd6844",
+      "text": "楚苑东风外，暖丝情絮，春思如织。",
+      "shortMeaning": "东风穿过苑墙，暖风里柳絮游丝纷飞，春日的思绪细密如织。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:978bd3b3-9943-4654-b03a-d381c9a7617c",
+      "text": "会当凌绝顶，一览众山小。",
+      "shortMeaning": "总有一天要登上最高处，那时看群山都显得矮小。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:399fab93-b16c-4679-b7bf-31bf853125aa",
+      "text": "忽如一夜春风来，千树万树梨花开。",
+      "shortMeaning": "像一夜春风吹过，千万株白雪都成了盛开的梨花。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:5cd5533c-2fb9-4e58-aa7e-9bd4b063a609",
+      "text": "独在异乡为异客，每逢佳节倍思亲。",
+      "shortMeaning": "独自在他乡做客，每逢节日就更想念家中亲人。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:453e951e-7c21-450d-8592-53888bf13e26",
+      "text": "劝君更尽一杯酒，西出阳关无故人。",
+      "shortMeaning": "再劝你饮干这一杯，出了阳关便再无旧友相伴。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:d9ac8842-760c-4a55-ab20-f3c106e2d18f",
+      "text": "停车坐爱枫林晚，霜叶红于二月花。",
+      "shortMeaning": "停下车不肯走，是因为爱这片傍晚枫林，经霜的叶子红过春花。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:bab70c1f-e105-4da4-8c23-6b3fe3d9d285",
+      "text": "商女不知亡国恨，隔江犹唱后庭花。",
+      "shortMeaning": "卖唱的歌女不懂亡国之恨，隔着江水还在唱那支亡国之曲。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:b3c7585a-d78d-489c-a9b7-0bddc766ed4c",
+      "text": "谁言寸草心，报得三春晖。",
+      "shortMeaning": "谁说小草般微薄的心意，报答得了春天阳光似的母爱。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:891f23c5-af20-41b7-82d6-91fe57fd1a7c",
+      "text": "孤帆远影碧空尽，惟见长江天际流。",
+      "shortMeaning": "孤帆的影子消尽在碧空尽头，只剩长江水向天边流去。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:8618c03f-5b78-480d-b0c0-29298d14cab9",
+      "text": "秦时明月汉时关，万里长征人未还。",
+      "shortMeaning": "还是秦汉时的明月和边关，远征万里的将士却没有回来。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:5162d8e5-edcc-4f14-b0f6-ce22ff3cd826",
+      "text": "红豆生南国，春来发几枝？愿君多采撷，此物最相思。",
+      "shortMeaning": "红豆生在南方，春天才抽出几枝；愿你多采一些，它最能寄相思。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:54158631-4622-4a8d-9491-057d33d75d8e",
+      "text": "此情可待成追忆，只是当时已惘然。",
+      "shortMeaning": "这份情何必等到日后再追忆，当时就已经惘然若失。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:e9eb5954-7cb2-4207-88fd-fc05d765a33f",
+      "text": "碧玉妆成一树高，万条垂下绿丝绦。",
+      "shortMeaning": "高高的柳树像用碧玉装扮起来，万条枝条垂下似绿色丝带。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:f4c5bb26-5733-49c7-944c-f04c944aa563",
+      "text": "不知细叶谁裁出，二月春风似剪刀。",
+      "shortMeaning": "不知这细小的柳叶是谁裁出，原来二月春风就像一把剪刀。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:8c498528-8e9f-47f5-b17f-884b6e467281",
+      "text": "独坐幽篁里，弹琴复长啸。",
+      "shortMeaning": "独自坐在幽深的竹林里，一边弹琴一边放声长啸。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:ae8b54a4-b85e-4331-8a99-39c45145abe7",
+      "text": "深林人不知，明月来相照。",
+      "shortMeaning": "竹林深处没有人知道，只有明月来照着我。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:07e8fa0f-d5bf-4f5c-947f-cef99ddaa4a0",
+      "text": "空山不见人，但闻人语响。",
+      "shortMeaning": "空山里看不见人影，只听见有人说话的声音。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:322bbf08-599d-43ec-abc8-e7e53e787fca",
+      "text": "故人具鸡黍，邀我至田家。",
+      "shortMeaning": "老朋友备好鸡和黄米饭，请我到他的农家做客。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:42435eb8-4729-4ab5-ae34-9b9e35cc64ac",
+      "text": "绿树村边合，青山郭外斜。",
+      "shortMeaning": "绿树环抱着村庄，青山在城郭外斜斜伸展。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:c74076c9-d429-4816-b642-405164a3d0a7",
+      "text": "移舟泊烟渚，日暮客愁新。",
+      "shortMeaning": "把船停在雾气笼罩的小洲边，日落时旅人的愁绪又添一层。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:4a9d0376-72f4-4e1a-8c2b-b6e548757dd5",
+      "text": "野旷天低树，江清月近人。",
+      "shortMeaning": "原野空旷，天低得像压着树；江水清澈，月影仿佛靠近人身。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:a2385b3a-c5b3-4145-a080-a8007930a4a5",
+      "text": "清明时节雨纷纷，路上行人欲断魂。",
+      "shortMeaning": "清明时节细雨纷纷，赶路的人愁得心神散乱。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:9dfae245-001c-4882-8e10-ed79c1bdec2f",
+      "text": "借问酒家何处有？牧童遥指杏花村。",
+      "shortMeaning": "问哪里有酒家，牧童远远指向杏花开遍的村子。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:01ade615-d5ba-4bb7-9b4f-73efbc812a9c",
+      "text": "东风不与周郎便，铜雀春深锁二乔。",
+      "shortMeaning": "若不是东风帮了周瑜一把，二乔早被锁进铜雀台的春色里。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:4ef52c67-cbc1-4541-8255-813c354691e3",
+      "text": "千里莺啼绿映红，水村山郭酒旗风。",
+      "shortMeaning": "千里莺啼，绿树映着红花；水村山郭，酒旗迎风招展。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:b60fc5d3-dc75-4cb6-aa44-d544685bc31f",
+      "text": "朝辞白帝彩云间，千里江陵一日还。",
+      "shortMeaning": "清晨辞别彩云间的白帝城，千里外的江陵一天就回。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:f2c54b31-17d9-405f-8191-57279481b60a",
+      "text": "两岸猿声啼不住，轻舟已过万重山。",
+      "shortMeaning": "两岸猿声还在啼叫，轻快的船已驶过重重山峦。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:0c8bcbf4-eaf1-4afc-925e-ddae439f5aad",
+      "text": "小时不识月，呼作白玉盘。",
+      "shortMeaning": "小时候不认识月亮，把它叫作白玉做的盘子。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:d7a27ba4-0769-4f64-ae91-f7411dbfc37b",
+      "text": "慈母手中线，游子身上衣。",
+      "shortMeaning": "母亲手里的针线，缝成了远行儿子身上的衣裳。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:151d01eb-0a84-44fb-82b5-bacce4feb6b1",
+      "text": "月落乌啼霜满天，江枫渔火对愁眠。",
+      "shortMeaning": "月落时乌鸦啼叫、寒霜满天，江边枫树和渔火伴着愁人难眠。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:26b5766d-4acf-4d29-9ce3-becd42fcb885",
+      "text": "姑苏城外寒山寺，夜半钟声到客船。",
+      "shortMeaning": "姑苏城外的寒山寺，半夜的钟声传到了客船上。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:e4901da7-c4e6-43b1-80b1-1d4db0eedfb5",
+      "text": "朱雀桥边野草花，乌衣巷口夕阳斜。",
+      "shortMeaning": "朱雀桥边长满野草野花，乌衣巷口只剩一缕斜阳。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:ceae4b27-6140-4368-b123-d537ec39f45a",
+      "text": "旧时王谢堂前燕，飞入寻常百姓家。",
+      "shortMeaning": "当年王导、谢安堂前的燕子，如今飞进普通人家的屋檐。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:29b6933b-5c6d-455b-bfa7-b51ad8db5fe1",
+      "text": "湖光秋月两相和，潭面无风镜未磨。",
+      "shortMeaning": "湖光与秋月相互映衬，无风的潭面像还没打磨的镜子。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:6d4db8b5-d499-4edf-a869-cf00f3a4865c",
+      "text": "离离原上草，一岁一枯荣。",
+      "shortMeaning": "原野上茂密的野草，一年枯萎又一年繁茂。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:c611c45a-6917-4061-8500-aea884bdb998",
+      "text": "野火烧不尽，春风吹又生。",
+      "shortMeaning": "野火烧不尽它，春风一吹又长出来。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:480d70c1-1337-4c79-8d35-5b125ffce4b6",
+      "text": "一道残阳铺水中，半江瑟瑟半江红。",
+      "shortMeaning": "一道夕阳平平铺在水面，半边江碧绿半边江染红。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:52362dca-b637-41db-a07d-85b82965f587",
+      "text": "人间四月芳菲尽，山寺桃花始盛开。",
+      "shortMeaning": "山下四月花开已尽，山寺里的桃花才开始盛开。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:f40f1de1-34e7-488f-8548-d85844969c0a",
+      "text": "可怜身上衣正单，心忧炭贱愿天寒。",
+      "shortMeaning": "可怜他身上衣裳单薄，却怕炭贱而巴不得天再冷些。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:793c0c45-1eec-4d4e-af13-c8e8964c119b",
+      "text": "绿蚁新醅酒，红泥小火炉。",
+      "shortMeaning": "新酿的酒面浮着绿沫，红泥小炉烧得正暖。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:f2538467-1d37-4f55-bb47-afd718ef0318",
+      "text": "锄禾日当午，汗滴禾下土。",
+      "shortMeaning": "正午烈日下锄地，汗水滴落进禾苗下的泥土。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:5d857eb8-b71b-4676-863e-70599b3dd2da",
+      "text": "谁知盘中餐，粒粒皆辛苦。",
+      "shortMeaning": "谁知道碗里的饭，每一粒都饱含辛苦。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:e946170f-7611-440b-a26b-f0f9adfecb67",
+      "text": "千里黄云白日曛，北风吹雁雪纷纷。",
+      "shortMeaning": "千里黄云遮得日色昏黄，北风吹着雁群大雪纷飞。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:47b68a92-9466-499a-bdee-a207ad7f08f8",
+      "text": "洛阳亲友如相问，一片冰心在玉壶。",
+      "shortMeaning": "洛阳亲友若问起我，就说我的心还像玉壶里的一片冰。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:0945bf18-8fea-4e6c-95c8-e53922363e14",
+      "text": "前不见古人，后不见来者。",
+      "shortMeaning": "往前看不到古代贤者，往后也等不来后来的人。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:02f65656-f4ee-4830-835f-ba33d4603073",
+      "text": "昔人已乘黄鹤去，此地空余黄鹤楼。",
+      "shortMeaning": "前人已骑黄鹤飞去，这里只留下空空的黄鹤楼。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:96c598ea-5dcd-45be-87ff-25de1c81034b",
+      "text": "日暮乡关何处是？烟波江上使人愁。",
+      "shortMeaning": "天色晚了，故乡在哪里？江上烟波让人发愁。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:3a7f9934-b02f-4781-9893-6d8db2b34c75",
+      "text": "夕阳无限好，只是近黄昏。",
+      "shortMeaning": "夕阳好得没有尽头，可惜天已接近黄昏。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:7f65a87f-c133-4f4e-b781-a0fb6f57a3f3",
+      "text": "云母屏风烛影深，长河渐落晓星沉。",
+      "shortMeaning": "云母屏风上烛影深深，银河渐落，晨星也沉了下去。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:080581db-ef52-4a36-8770-6c6be0cc400a",
+      "text": "马上相逢无纸笔，凭君传语报平安。",
+      "shortMeaning": "路上马上相遇，手边没有纸笔，只能托你带句话报平安。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:c3a659e9-24ee-44bf-ac37-69312f23cb9d",
+      "text": "独怜幽草涧边生，上有黄鹂深树鸣。",
+      "shortMeaning": "偏爱涧边那片幽静的野草，上方深树里黄鹂在啼。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:666489dc-565b-47e9-8325-28bb71cf8970",
+      "text": "春潮带雨晚来急，野渡无人舟自横。",
+      "shortMeaning": "傍晚春潮裹着雨来得急，荒野渡口无人，小船独自横着。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:2c8dd1f8-0be3-4cb2-909b-9022f442e7e2",
+      "text": "人闲桂花落，夜静春山空。",
+      "shortMeaning": "人闲静时桂花轻轻飘落，夜里春山一片空寂。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:cc69bea8-c4da-4e8e-aaf8-4aedbe91e93e",
+      "text": "银烛秋光冷画屏，轻罗小扇扑流萤。",
+      "shortMeaning": "秋夜烛光映得画屏清冷，她拿着轻罗小扇扑打流萤。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:1000530a-cd7c-48d0-a326-d6c6d87c18bf",
+      "text": "打起黄莺儿，莫教枝上啼。",
+      "shortMeaning": "赶走黄莺，别让它在枝上啼叫，怕惊醒了梦中的人。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:897d13e0-c77a-4aa6-841b-dd696575e37b",
+      "text": "天生我材必有用，千金散盡還復來。",
+      "shortMeaning": "上天生我必有可用之处，钱财散尽了也还会再回来。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:a772f599-d8ed-42e9-84ae-1a24662e15ee",
+      "text": "長風破浪會有時，直挂雲帆濟滄海。",
+      "shortMeaning": "总有一天能乘长风破万里浪，径直挂起云帆渡过大海。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:f3807650-7577-4552-8b92-42ae6f30a5ec",
+      "text": "君不見黃河之水天上來，奔流到海不復回。",
+      "shortMeaning": "你没看见黄河水像从天而降，奔流入海再也不回头。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:18ada8ee-3c77-43ce-9164-65360863c2cc",
+      "text": "人生得意須盡歡，莫使金尊空對月。",
+      "shortMeaning": "得意时就该尽情欢乐，别让金杯空着对一轮明月。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:947c0d68-c46c-4935-b671-906463b9f171",
+      "text": "但愿人长久，千里共婵娟。",
+      "shortMeaning": "只愿彼此长久平安，纵然相隔千里也能共看这轮明月。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:6b2428be-f94a-43dd-b8c3-034cdfa53a70",
+      "text": "明月几时有，把酒问青天。",
+      "shortMeaning": "举起酒杯向青天发问：这样明亮的月从何时才有。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:c7f580c6-d901-426b-b865-8d2aec18025a",
+      "text": "无可奈何花落去，似曾相识燕归来。",
+      "shortMeaning": "花落无可奈何，归来的燕子却像从前见过的那一只。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:3c47fa52-1a30-4d0e-9936-42b118df4218",
+      "text": "莫道不消魂，帘卷西风，人似黄花瘦。",
+      "shortMeaning": "别说这不动人心魂：西风吹卷帘子，人像菊花一样清瘦憔悴。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:f4214522-8500-419f-ba64-bc3811aa466e",
+      "text": "蓦然回首，那人却在，灯火阑珊处。",
+      "shortMeaning": "猛然回头，要找的人却站在灯火稀疏冷落的地方。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:c9fb0ef0-4fdc-4f04-a9ba-cc25a452af2f",
+      "text": "怒发冲冠，凭阑处、潇潇雨歇。",
+      "shortMeaning": "愤怒得头发竖起顶起帽子，倚着栏杆时一阵急雨刚停。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:24da071e-4bda-4a9e-9e64-4355afa21647",
+      "text": "三十功名尘与土，八千里路云和月。",
+      "shortMeaning": "三十年来挣的功名不过尘土，转战八千里的只有云和月。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:4284c13f-2402-408b-8a30-425fa313cdb8",
+      "text": "缺月挂疏桐，漏断人初静。",
+      "shortMeaning": "残月挂在稀疏的梧桐枝头，更漏已断，人声刚刚静下。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:0007510a-5624-4ec0-a89d-37fac59f17fd",
+      "text": "都待笙歌散了，记取留时霎。",
+      "shortMeaning": "等到歌舞散场之后，请记住此刻相聚的这一瞬。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:008e53a4-8737-4252-b1d2-b96c4f6072d4",
+      "text": "扣舷独笑，不知今夕何夕。",
+      "shortMeaning": "敲着船舷独自而笑，忘了今晚是哪一个晚上。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:000ab699-6edb-4475-8c77-3e0d9dff71cf",
+      "text": "真实是永恒的，不受日常生活所累。",
+      "shortMeaning": "真实本身长存，不会被日常琐事左右。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:000dc711-a16c-428e-898d-d3b4b45456b7",
+      "text": "没有人能做所有的事情。",
+      "shortMeaning": "一个人不可能把所有事都做完，不必硬撑。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:00138e82-003c-438c-87b5-9a0062ab2b6e",
+      "text": "他连高音谱号和低音谱号都分不清。",
+      "shortMeaning": "他完全看不懂乐谱，高音低音都分不清。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:00176ba8-731d-4972-9ed2-f06e243b402e",
+      "text": "我无法与他联络上。",
+      "shortMeaning": "怎么都联系不上他。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:0019c69d-c0de-4802-b662-a1d56e242622",
+      "text": "如果你只睡了三个小时觉，一定会考试考得不好。",
+      "shortMeaning": "只睡三个小时，考试一定考不好。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:001a852a-3777-4eb5-a6aa-f49e54343439",
+      "text": "你现在可以完成你的文章了。",
+      "shortMeaning": "文章现在可以收尾了。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:00230e3c-63d6-4ead-8a1b-a750b48d7dc6",
+      "text": "别留着一半工作没干。",
+      "shortMeaning": "做事别做一半就撂下。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:0025870c-a447-406a-9f6e-9b07bd1b2744",
+      "text": "我们总得找点乐子。",
+      "shortMeaning": "日子再累，也得给自己找些开心事。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:002824e6-6992-4280-82b5-6744744cba4a",
+      "text": "英语在全世界都被使用。",
+      "shortMeaning": "英语是各国通用的语言。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:002d904a-3408-4ee3-af2f-125d9536a862",
+      "text": "你必须在天黑前回来。",
+      "shortMeaning": "天黑以前必须赶回来。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:0030bce0-98c6-4723-9bb5-04fb6f92059f",
+      "text": "我看了自己的笔记。",
+      "shortMeaning": "我翻看了一遍自己记的笔记。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:72dfdc76-3bba-41fa-a203-cfa83adc6f48",
+      "text": "大江东去，浪淘尽，千古风流人物。",
+      "shortMeaning": "长江滚滚东流，浪涛冲尽了千百年来的风云人物。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:167e2e20-8c97-419e-b402-7c58b7df31af",
+      "text": "山重水复疑无路，柳暗花明又一村。",
+      "shortMeaning": "山水重叠似已无路，转过去却是绿柳红花又一村。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    },
+    {
+      "id": "official:sentence:244f8cdb-e8c6-4b21-8221-f801f7a7574e",
+      "text": "莫等闲，白了少年头，空悲切！",
+      "shortMeaning": "别把年华虚度，等少年头白，只剩空自悲叹。",
+      "recordVersion": 2,
+      "authoredOn": "2026-10-24"
+    }
+  ],
   "newIdsAssigned": 0,
   "registryEntries": 99352,
   "evidenceStatus": "全部条目 evidenceStatus=source_checked：原文与登记的公开来源快照匹配，未做人工逐条核验",
   "limits": [
-    "句子 shortMeaning 为空：不编造释义，卡片背面暂无中文解释。",
+    "句子短释义为编辑原创，目前只覆盖 83 条（data/editorial/sentences.psv）；其余 29552 条 shortMeaning 仍为空串（尚未释义），这类句子翻面提示「释义待补充」，可阅读收藏但不参与评分。",
+    "句释义只按原文字面重述句意，不代表全篇主旨，也未经第三方注本校订。",
     "Tatoeba 句名占位/不宜内容/近似重复已过滤，但翻译腔与自然度仍靠抽样，不是全量判定。",
     "古典句保留原字形（含繁体），未做繁简转换，usageNote 已标注需注意字形的情况。",
     "词语释义为编辑撰写共 643 条规模，未做第三方专业词典校订。"

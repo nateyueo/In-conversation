@@ -156,11 +156,10 @@ fun EntryEntity.sourceDetails(): String {
                 .mapNotNull { key -> s.get(key)?.takeUnless { it.isJsonNull }?.asString }.toTypedArray()).joinToString("\n")
     }
 }
-fun EntryEntity.backText(): String = meaning.ifBlank {
-    context.ifBlank {
-        val location = if (isSample) workTitle else sourceObjects().firstOrNull()?.let { s ->
-            listOf("title", "locator", "url", "attribution").firstNotNullOfOrNull { key -> s.get(key)?.takeUnless { it.isJsonNull }?.asString }
-        }.orEmpty()
-        listOf(sourceLabel(), location).filter { it.isNotBlank() }.joinToString(" · ")
-    }
+fun EntryEntity.backText(): String = meaning.ifBlank { "这条内容暂未补充释义" }
+
+// Keep repository identifiers and licensing out of the reading surface.
+fun EntryEntity.readingCredit(): String {
+    val title = workTitle.trim()
+    return title.takeIf { it.startsWith("《") && it.endsWith("》") && it.length < 60 }.orEmpty()
 }

@@ -2,7 +2,7 @@
 
 ## 0. 状态一句话
 
-- **正式包**：`data/processed/official-content.json`（30,278 条，`publicationStatus=published`），按固定契约输出，可离线分发。
+- **正式包**：`data/processed/official-content.json`（30,278 条，`contentVersion=3`，`publicationStatus=published`），按固定契约输出，可离线分发。
 - **候选池**：`data/processed/entries.*.candidate.jsonl` 等，仅供编辑扩充与重跑，**已 git 忽略**，不代表正式数量。
 - 所有条目的 `evidenceStatus=source_checked` 只表示"原文与登记的公开来源快照匹配"；处理方式是**自动过滤 + 抽样查看**，**不是**全部条目经编辑逐条批准，也**不是**影视级别的严格 verified。
 
@@ -13,9 +13,9 @@
   "format": "yanjian-official-content",
   "schemaVersion": 1,
   "datasetId": "yanjian-text",
-  "contentVersion": 2,
+  "contentVersion": 3,
   "entries": [ { "id": "official:word:<uuid4>" | "official:sentence:<uuid4>",
-                 "recordVersion": 1 | 2, "kind": "word" | "sentence",
+                 "recordVersion": 1 | 2 | 3, "kind": "word" | "sentence",
                  "text": "…", "shortMeaning": "…", "genre": "practical" | "classic",
                  "category": "非空领域名", "tags": ["daily" | "writing", …],
                  "usageNote": "…或空串", "publicationStatus": "published",
@@ -27,7 +27,7 @@
 
 - `type` ∈ `dictionary` / `community_sentence` / `public_domain_text` / `original` / `film`（本轮无 film）。
 - `rightsStatus` ∈ `open_license` / `public_domain` / `original`；`evidenceStatus` ∈ `source_checked` / `verified`。
-- 词语 `shortMeaning` 一律非空（本项目原创中文短释义）；句子 `shortMeaning` 一律为空串 `""`，即"只有原文与出处，没有释义"，不编造释义。
+- 句子 `shortMeaning`：已逐条写好原创短释义的句子为**非空**（6–60 字现代汉语一句话释义，来源里追加 `type=original` 的「言间原创中文句意短释义」块）；其余句子仍为空串 `""`（表示尚未释义），程序不自动补、不臆造；这类句子翻面提示「释义待补充」，可阅读收藏但不参与评分。
 - `usageNote` 允许空串；仅当古典原文含繁体/异体字形时写入说明，不编造语境。
 
 ## 2. 数量（以 `metadata/release_report.json` 与 `metadata/release_validation.json` 为准）
@@ -38,7 +38,8 @@
 | 词语 | **643**（两字 466 通用 + 四字 177 成语/固定表达） | 词形候选 50,227（其中带原创释义 635） |
 | 实用句 | **26,011**（Tatoeba 普通话） | 29,180 |
 | 古典句 | **3,624**（唐诗宋词精选 + 李白/杜甫/白居易） | 728（未挑选的全唐诗简体切片） |
-| 包体大小 | 23,293,368 字节（约 22.2 MiB） | — |
+| 句子短释义 | **83**（编辑原创，`editorial/sentences.psv`）；其余 29,552 条 `shortMeaning` 为空串 | — |
+| 包体大小 | 23,338,610 字节（约 22.3 MiB） | — |
 
 `genre` 分布：practical 26,477 / classic 3,801（**不是**按 60:40 配比强行凑数，60:40 是日后推荐采样比例，不是库存硬指标）。
 
@@ -89,7 +90,7 @@ python data/scripts/build_candidates.py --include-traditional
 
 ## 6. 已知局限（不要当作"全部人工核验"）
 
-1. 没有编辑逐条批准：只有自动过滤 + 抽样查看（`metadata/release-sample.jsonl`），句子没有中文释义。
+1. 没有编辑逐条批准：只有自动过滤 + 抽样查看（`metadata/release-sample.jsonl`）。句子短释义目前只覆盖 83 条（`editorial/sentences.psv`），其余 29,552 条句子仍无中文释义。
 2. Tatoeba 句仍有翻译腔、书面腔与不自然表达，翻译腔只做了"长句的≥4"这类启发式判断，不是判定器。
 3. 分类是关键词启发式，74% 实用句与 90% 古典句落在中性类（`日常交流` / `古典诗词`），不等于已做主题标注。
 4. 古典句保留原字形，**未经权威繁简判定**；含繁体用字者 `usageNote` 已注明"保留当时字形，未作繁简转换"，但个别两体同形字可能漏判。
@@ -112,3 +113,12 @@ python data/scripts/build_candidates.py --include-traditional
 `git` 保留：`scripts/`、`sources.json`、`evidence/`（许可原文与 CC 许可文本）、`editorial/`（原创释义）、`corrections/`（正文校改表）、`metadata/`（稳定 ID 登记表压缩件、统计、报告、抽样）、`processed/official-content.json`、`processed/attribution.sources.jsonl`、`README.md`。
 
 `git` 忽略（可重跑再生）：`raw/`、`processed/entries.*.jsonl`、`processed/attribution.owners.jsonl`、`candidate/`、`metadata/id_registry.jsonl`（未压缩副本）。见 `data/.gitignore`。
+
+## 10. 句子短释义与未覆盖范围（v3 起）
+
+- 表：`data/editorial/sentences.psv`（`stableId|原句|短释义|撰写日期`）。只登记已经逐条写好的释义，可重跑读入。
+- 规则：只按**原文字面**把句意写成一句现代汉语；不用"出自《…》"式来源代释义，不套通用套话，不复制任何第三方译文或注本；不确定的不写，宁可留空。
+- 接入（`build_release.py`）：按 `stableId` 挂释义，**原句正文与原有来源块一字不动**，只填 `shortMeaning`、把该条 `recordVersion` 加 1，并追加一条 `type=original` / `rightsStatus=original` 的来源块（`id=yanjian-original-sentence-gloss`，`locator=data/editorial/sentences.psv`）。
+- 校验（`validate_release.py`）：逐条核对表内 `stableId` 在包内、原句一致、释义已生效、`recordVersion ≥ 2`、附原创来源块；句子短释义长度限 6–60 字、不含拉丁字母。
+- 覆盖面：**83 / 29,635 条**（古典 69 条 + 实用 14 条），**仍缺 29,552 条**，其 `shortMeaning` 保持空串，翻面提示「释义待补充」，可阅读收藏但不参与评分。已覆盖含截图句 `official:sentence:000eede8-4120-45fe-b5ec-f09064fd6844`（周密《曲游春》「楚苑东风外，暖丝情絮，春思如织。」）及一批唐诗宋词名句与推荐队列靠前的口语句；**这不等于整个语料已补齐**，也未做逐条第三方校订。
+- 因内容变化，顶层 `contentVersion` 由 2 升到 3；条目总量 30,278、全部 `id`、分类与筛选计数均未变，包体 23,338,610 字节。

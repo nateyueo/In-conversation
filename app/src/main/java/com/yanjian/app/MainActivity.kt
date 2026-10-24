@@ -53,17 +53,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.core.view.WindowCompat
-private val Paper = Color(0xFFF4F1EA)
-private val PaperCard = Color(0xFFFFFDF8)
-private val Ink = Color(0xFF242622)
-private val Muted = Color(0xFF686D65)
-private val Terracotta = Color(0xFFA04A35)
-private val PaperLine = Color(0xFFDDD8CE)
-private val Night = Color(0xFF151E27)
-private val NightCard = Color(0xFF202B35)
-private val NightMuted = Color(0xFFAAB3BA)
-private val Gold = Color(0xFFDDC6A1)
-private val NightLine = Color(0xFF3A4650)
+internal val Paper = Color(0xFFF4EDDF)
+internal val PaperCard = Color(0xFFFFFAEF)
+internal val Ink = Color(0xFF363C30)
+internal val Muted = Color(0xFF898675)
+internal val Terracotta = Color(0xFFAA8453)
+internal val PaperLine = Color(0xFFE7DDC9)
 
 enum class StudyMode { WORD, SENTENCE }
 enum class Page { DISCOVER, SAVED, REVIEW, STATS, SETTINGS }
@@ -77,16 +72,16 @@ class MainActivity : ComponentActivity() {
     val context = androidx.compose.ui.platform.LocalContext.current
     LaunchedEffect(Unit) { vm.initialize(context) }
     val wordMode = vm.mode == StudyMode.WORD
-    val bg by animateColorAsState(if (wordMode) Paper else Night, tween(420), label = "background")
-    val fg by animateColorAsState(if (wordMode) Ink else Color(0xFFF1EDE4), tween(420), label = "foreground")
-    val card by animateColorAsState(if (wordMode) PaperCard else NightCard, tween(420), label = "card")
-    val muted by animateColorAsState(if (wordMode) Muted else NightMuted, tween(420), label = "muted")
-    val accent by animateColorAsState(if (wordMode) Terracotta else Gold, tween(420), label = "accent")
-    val line by animateColorAsState(if (wordMode) PaperLine else NightLine, tween(420), label = "line")
+    val bg = Paper
+    val fg = Ink
+    val card = PaperCard
+    val muted = Muted
+    val accent = Terracotta
+    val line = PaperLine
     SideEffect {
         WindowCompat.getInsetsController(window, window.decorView).apply {
-            isAppearanceLightStatusBars = wordMode
-            isAppearanceLightNavigationBars = wordMode
+            isAppearanceLightStatusBars = true
+            isAppearanceLightNavigationBars = true
         }
         // Older Android versions draw bar colors; edge-to-edge uses the root background.
         window.statusBarColor = bg.toArgb()
@@ -94,7 +89,7 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) window.isNavigationBarContrastEnforced = false
     }
     BackHandler(enabled = vm.detailOpen || vm.settingsOpen || vm.managerOpen || vm.editing != null || vm.importFile != null || vm.importResult != null || vm.restorePreview != null || vm.page == Page.REVIEW) { vm.back() }
-    MaterialTheme(colorScheme = if (wordMode) lightColorScheme(primary = Terracotta, background = Paper, surface = PaperCard) else darkColorScheme(primary = Gold, background = Night, surface = NightCard)) {
+    MaterialTheme(colorScheme = lightColorScheme(primary = Terracotta, onPrimary = Color.White, primaryContainer = Color(0xFFEDE3CF), onPrimaryContainer = Ink, background = Paper, surface = PaperCard, onSurface = Ink, onBackground = Ink, secondary = Color(0xFF7E896B), secondaryContainer = Color(0xFFE5D8BC), onSecondaryContainer = Ink, surfaceVariant = Color(0xFFEDE3CF), onSurfaceVariant = Muted, outline = PaperLine)) {
         CompositionLocalProvider(LocalContentColor provides fg) {
         Box(Modifier.fillMaxSize().background(bg).navigationBarsPadding()) {
             Column(Modifier.fillMaxSize()) {
@@ -120,50 +115,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun TopBar(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color) {
-    Row(Modifier.fillMaxWidth().statusBarsPadding().height(66.dp).padding(horizontal = 22.dp).border(width = 0.dp, color = Color.Transparent), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-        Text("言间", fontFamily = FontFamily.Serif, fontWeight = FontWeight.SemiBold, fontSize = 25.sp, letterSpacing = 3.sp, color = fg)
-        Row(Modifier.clip(CircleShape).background(if (vm.mode == StudyMode.WORD) Color(0xFFEAE6DD) else Color(0xFF28343F)).padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
-            ModePill("词语", vm.mode == StudyMode.WORD, fg, muted, card) { if (vm.mode != StudyMode.WORD) vm.toggleMode() }
-            ModePill("句子", vm.mode == StudyMode.SENTENCE, fg, muted, card) { if (vm.mode != StudyMode.SENTENCE) vm.toggleMode() }
+    Box(Modifier.fillMaxWidth().statusBarsPadding()) {
+        androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(R.drawable.flower_branch), null, Modifier.size(105.dp).align(Alignment.TopStart), alpha = .65f)
+        Column(Modifier.fillMaxWidth().padding(top = 15.dp, bottom = 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("言间", fontFamily = FontFamily.Serif, fontWeight = FontWeight.Medium, fontSize = 29.sp, letterSpacing = 6.sp, color = fg)
+            Text("在文字里，遇见更好的自己", color = muted, fontSize = 10.sp, letterSpacing = 2.sp, modifier = Modifier.padding(top = 5.dp, bottom = 14.dp))
+            Row(Modifier.clip(CircleShape).background(Color(0xFFEDE3CF)), verticalAlignment = Alignment.CenterVertically) {
+                ModePill("词语", vm.mode == StudyMode.WORD, fg, muted, accent) { if (vm.mode != StudyMode.WORD) vm.toggleMode() }
+                ModePill("句子", vm.mode == StudyMode.SENTENCE, fg, muted, accent) { if (vm.mode != StudyMode.SENTENCE) vm.toggleMode() }
+            }
         }
-        IconButton(onClick = { vm.toggleSettings() }, modifier = Modifier.size(48.dp)) { Icon(if (vm.settingsOpen) Icons.Outlined.Close else Icons.Outlined.Settings, contentDescription = "偏好设置 / 返回", tint = fg) }
+        IconButton(onClick = { vm.toggleSettings() }, modifier = Modifier.align(Alignment.TopEnd).padding(top = 8.dp, end = 10.dp).size(48.dp)) { Icon(if (vm.settingsOpen) Icons.Outlined.Close else Icons.Outlined.Settings, contentDescription = "偏好设置 / 返回", tint = fg, modifier = Modifier.size(21.dp)) }
     }
-    HorizontalDivider(color = line.copy(alpha = .7f))
 }
-@Composable private fun ModePill(label: String, selected: Boolean, fg: Color, muted: Color, card: Color, onClick: () -> Unit) { Box(Modifier.heightIn(min = 48.dp).clip(CircleShape).background(if (selected) card else Color.Transparent).clickable(onClick = onClick).padding(horizontal = 15.dp, vertical = 9.dp), contentAlignment = Alignment.Center) { Text(label, fontSize = 12.sp, color = if (selected) fg else muted, fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal) } }
+@Composable private fun ModePill(label: String, selected: Boolean, fg: Color, muted: Color, card: Color, onClick: () -> Unit) { Box(Modifier.width(108.dp).heightIn(min = 48.dp).clip(CircleShape).background(if (selected) card else Color.Transparent).clickable(onClick = onClick), contentAlignment = Alignment.Center) { Text(label, fontSize = 14.sp, color = if (selected) Color.White else muted, letterSpacing = 2.sp) } }
 
 @Composable private fun DiscoverPage(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color, bg: Color) {
-    val entry = vm.current()
-    LaunchedEffect(entry?.id, vm.ready) { if (entry != null && vm.ready) vm.visible(entry) }
-    Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 24.dp, vertical = 24.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) { Text(if (vm.mode == StudyMode.WORD) "WORDS, IN CONTEXT" else "LINES, IN CONTEXT", color = muted, fontSize = 10.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.Bold); Spacer(Modifier.weight(1f)); Text("自由发现", color = muted, fontSize = 11.sp) }
-        Spacer(Modifier.height(18.dp))
-        Row(verticalAlignment = Alignment.Bottom) { Text(if (vm.mode == StudyMode.WORD) "在日常与文字中，\n遇见一个好词。" else "有些话，\n值得慢慢说。", fontFamily = FontFamily.Serif, fontSize = 23.sp, lineHeight = 34.sp, color = fg, modifier = Modifier.weight(1f)); Text("${if (entry == null) 0 else vm.currentIndex + 1} / ${vm.discoverEntries().size}", color = muted, fontSize = 12.sp) }
-        Spacer(Modifier.height(18.dp))
-        if (entry != null) {
-            vm.contentMessage?.let { Text(it, color = muted, fontSize = 12.sp, lineHeight = 20.sp, modifier = Modifier.padding(bottom = 12.dp)) }
-            Surface(Modifier.fillMaxWidth().heightIn(min = 310.dp).cardGestures({ vm.next() }, { vm.next(-1) }, { vm.showDetail() }).clickable { vm.flip() }, shape = RoundedCornerShape(28.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line), shadowElevation = 3.dp) {
-                Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.SpaceBetween, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) { Box(Modifier.size(6.dp).background(accent, CircleShape)); Spacer(Modifier.width(8.dp)); Text(if (vm.mode == StudyMode.WORD) if (entry.text.length == 2) "双字表达" else "四字表达" else if (entry.genre == "practical") "日常实用" else "经典表达", color = muted, fontSize = 11.sp); Spacer(Modifier.weight(1f)); Text("言 · ${entry.category}", color = muted, fontSize = 10.sp) }
-                    Column(Modifier.fillMaxWidth().weight(1f).padding(vertical = 30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                        AnimatedContent(targetState = vm.flipped, label = "flipText") { flipped -> Text(if (flipped) entry.backText() else entry.text, fontFamily = FontFamily.Serif, fontSize = if (flipped) 20.sp else if (vm.mode == StudyMode.WORD) 38.sp else 26.sp, lineHeight = 39.sp, textAlign = TextAlign.Center, color = fg, fontWeight = FontWeight.Medium) }
-                        Spacer(Modifier.height(16.dp)); Text(if (vm.flipped) "点击返回正文" else if (entry.meaning.isBlank()) "点击翻面查看用法或来源" else "点击翻面查看简释", color = muted, fontSize = 11.sp)
-                    }
-                    HorizontalDivider(color = line); Spacer(Modifier.height(13.dp))
-                    Column(Modifier.fillMaxWidth()) { Text(entry.sourceLabel(), color = muted, fontSize = 10.sp); if (entry.workTitle.isNotBlank()) Text(entry.workTitle, color = accent, fontSize = 11.sp) }
-                }
-            }
-            Spacer(Modifier.height(15.dp)); TextButton(onClick = { vm.showDetail() }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Icon(Icons.Outlined.KeyboardArrowUp, null, tint = muted); Text("来源与详情", color = muted) }
-            Spacer(Modifier.height(18.dp)); Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = { vm.hide(entry) }, modifier = Modifier.weight(1f).height(48.dp), shape = RoundedCornerShape(14.dp), border = androidx.compose.foundation.BorderStroke(1.dp, line), colors = ButtonDefaults.outlinedButtonColors(contentColor = fg)) { Icon(Icons.Outlined.VisibilityOff, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp)); Text("不再推荐", fontSize = 12.sp) }
-                Button(onClick = { vm.toggleFavorite(entry) }, modifier = Modifier.weight(1f).height(48.dp), shape = RoundedCornerShape(14.dp), colors = ButtonDefaults.buttonColors(containerColor = if (vm.isFavorite(entry.id)) accent else if (vm.mode == StudyMode.WORD) Color(0xFFEAE6DD) else Color(0xFF39434B), contentColor = if (vm.isFavorite(entry.id) && vm.mode == StudyMode.WORD) Color.White else fg)) { Icon(if (vm.isFavorite(entry.id)) Icons.Outlined.CheckCircle else Icons.Outlined.BookmarkBorder, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp)); Text(if (vm.isFavorite(entry.id)) "已收藏" else "收藏", fontSize = 12.sp) }
-            }
-            Row(Modifier.fillMaxWidth().padding(top = 14.dp), horizontalArrangement = Arrangement.SpaceBetween) { TextButton(onClick = { vm.next(-1) }) { Icon(Icons.Outlined.ChevronLeft, null); Text("上一条", color = muted, fontSize = 11.sp) }; TextButton(onClick = { vm.next() }) { Text("下一条", color = muted, fontSize = 11.sp); Icon(Icons.Outlined.ChevronRight, null) } }
-        }
-        else Text(vm.contentMessage ?: "当前偏好暂无内容，请调整领域、用途或比例。", color = muted, fontSize = 14.sp, lineHeight = 24.sp, modifier = Modifier.padding(vertical = 35.dp))
-        if (entry == null && vm.ready) Button(onClick = { if (vm.roundComplete) vm.nextRound() else vm.toggleSettings() }) { Text(if (vm.roundComplete) "开始下一轮" else "调整偏好") }
-        if (vm.relationUndo != null) TextButton(onClick = { vm.undoRelation() }) { Text("撤销上次收藏 / 屏蔽") }
-    }
+    PaperDiscovery(vm)
 }
 
 @Composable private fun SavedPage(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color) = CollectionPage(vm)
@@ -172,19 +140,41 @@ class MainActivity : ComponentActivity() {
 @Composable private fun StatCard(title: String, value: String, foot: String, modifier: Modifier, card: Color, line: Color, fg: Color, muted: Color) { Surface(modifier, shape = RoundedCornerShape(16.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line)) { Column(Modifier.padding(17.dp)) { Text(title, color = muted, fontSize = 11.sp); Text(value, color = fg, fontFamily = FontFamily.Serif, fontSize = 30.sp, modifier = Modifier.padding(vertical = 7.dp)); Text(foot, color = muted, fontSize = 10.sp) } } }
 
 @Composable private fun SettingsPage(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color) {
-    val cats = CONTENT_CATEGORIES.toList()
-    Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 23.dp, vertical = 23.dp)) {
-        Eyebrow("PERSONALIZE", "偏好设置", muted); Text("让推荐更像你。", fontFamily = FontFamily.Serif, fontSize = 26.sp, color = fg, modifier = Modifier.padding(top = 17.dp, bottom = 28.dp))
+    Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 18.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Surface(shape = RoundedCornerShape(24.dp), color = card) {
+            Column(Modifier.padding(22.dp)) {
+                Text("让推荐更像你。", fontFamily = FontFamily.Serif, fontSize = 25.sp, color = fg)
+                Text("选择你喜欢的内容倾向，\n留一些文字，陪伴日常。", color = muted, fontSize = 12.sp, lineHeight = 21.sp, modifier = Modifier.padding(top = 8.dp))
+                Landscape(Modifier.fillMaxWidth().height(75.dp))
+                Text("句子内容比例", color = fg, fontSize = 15.sp)
+                Slider(value = vm.sentenceRatio.toFloat(), onValueChange = { vm.setRatio(it.toInt() / 10 * 10) }, valueRange = 0f..100f, steps = 9)
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Column { Text("${vm.sentenceRatio}%", fontFamily = FontFamily.Serif, fontSize = 24.sp); Text("日常实用", fontSize = 13.sp, color = muted) }
+                    Column(horizontalAlignment = Alignment.End) { Text("${100 - vm.sentenceRatio}%", fontFamily = FontFamily.Serif, fontSize = 24.sp); Text("经典表达", fontSize = 13.sp, color = muted) }
+                }
+                HorizontalDivider(Modifier.padding(vertical = 22.dp), color = line)
+                Text("内容用途", color = fg, fontSize = 15.sp)
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { listOf("daily" to "日常交流", "writing" to "写作表达").forEach { (tag, label) -> FilterChip(selected = tag in vm.selectedPurposes, onClick = { vm.togglePurpose(tag) }, label = { Text(label) }) } }
+            }
+        }
+        Surface(shape = RoundedCornerShape(24.dp), color = card) {
+            Column(Modifier.padding(22.dp)) {
+                Text("内容领域", color = fg, fontSize = 19.sp, fontFamily = FontFamily.Serif)
+                Text("选中感兴趣的方向", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 7.dp, bottom = 16.dp))
+                Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                    CONTENT_CATEGORIES.toList().chunked(2).forEach { row -> Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                        row.forEach { cat -> val selected = cat in vm.selectedCategories
+                            Surface(Modifier.weight(1f).heightIn(min = 48.dp).clickable { vm.toggleCategory(cat) }, shape = CircleShape, color = if (selected) accent else Paper, border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) accent else line)) {
+                                Box(contentAlignment = Alignment.Center) { Text(cat, textAlign = TextAlign.Center, color = if (selected) Color.White else muted, fontSize = 12.sp) }
+                            }
+                        }
+                        if (row.size == 1) Spacer(Modifier.weight(1f))
+                    } }
+                }
+            }
+        }
         DataTools(vm)
-        Text("句子内容比例", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("默认 60% 日常实用，40% 经典表达。", color = muted, fontSize = 12.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 9.dp)); Spacer(Modifier.height(20.dp))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) { Text("日常实用 ${vm.sentenceRatio}%", color = fg, fontSize = 12.sp); Text("经典表达 ${100 - vm.sentenceRatio}%", color = fg, fontSize = 12.sp) }
-        Slider(value = vm.sentenceRatio.toFloat(), onValueChange = { vm.setRatio(it.toInt() / 10 * 10) }, valueRange = 0f..100f, steps = 9, colors = SliderDefaults.colors(thumbColor = accent, activeTrackColor = accent))
-        HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("内容领域", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("多选领域取并集；全不选时不推荐。所需类型为空时请调整偏好。", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp, bottom = 14.dp))
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { cats.chunked(2).forEach { row -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { row.forEach { cat -> val selected = cat in vm.selectedCategories; Surface(Modifier.weight(1f).clickable { vm.toggleCategory(cat) }, shape = CircleShape, color = if (selected) (if (vm.mode == StudyMode.WORD) Color(0xFFEAE6DD) else Color(0xFF39434B)) else card, border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) accent else line)) { Text(cat, Modifier.padding(horizontal = 9.dp, vertical = 12.dp), textAlign = TextAlign.Center, color = if (selected) fg else muted, fontSize = 11.sp) } }; if (row.size == 1) Spacer(Modifier.weight(1f)) } } }
-        HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line)
-        Text("内容用途", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { listOf("daily" to "日常", "writing" to "写作").forEach { (tag, label) -> FilterChip(selected = tag in vm.selectedPurposes, onClick = { vm.togglePurpose(tag) }, label = { Text(label) }) } }
-        HorizontalDivider(Modifier.padding(vertical = 22.dp), color = line); Text("数据保存在本机", color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold); Text("完整备份可迁移学习进度；内容导出仅用于交流。", color = muted, fontSize = 12.sp, lineHeight = 20.sp, modifier = Modifier.padding(top = 8.dp, bottom = 26.dp))
+        Text("内容与学习记录保存在本机", color = muted, fontSize = 12.sp, modifier = Modifier.padding(bottom = 24.dp))
     }
 }
 
@@ -204,12 +194,14 @@ class MainActivity : ComponentActivity() {
         Surface(Modifier.fillMaxWidth().fillMaxHeight(.76f).clickable(enabled = false) {}, shape = RoundedCornerShape(topStart = 26.dp, topEnd = 26.dp), color = card) {
             Column(Modifier.verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 25.dp, vertical = 13.dp)) {
                 Box(Modifier.width(40.dp).height(4.dp).clip(CircleShape).background(line).align(Alignment.CenterHorizontally))
-                Spacer(Modifier.height(20.dp)); Text(entry.category, color = accent, fontSize = 10.sp)
                 Spacer(Modifier.height(12.dp)); Text(entry.text, fontFamily = FontFamily.Serif, fontSize = if (entry.kind == "sentence") 22.sp else 27.sp, lineHeight = if (entry.kind == "sentence") 33.sp else 38.sp, color = fg, fontWeight = FontWeight.SemiBold)
                 if (entry.meaning.isNotBlank()) { Spacer(Modifier.height(10.dp)); Text(entry.meaning, color = muted, fontSize = 13.sp, lineHeight = 22.sp) }
-                Spacer(Modifier.height(23.dp)); Text(entry.sourceLabel(), color = muted, fontSize = 11.sp)
-                Spacer(Modifier.height(8.dp)); Text(entry.sourceDetails(), color = fg, fontSize = 14.sp, lineHeight = 25.sp)
-                if (entry.context.isNotBlank()) { HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("语境与使用", color = muted, fontSize = 11.sp); Spacer(Modifier.height(8.dp)); Text(entry.context, color = fg, fontSize = 13.sp, lineHeight = 23.sp) }
+                if (entry.readingCredit().isNotBlank()) Text(entry.readingCredit(), color = accent, fontSize = 13.sp, modifier = Modifier.padding(vertical = 16.dp))
+                if (entry.meaning.isBlank()) Text("释义待补充，可先收藏阅读", color = muted, fontSize = 13.sp, modifier = Modifier.padding(vertical = 16.dp))
+                if (entry.context.isNotBlank() && !entry.id.startsWith("personal:") && !entry.context.contains("http")) { HorizontalDivider(Modifier.padding(vertical = 20.dp), color = line); Text("语境与使用", color = muted, fontSize = 11.sp); Spacer(Modifier.height(8.dp)); Text(entry.context, color = fg, fontSize = 13.sp, lineHeight = 23.sp) }
+                var sourceOpen by remember(entry.id) { mutableStateOf(false) }
+                TextButton(onClick = { sourceOpen = !sourceOpen }) { Text(if (sourceOpen) "收起出处与授权" else "出处与授权 ›", color = muted, fontSize = 12.sp) }
+                if (sourceOpen) Text(entry.sourceDetails(), color = muted, fontSize = 12.sp, lineHeight = 21.sp, modifier = Modifier.padding(bottom = 20.dp))
                 Button(onClick = { vm.toggleFavorite(entry) }, modifier = Modifier.fillMaxWidth()) { Text(if (vm.isFavorite(entry.id)) "取消收藏" else "收藏") }
                 if (entry.id.startsWith("personal:")) TextButton(onClick = { vm.edit(entry) }) { Text("编辑个人内容") }
                 if (vm.users[entry.id]?.isHidden == true) TextButton(onClick = { vm.restoreHidden(entry) }) { Text("恢复推荐") }
