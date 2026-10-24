@@ -5,15 +5,26 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 
 class StudyPreferences(context: Context) {
     private val store = context.getSharedPreferences("study-preferences", Context.MODE_PRIVATE)
+    fun exportValues(): String = appJson.toJson(store.all.mapValues { (_, v) -> if (v is Set<*>) v.toList() else v })
+    fun restoreValues(json: String) {
+        val values = com.google.gson.JsonParser.parseString(json).asJsonObject
+        val edit = store.edit().clear()
+        values.entrySet().forEach { (k, v) -> when {
+            v.isJsonArray -> edit.putStringSet(k, v.asJsonArray.map { it.asString }.toSet())
+            v.isJsonPrimitive && v.asJsonPrimitive.isNumber -> edit.putInt(k, v.asInt)
+            v.isJsonPrimitive && v.asJsonPrimitive.isString -> edit.putString(k, v.asString)
+        } }
+        check(edit.commit()) { "偏好未能保存" }
+    }
     var ratio: Int
         get() = store.getInt("practicalRatio", 60)
         set(value) { store.edit().putInt("practicalRatio", value.coerceIn(0, 100)).apply() }
     var categories: Set<String>
-        get() = store.getStringSet("categories", CONTENT_CATEGORIES)!!.toSet()
-        set(value) { store.edit().putStringSet("categories", value.toSet()).apply() }
+        get() = store.getStringSet("categories:${mode.name}", store.getStringSet("categories", CONTENT_CATEGORIES))!!.toSet()
+        set(value) { store.edit().putStringSet("categories:${mode.name}", value.toSet()).apply() }
     var purposes: Set<String>
-        get() = store.getStringSet("purposes", setOf("daily", "writing"))!!.toSet()
-        set(value) { store.edit().putStringSet("purposes", value.toSet()).apply() }
+        get() = store.getStringSet("purposes:${mode.name}", store.getStringSet("purposes", setOf("daily", "writing")))!!.toSet()
+        set(value) { store.edit().putStringSet("purposes:${mode.name}", value.toSet()).apply() }
     var mode: StudyMode
         get() = StudyMode.valueOf(store.getString("mode", "WORD")!!)
         set(value) { store.edit().putString("mode", value.name).apply() }

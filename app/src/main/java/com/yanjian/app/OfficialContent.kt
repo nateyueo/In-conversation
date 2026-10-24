@@ -142,11 +142,13 @@ internal fun parseEntry(o: JsonObject, version: Int): EntryEntity {
 }
 
 fun EntryEntity.sourceLabel(): String {
+    if (id.startsWith("personal:")) return "个人内容 · 用户提供"
     if (isSample) return "自制原创 · 演示内容"
     return sourceObjects().map { sourceTypes[it.get("type").asString] ?: "来源记录" }.distinct().joinToString(" / ")
 }
 private fun EntryEntity.sourceObjects(): List<JsonObject> = JsonParser.parseString(sourcesJson).asJsonArray.map { it.asJsonObject }
 fun EntryEntity.sourceDetails(): String {
+    if (id.startsWith("personal:")) return listOf(workTitle, quote, context).filter { it.isNotBlank() }.joinToString("\n").ifBlank { "个人内容 · 来源未填写" }
     if (isSample) return "言间自制原创演示；非影视原句。"
     return sourceObjects().joinToString("\n\n") { s ->
         listOf("${sourceTypes[s.get("type").asString]} · ${if (s.get("evidenceStatus").asString == "verified") "原文已核验" else "来源记录已检查"}",
