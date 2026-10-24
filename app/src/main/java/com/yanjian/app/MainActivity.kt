@@ -33,6 +33,7 @@ import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.Insights
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Settings
@@ -46,6 +47,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -140,6 +142,13 @@ class MainActivity : ComponentActivity() {
 @Composable private fun StatCard(title: String, value: String, foot: String, modifier: Modifier, card: Color, line: Color, fg: Color, muted: Color) { Surface(modifier, shape = RoundedCornerShape(16.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line)) { Column(Modifier.padding(17.dp)) { Text(title, color = muted, fontSize = 11.sp); Text(value, color = fg, fontFamily = FontFamily.Serif, fontSize = 30.sp, modifier = Modifier.padding(vertical = 7.dp)); Text(foot, color = muted, fontSize = 10.sp) } } }
 
 @Composable private fun SettingsPage(vm: StudyViewModel, fg: Color, muted: Color, card: Color, line: Color, accent: Color) {
+    var categoriesOpen by remember(vm.mode) { mutableStateOf(false) }
+    val selectedCategoryCount = CONTENT_CATEGORIES.count { it in vm.selectedCategories }
+    val categorySummary = when (selectedCategoryCount) {
+        CONTENT_CATEGORIES.size -> "全部领域"
+        0 -> "未选择"
+        else -> "已选 $selectedCategoryCount 项"
+    }
     Column(Modifier.fillMaxSize().verticalScroll(androidx.compose.foundation.rememberScrollState()).padding(horizontal = 18.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Surface(shape = RoundedCornerShape(24.dp), color = card) {
             Column(Modifier.padding(22.dp)) {
@@ -157,19 +166,35 @@ class MainActivity : ComponentActivity() {
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { listOf("daily" to "日常交流", "writing" to "写作表达").forEach { (tag, label) -> FilterChip(selected = tag in vm.selectedPurposes, onClick = { vm.togglePurpose(tag) }, label = { Text(label) }) } }
             }
         }
-        Surface(shape = RoundedCornerShape(24.dp), color = card) {
-            Column(Modifier.padding(22.dp)) {
-                Text("内容领域", color = fg, fontSize = 19.sp, fontFamily = FontFamily.Serif)
-                Text("选中感兴趣的方向", color = muted, fontSize = 12.sp, modifier = Modifier.padding(top = 7.dp, bottom = 16.dp))
-                Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
-                    CONTENT_CATEGORIES.toList().chunked(2).forEach { row -> Row(horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                        row.forEach { cat -> val selected = cat in vm.selectedCategories
-                            Surface(Modifier.weight(1f).heightIn(min = 48.dp).clickable { vm.toggleCategory(cat) }, shape = CircleShape, color = if (selected) accent else Paper, border = androidx.compose.foundation.BorderStroke(1.dp, if (selected) accent else line)) {
-                                Box(contentAlignment = Alignment.Center) { Text(cat, textAlign = TextAlign.Center, color = if (selected) Color.White else muted, fontSize = 12.sp) }
-                            }
-                        }
-                        if (row.size == 1) Spacer(Modifier.weight(1f))
-                    } }
+        Surface(shape = RoundedCornerShape(20.dp), color = card, border = androidx.compose.foundation.BorderStroke(1.dp, line)) {
+            Box {
+                Row(
+                    Modifier.fillMaxWidth().heightIn(min = 64.dp)
+                        .clickable(role = Role.Button) { categoriesOpen = !categoriesOpen }
+                        .padding(horizontal = 20.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("内容领域", color = fg, fontSize = 16.sp)
+                    Spacer(Modifier.weight(1f))
+                    Text(categorySummary, color = muted, fontSize = 12.sp)
+                    Spacer(Modifier.width(8.dp))
+                    Icon(if (categoriesOpen) Icons.Outlined.KeyboardArrowUp else Icons.Outlined.KeyboardArrowDown, null, tint = muted, modifier = Modifier.size(20.dp))
+                }
+                DropdownMenu(
+                    expanded = categoriesOpen,
+                    onDismissRequest = { categoriesOpen = false },
+                    modifier = Modifier.width(260.dp).heightIn(max = 320.dp),
+                    shape = RoundedCornerShape(18.dp),
+                    containerColor = card,
+                    tonalElevation = 0.dp
+                ) {
+                    CONTENT_CATEGORIES.forEach { category ->
+                        DropdownMenuItem(
+                            text = { Text(category, color = fg, fontSize = 14.sp) },
+                            onClick = { vm.toggleCategory(category) },
+                            trailingIcon = { Checkbox(checked = category in vm.selectedCategories, onCheckedChange = null) }
+                        )
+                    }
                 }
             }
         }
