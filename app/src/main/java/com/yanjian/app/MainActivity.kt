@@ -1,5 +1,7 @@
 package com.yanjian.app
 
+import android.os.Build
+import android.view.Window
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -49,6 +52,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.core.view.WindowCompat
 private val Paper = Color(0xFFF4F1EA)
 private val PaperCard = Color(0xFFFFFDF8)
 private val Ink = Color(0xFF242622)
@@ -66,10 +70,10 @@ enum class Page { DISCOVER, SAVED, REVIEW, STATS, SETTINGS }
 enum class Mastery(val label: String) { NEW("待学习"), UNFAMILIAR("不熟悉"), FAMILIAR("熟悉"), KNOWN("已会") }
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { YanjianApp() } }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { YanjianApp(window) } }
 }
 
-@Composable fun YanjianApp(vm: StudyViewModel = viewModel()) {
+@Composable fun YanjianApp(window: Window, vm: StudyViewModel = viewModel()) {
     val context = androidx.compose.ui.platform.LocalContext.current
     LaunchedEffect(Unit) { vm.initialize(context) }
     val wordMode = vm.mode == StudyMode.WORD
@@ -79,6 +83,16 @@ class MainActivity : ComponentActivity() {
     val muted by animateColorAsState(if (wordMode) Muted else NightMuted, tween(420), label = "muted")
     val accent by animateColorAsState(if (wordMode) Terracotta else Gold, tween(420), label = "accent")
     val line by animateColorAsState(if (wordMode) PaperLine else NightLine, tween(420), label = "line")
+    SideEffect {
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = wordMode
+            isAppearanceLightNavigationBars = wordMode
+        }
+        // Older Android versions draw bar colors; edge-to-edge uses the root background.
+        window.statusBarColor = bg.toArgb()
+        window.navigationBarColor = bg.toArgb()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) window.isNavigationBarContrastEnforced = false
+    }
     BackHandler(enabled = vm.detailOpen || vm.settingsOpen || vm.managerOpen || vm.editing != null || vm.importFile != null || vm.importResult != null || vm.restorePreview != null || vm.page == Page.REVIEW) { vm.back() }
     MaterialTheme(colorScheme = if (wordMode) lightColorScheme(primary = Terracotta, background = Paper, surface = PaperCard) else darkColorScheme(primary = Gold, background = Night, surface = NightCard)) {
         CompositionLocalProvider(LocalContentColor provides fg) {
